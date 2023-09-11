@@ -1,0 +1,2 @@
+# eduapp
+django team project
