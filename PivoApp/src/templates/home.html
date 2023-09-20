@@ -1,18 +1,20 @@
-<h1> Home Page </h1>
-<div>
-    <p> This should contain our actual page</p>
-    <p> it should have ways to access the inner functions</p>
-    <p> like:</p>
+{% extends "base.html" %}
 
-    <ul>
-        <li><a href=''> TechTree </a></li>
-        <li><a href=''> Exercises </a></li>
-        <li><a href=''> Challanges </a></li>
-        <li><a href=''> User profile </a></li>
-        <li><a href=''> Comunity (Forum) </a></li>
-        <li><a href=''> And what we want it to do </a></li>
-        <li><a href='/'> and somewhere the logout option </a></li>
-    </ul>
+{% block content %}
+    <h1 style="display: flex; justify-content: center;"> Home Page </h1>
+    <div>
+        <p style="display: flex; justify-content: center;"> This should contain our actual page</p>
+        <p style="display: flex; justify-content: center;"> it should have ways to access the inner functions</p>
+        <p style="display: flex; justify-content: center;"> like:</p>
 
-
-</div>
+        <ul>
+            <li style="display: flex; justify-content: center;"><a href=''> TechTree </a></li>
+            <li style="display: flex; justify-content: center;"><a href=''> Exercises </a></li>
+            <li style="display: flex; justify-content: center;"><a href=''> Challanges </a></li>
+            <li style="display: flex; justify-content: center;"><a href=''> User profile </a></li>
+            <li style="display: flex; justify-content: center;"><a href=''> Comunity (Forum) </a></li>
+            <li style="display: flex; justify-content: center;"><a href=''> And what we want it to do </a></li>
+            <li style="display: flex; justify-content: center;"><a href='/'> and somewhere the logout option </a></li>
+        </ul>
+    </div>
+{% endblock %}

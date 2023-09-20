@@ -1,14 +1,16 @@
-<h1> Sign In Page </h1>
-<div>
-    <p> This should contain the login Page</p>
-    <p> user and password fields</p>
-    <p> and 3 bottons or links:</p>
+{% extends "base.html" %}
 
-    <ul>
-        <li><a href='/home/'> LogIn </a></li>
-        <li><a href='/registration/'> Sign Up (Registration) </a></li>
-        <li><a href='/restore_pass/'> Restore Password </a></li>
-    </ul>
+{% block content %}
+    <h1 style="display: flex; justify-content: center;"> Sign In Page </h1>
+    <div>
+        <p style="display: flex; justify-content: center;"> This should contain the login Page</p>
+        <p style="display: flex; justify-content: center;"> user and password fields</p>
+        <p style="display: flex; justify-content: center;"> and 3 bottons or links:</p>
 
-
-</div>
+        <ul>
+            <li style="display: flex; justify-content: center;"><a href='/home/'> LogIn </a></li>
+            <li style="display: flex; justify-content: center;"><a href='/registration/'> Sign Up (Registration) </a></li>
+            <li style="display: flex; justify-content: center;"><a href='/restore_pass/'> Restore Password </a></li>
+        </ul>
+    </div>
+{% endblock %}
