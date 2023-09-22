@@ -1,17 +1,78 @@
 /* This is a temporary styling that will be change or deleted */
 
 body {
-    background-color: #80a0cc;
+    background-image: url('/static/under_con.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #li_element {
     margin-right: 10px;
 }
 
+.li_element_page {
+    margin-right: 10px;
+    display: flex; 
+    justify-content: center;
+    color: white; 
+    text-decoration-color: #fff;
+}
+
+.li_element_page a {
+    color: rgb(244, 223, 69); 
+    font-size: 20px;
+    margin: 5px;
+  }
+
 #li_href {
     color: #fff; 
     text-decoration: none;
 }
+
+/* Temporary reg_form */
+#reg_title {
+    text-align: center;
+    color: rgb(244, 223, 69); 
+}
+  
+#registration_form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+  
+.form-group {
+    margin-bottom: 20px;
+}
+  
+.input_reg_label {
+    display: block;
+    font-weight: bold;
+    color: rgb(244, 223, 69); 
+}
+  
+.input_reg_form {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 15px;
+}
+  
+#reg_button {
+display: block;
+width: 100%;
+padding: 10px;
+background-color: #065f78;
+color: white;
+border: none;
+border-radius: 15px;
+cursor: pointer;
+margin: 20px 10px;
+}
+
+#reg_button:hover {
+background-color: #0a389c;
+}
+
 
 
 /* The styling that is supposed to survive till the end of times! */

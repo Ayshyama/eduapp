@@ -1,17 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 style="display: flex; justify-content: center;"> Registration Page </h1>
-<div>
-    <p style="display: flex; justify-content: center;"> This should contain the registration form</p>
-    <p style="display: flex; justify-content: center;"> and 2 bottons or links:</p>
-
-    <ul>
-        <li style="display: flex; justify-content: center;"><a href="/"> Create account </a></li>
-        <li style="display: flex; justify-content: center;"><a href="/"> Back to Sign in page </a></li>
-    </ul>
-
-    <p style="display: flex; justify-content: center;"> on registration if all fields are ok should give us a message and then take us back to logIn page</p>
-</div>
+<h1 id="reg_title">Registration Form</h1>
+    <form id="registration_form" method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="input_reg_label" for="username">Username:</label>
+            <input class="input_reg_form" type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label class="input_reg_label" for="email">Email:</label>
+            <input class="input_reg_form" type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label class="input_reg_label" for="password">Password:</label>
+            <input class="input_reg_form" type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label class="input_reg_label" for="confirm-password">Confirm Password:</label>
+            <input class="input_reg_form" type="password" id="confirm-password" name="confirm-password" required>
+        </div>
+        <button id="reg_button" type="submit">Register</button>
+        <button id="reg_button" onclick="location.href='{% url 'signIn' %}'">Back to Sign In</button>
+    </form>
+    
 
 {% endblock %}
