@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 
 def landing_page(request):
@@ -14,6 +14,6 @@ def signUp_page(request):
 def restorePass_page(request):
     return render(request, "restore_password.html")
 
-def userHome_page(request):
-    return render(request, "home.html")
+# def userHome_page(request):
+#     return render(request, "home.html")
 

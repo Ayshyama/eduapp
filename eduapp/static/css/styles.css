@@ -6,6 +6,18 @@ body {
     background-size: cover;
 }
 
+#base_home {
+    background-image: url('/static/under_con2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#ul_element {
+    list-style: none; 
+    display: flex; 
+    justify-content: flex-end;
+}
+
 #li_element {
     margin-right: 10px;
 }
@@ -27,6 +39,11 @@ body {
 #li_href {
     color: #fff; 
     text-decoration: none;
+}
+
+/* Temporary home navbar */
+.home_navbar {
+    background-color: rgba(251, 226, 68, 0.144);
 }
 
 /* Temporary reg_form */
