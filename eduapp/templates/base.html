@@ -1,24 +1,20 @@
+{% load static %}
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Pivozavry EduApp</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   </head>
-  <body style="background-color: #80a0cc;">
+  <body>
     <nav>
       <ul style="list-style: none; display: flex; justify-content: flex-end;">
-        <li style="margin-right: 10px;"><a href="#" style="color: #fff; text-decoration: none;">Home</a></li>
-        <li style="margin-right: 10px;"><a href="#" style="color: #fff; text-decoration: none;">About</a></li>
-        <li style="margin-right: 10px;"><a href="#" style="color: #fff; text-decoration: none;">Services</a></li>
-        <li><a href="#" style="color: #fff; text-decoration: none;">Contact</a></li>
+        <li id="li_element"><a href="#" id="li_href">Home</a></li>
+        <li id="li_element"><a href="#" id="li_href">About</a></li>
+        <li id="li_element"><a href="#" id="li_href">Services</a></li>
+        <li id="li_element"><a href="#" id="li_href">Contact</a></li>
       </ul>
     </nav>
 

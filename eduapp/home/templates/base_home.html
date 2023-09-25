@@ -1,0 +1,32 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Pivozavry EduApp</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  </head>
+  <body id="base_home">
+    <nav class='home_navbar'>
+      <ul style="list-style: none; display: flex; justify-content: flex-end;">
+        <li id="li_element"><a href="/home" id="li_href">Home</a></li>
+        <li id="li_element"><a href="TechTree" id="li_href">TechTree</a></li>
+        <li id="li_element"><a href="exercises" id="li_href">Exercises</a></li>
+        <li id="li_element"><a href="challanges" id="li_href">Challanges</a></li>
+        <li id="li_element"><a href="comunity" id="li_href">Comunity</a></li>
+        <li id="li_element"><a href="user_profile" id="li_href">User profile</a></li>
+        <li id="li_element"><a href="support" id="li_href">Support</a></li>
+        <li id="li_element"><a href="/" id="li_href">Sign out</a></li>
+      </ul>
+    </nav>
+
+
+    {% block content %}
+        <div>Replace this value with the elements of the content</div>
+    {% endblock %}
+    
+  </body>
+</html>
+
