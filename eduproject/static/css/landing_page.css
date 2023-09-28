@@ -1,0 +1,178 @@
+.main{
+    height: 100vh;
+    max-width: 100%;
+}
+.hero{
+    position: relative;
+    padding: 4rem;
+}
+
+.hero__container{
+    position: relative;
+    padding: 7rem 0 2rem;
+}
+
+.hero__title{
+    font-size: var(--biggest-font-size);
+    margin-bottom: 1rem;
+}
+
+.hero__title span{
+    background: linear-gradient(90deg,
+                var(--second-color) 0%,
+                var(--first-color) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero__description{
+    color: var(--text-color-light);
+    margin-bottom: 1.5rem;
+    z-index: 2;
+
+}
+.hero__info{
+    position: relative;
+}
+
+.hero__img-char{
+    position: absolute;
+    width: 700px;
+    justify-self: center;
+    bottom: 150px;
+    left: -65px;
+    z-index: 1;
+}
+
+.hero__img-char img{
+    position: absolute;
+    filter: drop-shadow(0 10px 32px hsla(221, 61%, 52%, 0.75));
+}
+
+
+
+
+/*=============== CTA Hero Button ===============*/
+.hero__button{
+  position: relative;
+  width: 160px;
+  height: 50px;
+  display: inline-block;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+    z-index: 2;
+}
+
+.hero__button:hover{
+  box-shadow: 0 8px 48px hsla(203,71%,25%,.5);
+}
+
+.hero__button i{
+  position: absolute;
+  inset: -1px;
+  display: block;
+  border-radius: 5px;
+}
+
+.hero__button i,
+.hero__button i:nth-child(2){
+  background: linear-gradient(var(--x),
+  var(--second-color),
+  /*var(--body-color),*/
+  var(--first-color));
+  filter: blur(2px);
+}
+
+.hero__button span{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  background: var(--body-color);
+    color: white;
+}
+
+.hero__button span:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/*=============== Shapes ===============*/
+
+.hero__shape-small,
+.hero__shape-big-1,
+.hero__shape-big-2{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    background-color: var(--first-color);
+}
+
+.hero__shape-small{
+    width: 260px;
+    height: 260px;
+    background-color: var(--first-color);
+    top: -2.5rem;
+    left: -2.5rem;
+}
+
+.hero__shape-big-1,
+.hero__shape-big-2{
+    width: 260px;
+    height: 260px;
+}
+
+.hero__shape-big-1{
+    background-color: var(--first-color);
+    top: 30rem;
+    left: 35rem;
+}
+
+.hero__shape-big-2{
+    background-color: var(--second-color);
+    top: 62rem;
+    left: 7rem;
+}
+
+.hero__shape-bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    mix-blend-mode: soft-light;
+    opacity: .15;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,260 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3.5rem;
+
+  /*========== Angle for btn animation ==========*/
+  --x: 45deg;
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --first-color: hsl(203, 71%, 60%);
+  --second-color: hsl(277, 56%, 68%);
+  --text-color: hsl(203, 8%, 98%);
+  --text-color-light: hsl(203, 8%, 80%);
+  --body-color: hsl(260, 20%, 18%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: 'Oxanium', cursive;
+  --biggest-font-size: 2.25rem;
+  --h2-font-size: 1.25rem;
+  --normal-font-size: .938rem;
+  --smaller-font-size: .75rem;
+
+  /*========== Font weight ==========*/
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-fixed: 100;
+}
+
+/* Responsive typography */
+@media screen and (min-width: 1024px) {
+  :root {
+    --biggest-font-size: 4rem;
+    --h2-font-size: 1.5rem;
+    --normal-font-size: 1rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+    max-width: 1200px;
+    min-width: 320px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.main {
+  overflow: hidden; /* For the animations */
+}
+
+
+
+/*=============== HEADER NAVBAR ===============*/
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: var(--z-fixed);
+  transition: backgroung .3s;
+  padding: 10px;
+}
+
+.nav{
+  position: relative;
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.nav__logo,
+.nav__toggle,
+.nav__link,
+.nav__button{
+  color: var(--text-color);
+}
+
+.nav__logo {
+  max-width: 300px;
+  flex: 1;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.nav__toggle{
+  font-size: 1.5rem;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+
+/*=============== Sign In Button ===============*/
+.nav__buttons {
+    flex: 1;
+    text-align: right;
+}
+
+.nav__button{
+  position: relative;
+  width: 130px;
+  height: 46px;
+  display: inline-block;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  border: 1px solid var(--first-color);
+}
+
+.nav__button:hover{
+  box-shadow: 0 8px 48px hsla(203,71%,25%,.5);
+}
+
+.nav__button i{
+  position: absolute;
+  inset: -1px;
+  display: block;
+  border-radius: 5px;
+}
+
+.nav__button i,
+.nav__button i:nth-child(2){
+  background: linear-gradient(var(--x),
+  var(--second-color),
+  /*var(--body-color),*/
+  var(--first-color));
+  /*filter: blur(2px);*/
+}
+
+.nav__button span{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0);
+}
+
+
+
+
+
+@media screen and (max-width: 768px) {
+  .nav__menu {
+    position: fixed;
+    background-color: var(--body-color);
+    width: 100%;
+    left: 0;
+    top: -100%;
+    padding: 4rem 0 3.5rem;
+    transition: top .4s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    overflow: hidden;
+  }
+  .nav__button{
+  width: 100px;
+  height: 40px;
+  }
+}
+
+.nav__list{
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+  text-align: center;
+}
+
+.nav__link{
+  font-weight: var(--font-semi-bold);
+  transition: color .4s;
+}
+
+.nav__link:hover{
+  color: var(--first-color);
+}
+
+.nav__close{
+  position: absolute;
+  cursor: pointer;
+  top: 1rem;
+  font-size: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.show-menu{
+  top: 0;
+}
+
+/*=============== Active Link ===============*/
+.active-link{
+  background: linear-gradient(90deg,
+              var(--second-color) 0%,
+              var(--first-color) 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+
+/*=============== Breakpoints ===============*/
+
+
+/*=============== For medium devices ===============*/
+
+
+/*=============== For large devices ===============*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
