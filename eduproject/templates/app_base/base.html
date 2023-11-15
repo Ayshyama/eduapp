@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EDU APP</title>
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/landing_page.css' %}">
+    <!------SPLINE------>
+    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@0.9.455/build/runtime.js"
+        }
+      }
+    </script>
+    <!------REMIXICONS------>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+</head>
+
+<body>
+
+<!------HEADER------>
+{% block header %}
+<header class="header" id="header">
+    <nav class="nav container">
+        <!-- Logo -->
+        <a href="#" class="nav__logo" style="font-size:50px;!important;">
+{#            <img src="{% static 'img/logo.png' %}" alt="PYIO">#}
+            PYIO
+        </a>
+
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a href="#" class="nav__link">Home</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#" class="nav__link">Features</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#" class="nav__link active-link">About</a>
+                </li>
+            </ul>
+
+            <!------Close Button------>
+            <div class="nav__close" id="nav-close">
+                <i class="ri-close-line"></i>
+            </div>
+
+        </div>
+
+        <!------Toggle Button------>
+        <div class="nav__toggle" id="nav-toggle">
+            <i class="ri-menu-fill"></i>
+        </div>
+
+        <!-- Sign In and Sign Up buttons -->
+        <div class="nav__buttons">
+
+            <a href="#" class="nav__button nav__button--signin">
+
+                <span>
+                <lord-icon
+                src="https://cdn.lordicon.com/kxrhwtdg.json"
+                trigger="hover"
+                colors="primary:#4be1ec,secondary:#cb5eee"
+                style="width:36px;height:36px;margin-left: -12px">
+                </lord-icon>
+                Sign In
+                </span>
+            </a>
+        </div>
+
+    </nav>
+</header>
+{% endblock %}
+
+{% block hero %}
+{% endblock %}
+
+{% block footer %}
+<footer class="footer" id="footer">
+    <div>
+        <span class="footer__title"></span>
+    </div>
+</footer>
+{% endblock %}
+
+
+<!------SCROLLREVEAL JS------>
+<script src="{% static 'js/scrollreveal.js' %}"></script>
+<!------NAVBAR JS------>
+<script src="{% static 'js/navbar.js' %}"></script>
+<!------BTN ANIMATION JS------>
+<script src="{% static 'js/btn_animation.js' %}"></script>
+<!------SPLINE CANVAS JS------>
+<script type="module" src="{% static 'js/spline.js' %}"></script>
+
+
+
+
+
+</body>
+</html>

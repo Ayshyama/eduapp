@@ -26,10 +26,10 @@
 }
 
 .hero__description{
+    position: relative;
     color: var(--text-color-light);
     margin-bottom: 1.5rem;
     z-index: 2;
-
 }
 .hero__info{
     position: relative;
