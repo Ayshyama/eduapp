@@ -34,3 +34,9 @@ class TestAnswer(models.Model):
     name = models.CharField(max_length=500)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     is_correct = models.BooleanField(default=False)
+
+
+
+
+
+
