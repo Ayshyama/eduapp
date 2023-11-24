@@ -42,3 +42,32 @@ def create_user_progress(sender, instance, action, reverse, model, pk_set, **kwa
 
 # Connect the signal
 m2m_changed.connect(create_user_progress, sender=CustomUser.exercises_done.through)
+
+'''
+Signal Receiver:
+- The @receiver decorator is used to register the function create_user_progress as 
+a signal receiver for the m2m_changed signal, specifically for changes to the 
+exercises_done many-to-many field in the CustomUser model.
+- The sender argument specifies the model class that sends the signal, which is the
+intermediary model that Django automatically creates to manage the many-to-many
+relationship between CustomUser and Exercise.
+- The signal is triggered whenever the exercises_done field is changed, which can
+happen in a variety of ways, including when a new exercise is added to the set or
+when an existing exercise is removed from the set.
+- The reverse argument is set to True when the change is made on the reverse side of
+the relation, which is the Exercise model in this case.
+- The pk_set argument is a set of primary keys for the related objects that were added
+to the many-to-many field.
+- The **kwargs argument allows the function to accept arbitrary keyword arguments.
+- When a CustomUser instance has exercises added to its exercises_done set, the create_user_progress function is triggered.
+- If the action is post_add (which occurs after new items have been added to the many-to-many field) and the change is not 
+happening on the reverse side of the relation, the function iterates over the primary key set of added exercises and 
+creates a new UserProgress instance for each one, associating the exercise with the user.
+
+Signal Connection:
+- Although the @receiver decorator already connects the create_user_progress function to the m2m_changed signal, 
+the last line explicitly connects the signal again, which is redundant and not necessary given the use of the decorator.
+This setup allows the application to automatically track user progress on exercises without requiring additional code to
+manage the creation of UserProgress instances whenever exercises are added to a user's exercises_done set. It leverages 
+Django's signals framework to hook into the lifecycle of the database operations.
+'''
