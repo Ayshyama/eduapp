@@ -24,3 +24,4 @@ class UserSignupView(SignupView):
         context['form_login'] = LoginView.form_class()
         context['form_signup'] = context.pop('form')
         return context
+

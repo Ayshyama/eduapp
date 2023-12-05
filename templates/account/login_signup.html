@@ -1,59 +1,97 @@
 {% extends "account/base_entrance.html" %}
+{% load static %}
 {% load i18n %}
 {% load allauth account socialaccount %}
+
 {% block head_title %}
     {% trans "Sign In" %}
 {% endblock head_title %}
+
+
 {% block content %}
-    {% element h1 %}
-        {% trans "Sign In" %}
-    {% endelement %}
-    <p>
-        {% blocktrans %}If you have not created an account yet, then please
-    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
-    </p>
-    {% url 'account_login' as login_url %}
-    {% element form form=form method="post" action=login_url tags="entrance,login" %}
-        {% slot body %}
-            {% csrf_token %}
-            {{ form_login.as_p }}
-            {% if redirect_field_value %}
-                <input type="hidden"
-                       name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}" />
-            {% endif %}
-        {% endslot %}
-        {% slot actions %}
-            {% element button type="submit" tags="prominent,login" %}
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+
+            {# -------------------------------------SIGN IN FORM----------------------------------------- #}
+            {% element h2 class="title" %}
                 {% trans "Sign In" %}
             {% endelement %}
-        {% endslot %}
-    {% endelement %}
-    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
 
-    {# ------------------------------------------------------------------------------ #}
-    {% element h1 %}
-        {% trans "Sign Up" %}
-    {% endelement %}
-    <p>
-        {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
-    </p>
-    {% url 'account_signup' as action_url %}
-    {% element form form=form method="post" action=action_url tags="entrance,signup" %}
-        {% slot body %}
-            {% csrf_token %}
-            {{ form_signup.as_p }}
-            {% if redirect_field_value %}
-                <input type="hidden"
-                       name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}" />
-            {% endif %}
-        {% endslot %}
-        {% slot actions %}
-            {% element button tags="prominent,signup" type="submit" %}
-                {% trans "Sign Up" %}
+            <p>
+                {% blocktrans %}Don't have an account? Then please <a href="{{ signup_url }}">sign up</a>.{% endblocktrans %}
+            </p>
+            <p class="social-text">
+                {% blocktrans %}Or Sign in with social platforms{% endblocktrans %}
+            </p>
+
+            {% url 'account_login' as login_url %}
+
+            {% element form class="sign-in-form" form=form method="post" action=login_url tags="entrance,login" %}
+                {% slot body %}
+
+                        {% csrf_token %}
+
+                        {% for field in form_login %}
+                            <div class="input-field">
+                                <i class="fas fa-user"></i>
+                                {{ field.errors.as_ul }}
+            {#                    {{ field.label_tag }}#}
+                                {{ field }}
+{#                                {% if field.help_text %}#}
+{#                                    <p class="help">{{ field.help_text }}</p>#}
+{#                                {% endif %}#}
+                            </div>
+                        {% endfor %}
+
+                        {% if redirect_field_value %}
+                            <input type="hidden"
+                                   name="{{ redirect_field_name }}"
+                                   value="{{ redirect_field_value }}" />
+                        {% endif %}
+
+                {% endslot %}
+
+                {% slot actions %}
+
+                    {% element button type="submit" tags="prominent,login" %}
+                        {% trans "Sign In" %}
+                    {% endelement %}
+
+                {% endslot %}
+
+
             {% endelement %}
-        {% endslot %}
-    {% endelement %}
-    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+            {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+
+        {#     -------------------------------------SIGN UP FORM-----------------------------------------#}
+        {#    {% element h1 %}#}
+        {#        {% trans "Sign Up" %}#}
+        {#    {% endelement %}#}
+        {#    <p>#}
+        {#        {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}#}
+        {#    </p>#}
+        {#    {% url 'account_signup' as action_url %}#}
+        {#    {% element form form=form method="post" action=action_url tags="entrance,signup" %}#}
+        {#        {% slot body %}#}
+        {#            {% csrf_token %}#}
+        {#            {{ form_signup.as_p }}#}
+        {#            {% if redirect_field_value %}#}
+        {#                <input type="hidden"#}
+        {#                       name="{{ redirect_field_name }}"#}
+        {#                       value="{{ redirect_field_value }}" />#}
+        {#            {% endif %}#}
+        {#        {% endslot %}#}
+        {#        {% slot actions %}#}
+        {#            {% element button tags="prominent,signup" type="submit" %}#}
+        {#                {% trans "Sign Up" %}#}
+        {#            {% endelement %}#}
+        {#        {% endslot %}#}
+        {#    {% endelement %}#}
+        {#    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}#}
+        {##}
+
+        </div>
+      </div>
+    </div>
 {% endblock content %}

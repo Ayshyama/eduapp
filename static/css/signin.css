@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
 * {
+  /*border: 1px solid red;*/
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -163,8 +164,8 @@ form.sign-in-form {
 .container:before {
   content: "";
   position: absolute;
-  height: 2000px;
-  width: 2000px;
+  height: 3000px;
+  width: 3000px;
   top: -10%;
   right: 48%;
   transform: translateY(-50%);
