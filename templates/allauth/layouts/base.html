@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +13,11 @@
         </title>
 
                 {#    my links    #}
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="{% static 'css/auth_base.css' %}">
         <link rel="stylesheet" href="{% static 'css/signin.css' %}">
-        <script src="{% static 'js/signin.js' %}"></script>
+{##}
+{#        <script src="{% static 'js/signin.js' %}" defer></script>#}
+
         <script
               src="https://kit.fontawesome.com/64d58efce2.js"
               crossorigin="anonymous"
@@ -23,40 +26,47 @@
         {% block extra_head %}
         {% endblock extra_head %}
     </head>
+
     <body>
         {% block body %}
             {% if messages %}
-                <div>
+                <div style="background: #5eff00">
                     <strong>{% trans "Messages:" %}</strong>
                     <ul>
                         {% for message in messages %}<li>{{ message }}</li>{% endfor %}
                     </ul>
                 </div>
             {% endif %}
-{#            <div>#}
-{#                <strong>{% trans "Menu:" %}</strong>#}
-{#                <ul>#}
-{#                    {% if user.is_authenticated %}#}
-{#                        <li>#}
-{#                            <a href="{% url 'account_email' %}">{% trans "Change Email" %}</a>#}
-{#                        </li>#}
-{#                        <li>#}
-{#                            <a href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>#}
-{#                        </li>#}
-{#                    {% else %}#}
-{#                        <li>#}
-{#                            <a href="{% url 'account_login' %}">{% trans "Sign In" %}</a>#}
-{#                        </li>#}
-{#                        <li>#}
-{#                            <a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>#}
-{#                        </li>#}
-{#                    {% endif %}#}
-{#                </ul>#}
-{#            </div>#}
+
+
+
+            {% block menu %}
+            <div>
+                <strong>{% trans "Menu:" %}</strong>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'account_email' %}">{% trans "Change Email" %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endblock menu %}
             {% block content %}
             {% endblock content %}
         {% endblock body %}
         {% block extra_body %}
         {% endblock extra_body %}
     </body>
+
 </html>
