@@ -3,7 +3,9 @@ from allauth.account.views import LoginView, SignupView
 
 
 class UserLoginView(LoginView):
-    template_name = 'account/login_signup.html'
+    # template_name = 'account/login_signup.html'
+    template_name = 'app_accounts/signin.html'
+
     success_url = 'password/reset/'
 
     def get_context_data(self, **kwargs):

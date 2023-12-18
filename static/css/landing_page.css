@@ -29,7 +29,7 @@
     position: relative;
     color: var(--text-color-light);
     margin-bottom: 1.5rem;
-    z-index: 2;
+    z-index: 0;
 }
 .hero__info{
     position: relative;
@@ -58,7 +58,7 @@
   width: 160px;
   height: 50px;
   display: inline-block;
-  border-radius: 5px;
+  border-radius: 50px;
   margin-top: 0.5rem;
     z-index: 2;
 }
@@ -71,16 +71,15 @@
   position: absolute;
   inset: -1px;
   display: block;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 
 .hero__button i,
 .hero__button i:nth-child(2){
   background: linear-gradient(var(--x),
   var(--second-color),
-  /*var(--body-color),*/
   var(--first-color));
-  filter: blur(2px);
+  /*filter: blur(2px);*/
 }
 
 .hero__button span{
@@ -92,7 +91,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 3px;
+  border-radius: 50px;
   background: var(--body-color);
     color: white;
 }
@@ -104,42 +103,36 @@
   left: 0;
 }
 /*=============== Shapes ===============*/
-
 .hero__shape-small,
 .hero__shape-big-1,
 .hero__shape-big-2{
     position: absolute;
     border-radius: 50%;
-    filter: blur(140px);
-    background-color: var(--first-color);
+    filter: blur(100px);
 }
-
 .hero__shape-small{
-    width: 260px;
-    height: 260px;
-    background-color: var(--first-color);
-    top: -2.5rem;
-    left: -2.5rem;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(255, 113, 12, 0.70);
+    top: 12rem;
+    left: 8rem;
 }
-
-.hero__shape-big-1,
 .hero__shape-big-2{
     width: 260px;
     height: 260px;
 }
-
 .hero__shape-big-1{
-    background-color: var(--first-color);
-    top: 30rem;
-    left: 35rem;
+    background-color: rgba(81, 170, 225, 0.65);
+    top: 2rem;
+    left: 8rem;
+    width: 220px;
+    height: 220px;
 }
-
 .hero__shape-big-2{
-    background-color: var(--second-color);
-    top: 62rem;
-    left: 7rem;
+    background-color: rgba(184, 128, 219, 0.60);
+    top: 4rem;
+    left: -4rem;
 }
-
 .hero__shape-bg{
     position: absolute;
     top: 0;

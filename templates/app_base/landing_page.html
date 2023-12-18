@@ -9,9 +9,7 @@
 {% block hero %}
     <main class="main">
         <section class="hero">
-            <div class="hero__shape-small"></div>
-            <div class="hero__shape-big-1"></div>
-            <div class="hero__shape-big-2"></div>
+
             <img src="{% static 'img/shape-bg.png' %}" alt="" class="hero__shape-bg">
             <canvas id="canvas3d"></canvas>
 
@@ -22,7 +20,11 @@
                         Your Coding <br>
                         Journey
                     </h1>
-
+                    <div class="hero__shapes">
+            <div class="hero__shape-small"></div>
+            <div class="hero__shape-big-1"></div>
+            <div class="hero__shape-big-2"></div>
+                        </div>
                     <p class="hero__description">
                         From foundational skills to advanced topics, <br>
                         immerse yourself in a comprehensive <br>
