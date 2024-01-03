@@ -1,11 +1,13 @@
 from allauth.account.views import LoginView, SignupView
-# from django.contrib.auth.views import LoginView, SignupView - delete this
+from app_accounts.Forms import CustomLoginForm
 
 
 class UserLoginView(LoginView):
     template_name = 'account/login_signup.html'
-
     success_url = '/'
+
+    def get_form_class(self):
+        return CustomLoginForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

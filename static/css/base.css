@@ -127,7 +127,7 @@ img {
     display: inline-block;
     border-radius: 50px;
     margin-top: 0.5rem;
-    border: 2px solid var(--first-color);
+    border: 1px solid var(--text-color);
 }
 .button__signin {
     right: 10px;
@@ -141,7 +141,7 @@ img {
     display: inline-block;
     border-radius: 50px;
     margin-top: 0.5rem;
-    border: 2px solid var(--first-color);
+    border: 1px solid var(--text-color);
 }
 
 .nav__button:hover {

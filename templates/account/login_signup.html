@@ -18,12 +18,13 @@
             <div class="signin-signup">
 
                 <div class="sign-in">
-                    <div class="sign-in-inner">
                         {% url 'account_login' as login_url %}
                         {% element form form=form method="post" action=login_url tags="entrance,login" %}
                             {% slot body %}
                                 {% element h1 %}
-                                    {% trans "Sign In" %}
+                                    <div class="title">
+                                        {% trans "Sign In" %}
+                                    </div>
                                 {% endelement %}
                                 <p class="social-text">
                                     {% blocktrans %}Forgot password?{% endblocktrans %}
@@ -31,7 +32,9 @@
                                 </p>
                                 {% csrf_token %}
                                 {% element fields form=form_login unlabeled=True %}
+
                                 {% endelement %}
+
                                 {% if redirect_field_value %}
                                     <input type="hidden"
                                            name="{{ redirect_field_name }}"
@@ -61,7 +64,6 @@
                                 <i class="fab fa-linkedin-in"></i>
                             </a>
                         </div>
-                    </div>
                 </div>
 
                 <div class="sign-up">
@@ -69,7 +71,9 @@
                     {% element class="sign-up-form" form form=form method="post" action=action_url tags="entrance,signup" %}
                         {% slot body %}
                             {% element h1 %}
-                                {% trans "Sign Up" %}
+                                <div class="title">
+                                    {% trans "Sign In" %}
+                                </div>
                             {% endelement %}
                             {% csrf_token %}
                             {% element fields form=form_signup unlabeled=True %}
@@ -87,6 +91,23 @@
                         {% endslot %}
                     {% endelement %}
                     {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+                                        <p class="social-text">Or Sign in with social platforms</p>
+
+                        <div class="social-media">
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-google"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+
                 </div>
             </div>
         </div>
@@ -95,10 +116,9 @@
             <div class="panel left-panel">
 
                 <div class="content">
-                    <h3>New here ?</h3>
+                    <h1 class="title">New here ?</h1>
                     <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                        ex ratione. Aliquid!
+                        Level up your coding skills! Sign Up for interactive exercises now.
                     </p>
                     <button class="btn transparent" id="sign-up-btn">
                         Sign up
@@ -107,10 +127,9 @@
             </div>
             <div class="panel right-panel">
                 <div class="content">
-                    <h3>One of us ?</h3>
+                    <h1 class="title">One of us ?</h1>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                        laboriosam ad deleniti.
+                        Welcome back! Sign In to continue your coding journey.
                     </p>
                     <button class="btn transparent" id="sign-in-btn">
                         Sign in
