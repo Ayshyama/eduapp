@@ -18,6 +18,7 @@
           "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@0.9.523/build/runtime.js"
         }
       }
+
     </script>
     <!------REMIXICONS------>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -69,12 +70,12 @@
                 {% if user.is_authenticated %}
                     <div href="#" class="nav__button button__welcome">
                         <span>
-                        <lord-icon class="user__icon"
-                                src="https://cdn.lordicon.com/kxrhwtdg.json"
-                                trigger="hover"
-                                colors="primary:#4be1ec,secondary:#cb5eee">
-                        </lord-icon>
                         Welcome, {{ user.username }}!
+                        <lord-icon class="user__icon"
+                               src="https://cdn.lordicon.com/kxrhwtdg.json"
+                               trigger="hover"
+                               colors="primary:#4be1ec,secondary:#cb5eee">
+                        </lord-icon>
                         </span>
                         <div class="dropdown-menu">
                             <br>
@@ -84,21 +85,17 @@
                         </div>
                     </div>
 
-{#                    <a href="{% url 'account_logout' %}" class="nav__button button__signout">#}
-{#                        <span>#}
-{#                        Sign Out#}
-{#                        </span>#}
-{#                    </a>#}
+
 
                 {% else %}
                     <a href="{% url 'account_login' %}" class="nav__button button__signin">
                         <span>
-                        <lord-icon class="user__icon"
-                                src="https://cdn.lordicon.com/kxrhwtdg.json"
-                                trigger="hover"
-                                colors="primary:#4be1ec,secondary:#cb5eee">
-                        </lord-icon>
                         Sign In
+                        </span>
+                    </a>
+                    <a href="{% url 'account_signup' %}" class="nav__button button__signup">
+                        <span>
+                            Sign Up
                         </span>
                     </a>
                 {% endif %}
@@ -106,6 +103,9 @@
         </nav>
     </header>
 {% endblock header %}
+
+{% block content %}
+{% endblock %}
 
 {% block hero %}
 {% endblock %}

@@ -144,6 +144,7 @@
     opacity: .15;
 }
 
+
 canvas {
     position: fixed;
     top: 0;
@@ -152,7 +153,6 @@ canvas {
     height: 100%;
     z-index: 1;
 }
-
 
 
 
