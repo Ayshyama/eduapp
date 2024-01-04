@@ -46,18 +46,22 @@
     padding: 0;
     margin: 0;
 }
+
 body {
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     background-color: var(--body-color);
     color: var(--text-color);
 }
+
 ul {
     list-style: none;
 }
+
 a {
     text-decoration: none;
 }
+
 img {
     width: 300px;
     height: auto;
@@ -67,9 +71,10 @@ img {
 .container {
     max-width: 1200px;
     min-width: 320px;
-    margin: 0 auto;
-    padding: 0 15px;
+    /*margin: 0 auto;*/
+    /*padding: 0 15px;*/
 }
+
 .main {
     overflow: hidden; /* For the animations */
 }
@@ -83,185 +88,180 @@ img {
     left: 0;
     z-index: var(--z-fixed);
     transition: backgroung .3s;
-    padding: 10px;
+    padding: 12px;
 }
-.nav {
-    height: calc(var(--header-height) + 1.5rem);
+
+.nav__container {
     position: relative;
+    height: calc(var(--header-height) + 1.5rem);
     display: flex;
     justify-content: space-between;
+    gap: 8px;
     align-items: center;
 }
-.nav__logo,
-.nav__toggle,
-.nav__link,
-.nav__button {
-    color: var(--text-color);
-}
-.nav__logo {
-    max-width: 300px;
-    flex: 1;
-}
-.nav__menu{
-    width: 300px;
-}
+
 .nav__toggle {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     cursor: pointer;
     flex: 1;
     text-align: center;
-    margin-top: 0.5rem;
+    justify-content: center;
+    min-width: 60px;
+}
+.nav__logo {
+    flex: 1;
 }
 
+.nav__logo img{
+    width: 180px;
+}
 
-/*=============== Sign In Button ===============*/
 .nav__buttons {
     flex: 1;
-    text-align: right;
-    max-width: 300px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    min-width: 60px;
+    z-index: 1;
 }
 .nav__button {
     position: relative;
-    width: 100px;
     height: 46px;
     display: inline-block;
     border-radius: 50px;
-    margin-top: 0.5rem;
-    border: 1px solid var(--text-color);
 }
-.button__signin {
-    right: 10px;
-    border: 0;
-}
-
 .button__welcome {
     position: relative;
-    width: 200px;
-    height: 46px;
-    display: inline-block;
+    display: flex;
     border-radius: 50px;
-    margin-top: 0.5rem;
-    border: 1px solid var(--text-color);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
-.nav__button:hover {
-    box-shadow: 0 8px 60px hsla(203, 71%, 25%, .65);
-}
-.nav__button i {
-    position: absolute;
-    inset: -1px;
-    display: block;
-    border-radius: 5px;
-}
-
-.nav__button i,
-.nav__button i:nth-child(2) {
-    background: linear-gradient(var(--x),
-    var(--second-color),
-        /*var(--body-color),*/ var(--first-color));
-    /*filter: blur(2px);*/
+.user__icon {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    z-index: 2;
 }
 
 .nav__button span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    position: relative;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-}
-.button__welcome span {
-    border-radius: 50px;
-    left: 5px;
+    cursor: pointer;
 }
 
-/*=============== Dropdown ===============*/
-.dropdown-menu {
-    top: 35px;
-    visibility: hidden;
-    position: absolute;
-    background-color: transparent;
-    width: 200px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 5px;
-}
-.dropdown-menu a {
-    background-color: hsla(223, 51%, 8%, 0.90);
+.nav__logo,
+.nav__toggle,
+.nav__link,
+.nav__link-user,
+.nav__button {
     color: var(--text-color);
-    padding: 16px 24px;
-    text-decoration: none;
-    display: block;
-    border-radius: 0 0 5px 5px;
-
-}
-.dropdown-menu a:hover {
-    background-color: var(--first-color); /* Background color on hover */
-    border-radius: 0 0 5px 5px;
-}
-.button__welcome:hover  .dropdown-menu{
-    visibility: visible;
 }
 
-/*=============== Icons ===============*/
-.nav__buttons span{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+
+/*=============== Sign In Button ===============*/
+
+
+
+
+.button__signin {
+    border: 0;
     text-align: center;
 }
-.user__icon {
-    font-size: 40px;
-    width: 40px;
-    height: 40px;
-    /*margin-left: 10px;*/
+
+
+
+/*.nav__button:hover {*/
+/*    box-shadow: 0 8px 60px hsla(203, 71%, 25%, .65);*/
+/*}*/
+
+/*.nav__button i {*/
+/*    position: relative;*/
+/*    inset: -1px;*/
+/*    display: block;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.nav__button i,*/
+/*.nav__button i:nth-child(2) {*/
+/*    background: linear-gradient(var(--x),*/
+/*    var(--second-color),*/
+/*        !*var(--body-color),*! var(--first-color));*/
+/*    !*filter: blur(2px);*!*/
+/*}*/
+
+
+.nav__menu-user{
+    display: none;
 }
-
-
+.nav__toggle{
+    display: none;
+}
 @media screen and (max-width: 768px) {
-    .nav__menu {
+    .nav__menu,
+    .nav__menu-user {
         position: fixed;
-        background-color: var(--body-color);
         width: 100%;
-        left: 0;
-        top: -100%;
         padding: 4rem 0 3.5rem;
-        transition: top .4s ease;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
         overflow: hidden;
+        background-color: rgba(4, 8, 22, 0.80);
+        backdrop-filter: blur(10px);
+        height: 100vh;
+        z-index: 5;
+        top: 0;
     }
-    .nav__button {
-        width: 100px;
-        height: 40px;
+    .nav__menu {
+        left: -100%;
+        transition: left .4s ease-in-out;
+    }
+    .nav__menu-user {
+        left: 100%;
+        transition: left .4s ease-in-out;
+        display: block;
+    }
+    .nav__toggle {
+        display: block;
     }
 }
-
-.nav__list {
+.nav__list,
+.nav__list-user{
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
     row-gap: 3rem;
     text-align: center;
+    justify-content: center;
 }
-.nav__link {
+.nav__link,
+.nav__link-user{
     font-weight: var(--font-semi-bold);
+    font-size: var(--h2-font-size);
     transition: color .4s;
 }
-.nav__link:hover {
+.nav__link:hover,
+.nav__link-user:hover {
     color: var(--first-color);
 }
-.nav__close {
+.nav__close,
+.nav__close-user {
     position: absolute;
     cursor: pointer;
-    top: 1rem;
-    font-size: 1.5rem;
+    top: 4rem;
+    font-size: 2rem;
     left: 50%;
     transform: translateX(-50%);
 }
-.show-menu {
-    top: 0;
+.show-menu,
+.show-menu-user {
+    left: 0;
 }
 
 /*=============== Active Link ===============*/
@@ -312,33 +312,33 @@ img {
 /* Base styles for the messages container */
 .messages {
     top: 100px;
-  position: relative;
-  font-family: 'Staatliches', sans-serif;
-  text-transform: uppercase;
-  animation: moveIn 2s cubic-bezier(.36,0,.06,1) alternate infinite;
+    position: relative;
+    font-family: 'Staatliches', sans-serif;
+    text-transform: uppercase;
+    animation: moveIn 2s cubic-bezier(.36, 0, .06, 1) alternate infinite;
     text-align: center;
 }
 
 /* Style for each alert message */
 .messages .alert {
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  transition: all 0.3s ease-in-out;
-  /* Add more specific styles for each type of alert here */
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    /* Add more specific styles for each type of alert here */
 }
 
 /* Keyframes for the animation */
 @keyframes moveIn {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 1;
-    filter: blur(0px);
-  }
-  50% {
-    opacity: 0;
-    filter: blur(10px);
-  }
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+    50% {
+        opacity: 0;
+        filter: blur(10px);
+    }
 }
 
 /* Specific styles for different alert types */
@@ -347,20 +347,24 @@ img {
     background-color: #d9edf7;
     border-color: #bce8f1;
 }
+
 .alert-success {
     color: var(--text-color);
     background-color: rgba(1, 255, 84, 0.45);
 }
+
 .alert-warning {
     color: var(--text-color);
     background-color: #fcf8e3;
     border-color: #faebcc;
 }
+
 .alert-danger {
     color: var(--text-color);
     background-color: #f2dede;
     border-color: #ebccd1;
 }
+
 .alert-dismissible .close {
     position: relative;
     top: -2px;
@@ -373,25 +377,32 @@ img {
 /* Adjust the translateY and scaleY values based on the message index */
 /* You might need to adjust the nth-child values based on the number of messages */
 .messages .alert:nth-child(1) {
-  transform: translateY(-0.1em);
+    transform: translateY(-0.1em);
 }
+
 .messages .alert:nth-child(2) {
-  transform: translateY(-0.3em) scaleY(1.1);
+    transform: translateY(-0.3em) scaleY(1.1);
 }
+
 .messages .alert:nth-child(3) {
-  transform: translateY(-0.5em) scaleY(1.2);
+    transform: translateY(-0.5em) scaleY(1.2);
 }
+
 .messages .alert:nth-child(4) {
-  transform: translateY(-0.7em) scaleY(1.3);
+    transform: translateY(-0.7em) scaleY(1.3);
 }
+
 /* Add more nth-child styles if you have more messages */
 
 
 /*===============............BREAKPOINTS.............===============*/
 /*=============== For small devices ===============*/
-@media screen and (max-width: 340px) {
+@media screen and (max-width: 560px) {
     .container {
-        margin-inline: 1rem;
+        /*margin-inline: 1rem;*/
+    }
+    .button__welcome p{
+        display: none;
     }
 }
 
@@ -401,13 +412,19 @@ img {
     .nav__close {
         display: none;
     }
+
     .nav__list {
         flex-direction: row;
         column-gap: 4rem;
     }
+
     .home__container {
         height: 100vh;
         display: grid;
+    }
+    .nav__button {
+    border: 1px solid var(--text-color);
+
     }
 }
 
@@ -416,9 +433,9 @@ img {
     .home__title {
         margin-bottom: 3rem;
     }
+
     .hero__description {
         font-size: var(--h2-font-size);
     }
 }
-
 
