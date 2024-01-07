@@ -1,0 +1,50 @@
+.profile-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sidebar {
+    flex-basis: 25%;
+    padding: 10px;
+    text-align: center;
+}
+
+.sidebar button {
+    margin-bottom: 10px;
+}
+
+.user-info {
+    flex-basis: 75%;
+    padding: 10px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar, .user-info {
+        flex-basis: 100%;
+    }
+}
