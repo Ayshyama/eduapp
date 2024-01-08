@@ -110,6 +110,9 @@ img {
 }
 .nav__logo {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    max-width: 180px;
 }
 
 .nav__logo img{
@@ -198,71 +201,7 @@ img {
 /*}*/
 
 
-.nav__menu-user{
-    display: none;
-}
-.nav__toggle{
-    display: none;
-}
-@media screen and (max-width: 768px) {
-    .nav__menu,
-    .nav__menu-user {
-        position: fixed;
-        width: 100%;
-        padding: 4rem 0 3.5rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
-        overflow: hidden;
-        background-color: rgba(4, 8, 22, 0.80);
-        backdrop-filter: blur(10px);
-        height: 100vh;
-        z-index: 5;
-        top: 0;
-    }
-    .nav__menu {
-        left: -100%;
-        transition: left .4s ease-in-out;
-    }
-    .nav__menu-user {
-        left: 100%;
-        transition: left .4s ease-in-out;
-        display: block;
-    }
-    .nav__toggle {
-        display: block;
-    }
-}
-.nav__list,
-.nav__list-user{
-    margin-top: 80px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 3rem;
-    text-align: center;
-    justify-content: center;
-}
-.nav__link,
-.nav__link-user{
-    font-weight: var(--font-semi-bold);
-    font-size: var(--h2-font-size);
-    transition: color .4s;
-}
-.nav__link:hover,
-.nav__link-user:hover {
-    color: var(--first-color);
-}
-.nav__close,
-.nav__close-user {
-    position: absolute;
-    cursor: pointer;
-    top: 4rem;
-    font-size: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.show-menu,
-.show-menu-user {
-    left: 0;
-}
+
 
 /*=============== Active Link ===============*/
 .active-link {
@@ -392,22 +331,83 @@ img {
     transform: translateY(-0.7em) scaleY(1.3);
 }
 
-/* Add more nth-child styles if you have more messages */
 
 
-/*===============............BREAKPOINTS.............===============*/
-/*=============== For small devices ===============*/
-@media screen and (max-width: 560px) {
-    .container {
-        /*margin-inline: 1rem;*/
+.nav__menu-user{
+    display: none;
+}
+.nav__toggle{
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    .nav__menu,
+    .nav__menu-user {
+        position: fixed;
+        width: 100%;
+        padding: 4rem 0 3.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+        overflow: hidden;
+        background-color: rgba(4, 8, 22, 0.80);
+        backdrop-filter: blur(10px);
+        height: 100vh;
+        z-index: 5;
+        top: 0;
+    }
+    .nav__menu {
+        left: -100%;
+        transition: left .4s ease-in-out;
+    }
+    .nav__menu-user {
+        left: 100%;
+        transition: left .4s ease-in-out;
+        display: block;
+    }
+    .nav__toggle {
+        display: block;
     }
     .button__welcome p{
         display: none;
     }
 }
+.nav__list,
+.nav__list-user{
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
+    text-align: center;
+    justify-content: center;
+}
+.nav__link,
+.nav__link-user{
+    font-weight: var(--font-semi-bold);
+    font-size: var(--h2-font-size);
+    transition: color .4s;
+}
+.nav__link:hover,
+.nav__link-user:hover {
+    color: var(--first-color);
+}
+.nav__close,
+.nav__close-user {
+    position: absolute;
+    cursor: pointer;
+    top: 4rem;
+    font-size: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.show-menu,
+.show-menu-user {
+    left: 0;
+}
+
+/*===============............BREAKPOINTS.............===============*/
+/*=============== For small devices ===============*/
+
 
 /*=============== For medium devices ===============*/
-@media screen and (min-width: 767px) {
+@media screen and (min-width: 768px) {
     .nav__toggle,
     .nav__close {
         display: none;

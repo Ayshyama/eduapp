@@ -6,7 +6,7 @@ const navMenu = document.getElementById('nav-menu'),
 const checkScreenWidth = () => {
     const screenWidth = window.innerWidth;
 
-    if (screenWidth > 767) {
+    if (screenWidth > 768) {
         navMenu.classList.remove('show-menu');
         navToggle.style.display = 'none';
         navClose.style.display = 'none';
