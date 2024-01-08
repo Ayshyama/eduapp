@@ -7,7 +7,7 @@ from app_exercises.models import Exercise
 
 class CustomUser(AbstractUser):
     bio = models.TextField(max_length=500, blank=True)
-    image = models.ImageField(upload_to='images/', blank=True)
+    image = models.ImageField(upload_to='profile/%Y/%m/%d/', blank=True)
     email = models.EmailField(unique=True)
     life = models.PositiveSmallIntegerField(default=10)
     exercises_done = models.ManyToManyField(Exercise, through='UserProgress')
