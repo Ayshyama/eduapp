@@ -4,11 +4,15 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 from app_accounts.models import CustomUser
 from app_base.nav_menu import menu2
+from app_accounts.Forms import CustomLoginForm
 
 
 class UserLoginView(LoginView):
     template_name = 'account/login_signup.html'
     success_url = '/'
+
+    def get_form_class(self):
+        return CustomLoginForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

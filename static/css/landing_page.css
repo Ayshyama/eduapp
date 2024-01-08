@@ -4,12 +4,13 @@
 }
 .hero{
     position: relative;
-    padding: 4rem;
 }
 
 .hero__container{
     position: relative;
-    padding: 7rem 0 2rem;
+    border-radius: 50px;
+    top: 100px;
+    padding: 14px;
 }
 
 .hero__title{
@@ -34,23 +35,6 @@
 .hero__info{
     position: relative;
 }
-
-.hero__img-char{
-    position: absolute;
-    width: 700px;
-    justify-self: center;
-    bottom: 150px;
-    left: -65px;
-    z-index: 1;
-}
-
-.hero__img-char img{
-    position: absolute;
-    filter: drop-shadow(0 10px 32px hsla(221, 61%, 52%, 0.75));
-}
-
-
-
 
 /*=============== CTA Hero Button ===============*/
 .hero__button{
@@ -79,7 +63,6 @@
   background: linear-gradient(var(--x),
   var(--second-color),
   var(--first-color));
-  /*filter: blur(2px);*/
 }
 
 .hero__button span{
@@ -108,32 +91,42 @@
 .hero__shape-big-2{
     position: absolute;
     border-radius: 50%;
-    filter: blur(100px);
+    filter: blur(140px);
 }
 .hero__shape-small{
     width: 200px;
     height: 200px;
     background-color: rgba(255, 113, 12, 0.70);
-    top: 12rem;
-    left: 8rem;
+    top: 16rem;
+    left: 6rem;
 }
 .hero__shape-big-2{
     width: 260px;
     height: 260px;
 }
 .hero__shape-big-1{
-    background-color: rgba(81, 170, 225, 0.65);
-    top: 2rem;
-    left: 8rem;
+    background-color: rgba(13, 25, 100, 0.4);
+    top: 0;
+    left: 15%;
     width: 220px;
     height: 220px;
 }
 .hero__shape-big-2{
-    background-color: rgba(184, 128, 219, 0.60);
-    top: 4rem;
-    left: -4rem;
+    background-color: rgba(62, 20, 87, 0.4);
+    top: 0;
+    left: 40%;
 }
-.hero__shape-bg{
+.hero__shape-bg-1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    mix-blend-mode: soft-light  ;
+    opacity: 1;
+}
+.hero__shape-bg-2{
     position: absolute;
     top: 0;
     left: 0;
@@ -141,9 +134,8 @@
     height: 100vh;
     object-fit: cover;
     mix-blend-mode: soft-light;
-    opacity: .15;
+    opacity: 0.35;
 }
-
 
 canvas {
     position: fixed;
@@ -151,13 +143,24 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 2;
 }
 
 
 
-
-
+@media screen and (min-width: 340px) {
+    .hero__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 560px) {
+    .hero__container {
+        padding: 28px;
+    }
+}
 
 
 
