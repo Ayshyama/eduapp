@@ -19,6 +19,7 @@
           }
         }
 
+
     </script>
     <!------REMIXICONS------>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -26,25 +27,20 @@
 </head>
 
 <body>
-<!-- Django Messages -->
-<div class="container messages">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-</div>
+
 <!------HEADER------>
 {% block header %}
     <header class="header" id="header">
-        <nav class="nav container">
+        <nav class="nav__container">
             <div class="nav__menu" id="nav-menu">
+                <div class="hero__shapes">
+                    <div class="hero__shape-big-1"></div>
+                    <div class="hero__shape-big-2"></div>
+                </div>
                 <ul class="nav__list">
                     {% for item in menu %}
                         <li class="nav__item">
-                            <a href="{% url item.url_name %}" 
+                            <a href="{% url item.url_name %}"
                                class="nav__link {% if forloop.counter0 == menu_selected %}active-link{% endif %}"
                             >{{ item.name }}</a>
                         </li>
@@ -55,32 +51,50 @@
                     <i class="ri-close-line"></i>
                 </div>
             </div>
-
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-menu-fill"></i>
+            </div>
             <a href="#" class="nav__logo">
                 <img src="{% static 'img/logo.png' %}" alt="PYIO">
             </a>
 
-            <div class="nav__toggle" id="nav-toggle">
-                <i class="ri-menu-fill"></i>
-            </div>
-
-            <div class="nav__buttons">
+            <div class="nav__buttons" id="nav-buttons">
                 {% if user.is_authenticated %}
                     <div href="#" class="nav__button button__welcome">
                         <span>
+                            <p>
                         Welcome, {{ user.username }}!
+                                </p>
                         <lord-icon class="user__icon"
                                    src="https://cdn.lordicon.com/kxrhwtdg.json"
                                    trigger="hover"
                                    colors="primary:#4be1ec,secondary:#cb5eee">
                         </lord-icon>
                         </span>
-                        <div class="dropdown-menu">
-                            <br>
-                            <a href="#profile">Profile</a>
-                            <a href="#settings">Settings</a>
-                            <a href="{% url 'account_logout' %}">Sign Out</a>
+
+                        <div class="nav__menu-user" id="nav-menu-user">
+                            <div class="hero__shapes">
+                                <div class="hero__shape-big-1"></div>
+                                <div class="hero__shape-big-2"></div>
+                            </div>
+                            <ul class="nav__list-user">
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user" href="#">Dashboard</a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user" href="#">Profile</a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user" href="{% url 'account_logout' %}">Sign Out</a>
+                                </li>
+                            </ul>
+
+                            <div class="nav__close-user" id="nav-close-user">
+                                <i class="ri-close-line"></i>
+                            </div>
                         </div>
+
+
                     </div>
 
 
@@ -101,6 +115,19 @@
         </nav>
     </header>
 {% endblock header %}
+<!-- Django Messages -->
+
+{% block messages %}
+    <div class="container messages">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock messages %}
 
 {% block content %}
 {% endblock %}

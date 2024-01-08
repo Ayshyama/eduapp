@@ -35,6 +35,16 @@
                   placeholder="{{ field.field.widget.attrs.placeholder|default_if_none:'' }}">
                 {{ field.value|default_if_none:"" }}
             </textarea>
+
+    {% elif field.field.widget.input_type == 'checkbox' %}
+        <div class="checkbox-container">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+            <div class="checkbox-field">
+                {{ field }}
+            </div>
+        </div>
+
     {% else %}
         <div class="{% if field.field.widget.input_type == 'checkbox' %}checkbox-class-name{% else %}input-field{% endif %}">
             {% if field.name == 'username' or field.name == 'login' %}
