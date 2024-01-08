@@ -92,6 +92,7 @@
     position: absolute;
     border-radius: 50%;
     filter: blur(140px);
+    z-index: 0;
 }
 .hero__shape-small{
     width: 200px;
@@ -148,12 +149,16 @@ canvas {
 
 
 
+
 @media screen and (min-width: 340px) {
     .hero__info {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    canvas {
+
     }
 }
 @media screen and (min-width: 560px) {

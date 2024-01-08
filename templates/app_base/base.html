@@ -22,6 +22,10 @@
         }
 
 
+
+
+
+
     </script>
     <!------REMIXICONS------>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -40,6 +44,9 @@
                     <div class="hero__shape-big-2"></div>
                 </div>
                 <ul class="nav__list">
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
                     {% for item in menu %}
                         <li class="nav__item">
                             <a href="{% url item.url_name %}"
@@ -48,10 +55,6 @@
                         </li>
                     {% endfor %}
                 </ul>
-
-                <div class="nav__close" id="nav-close">
-                    <i class="ri-close-line"></i>
-                </div>
             </div>
             <div class="nav__toggle" id="nav-toggle">
                 <i class="ri-menu-fill"></i>
@@ -80,6 +83,9 @@
                                 <div class="hero__shape-big-2"></div>
                             </div>
                             <ul class="nav__list-user">
+                                <li class="nav__close-user" id="nav-close-user">
+                                    <i class="ri-close-line"></i>
+                                </li>
                                 <li class="nav__item-user">
                                     <a class="nav__link-user" href="#">Dashboard</a>
                                 </li>
@@ -91,27 +97,51 @@
                                 </li>
                             </ul>
 
-                            <div class="nav__close-user" id="nav-close-user">
-                                <i class="ri-close-line"></i>
-                            </div>
+
                         </div>
-
-
                     </div>
 
-
-
                 {% else %}
-                    <a href="{% url 'account_login' %}" class="nav__button button__signin">
+                    <div href="#" class="nav__button button__welcome">
                         <span>
-                        Sign In
+                        <lord-icon class="user__icon"
+                                   src="https://cdn.lordicon.com/kxrhwtdg.json"
+                                   trigger="hover"
+                                   colors="primary:#4be1ec,secondary:#cb5eee">
+                        </lord-icon>
                         </span>
-                    </a>
-                    <a href="{% url 'account_signup' %}" class="nav__button button__signup">
-                        <span>
-                            Sign Up
-                        </span>
-                    </a>
+                        <div class="nav__menu-user" id="nav-menu-user">
+                            <div class="hero__shapes">
+                                <div class="hero__shape-big-1"></div>
+                                <div class="hero__shape-big-2"></div>
+                            </div>
+
+                            <ul class="nav__list-user">
+                                <li class="nav__close-user" id="nav-close-user">
+                                    <i class="ri-close-line"></i>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user" href="{% url 'account_login' %}">Sign In</a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user" href="{% url 'account_signup' %}">Sign Up</a>
+                                </li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+
+                    {#                    <a href="{% url 'account_login' %}" class="nav__button button__signin">#}
+                    {#                        <span>#}
+                    {#                        Sign In#}
+                    {#                        </span>#}
+                    {#                    </a>#}
+                    {#                    <a href="{% url 'account_signup' %}" class="nav__button button__signup">#}
+                    {#                        <span>#}
+                    {#                            Sign Up#}
+                    {#                        </span>#}
+                    {#                    </a>#}
                 {% endif %}
             </div>
         </nav>

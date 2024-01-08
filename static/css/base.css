@@ -345,13 +345,13 @@ img {
         position: fixed;
         width: 100%;
         padding: 4rem 0 3.5rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
         overflow: hidden;
-        background-color: rgba(4, 8, 22, 0.80);
-        backdrop-filter: blur(10px);
+        background-color: rgba(4, 8, 22, 0.60);
         height: 100vh;
         z-index: 5;
         top: 0;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
     }
     .nav__menu {
         left: -100%;
@@ -371,32 +371,79 @@ img {
 }
 .nav__list,
 .nav__list-user{
-    margin-top: 80px;
+    position: relative;
     display: flex;
     flex-direction: column;
-    row-gap: 3rem;
     text-align: center;
     justify-content: center;
+    z-index: 2;
 }
 .nav__link,
 .nav__link-user{
+    display: flex;
+    padding: 24px;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
     font-weight: var(--font-semi-bold);
     font-size: var(--h2-font-size);
     transition: color .4s;
 }
-.nav__link:hover,
-.nav__link-user:hover {
-    color: var(--first-color);
+.nav__link,
+.nav__link-user,
+.nav__close,
+.nav__close-user,
+.active-link {
+    position: relative;
+    overflow: hidden;
 }
+
+.nav__link::before,
+.nav__link-user::before,
+.nav__close::before,
+.nav__close-user::before,
+.active-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(184, 128, 219, 0.1) 0%, rgba(81, 170, 225, 0.1) 100%);
+    z-index: -1;
+    opacity: 0;
+
+}
+.nav__link:hover::before,
+.nav__link-user:hover::before,
+.nav__close:hover::before,
+.nav__close-user:hover::before,
+.active-link:hover::before {
+    opacity: 1;
+    transition: opacity .4s;
+}
+.nav__link:hover,
+.nav__link-user:hover,
+.nav__close:hover,
+.nav__close-user:hover,
+.active-link:hover {
+    color: var(--first-color);
+    transition: color 0.4s;
+    box-shadow: 2px 2px 30px rgba(4, 4, 4, 0.15);
+}
+
 .nav__close,
 .nav__close-user {
-    position: absolute;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
     cursor: pointer;
-    top: 4rem;
     font-size: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
+    height: 100%;
 }
+
 .show-menu,
 .show-menu-user {
     left: 0;

@@ -1,3 +1,4 @@
+// ----------------NAV MENU---------------- //
 const navMenu = document.getElementById('nav-menu'),
     navToggle = document.getElementById('nav-toggle'),
     navClose = document.getElementById('nav-close');
@@ -26,10 +27,10 @@ if (navToggle) {
     navToggle.addEventListener('click', () => {
         if (navMenu.classList.contains('show-menu')) {
             navMenu.classList.remove('show-menu');
-            navClose.style.display = 'none';
+            // navClose.style.display = 'none';
         } else {
             navMenu.classList.add('show-menu');
-            navClose.style.display = 'block';
+            navClose.style.display = 'flex';
         }
     });
 }
@@ -38,7 +39,7 @@ if (navToggle) {
 if (navClose) {
     navClose.addEventListener('click', () => {
         navMenu.classList.remove('show-menu');
-        navClose.style.display = 'none';
+        // navClose.style.display = 'none';
     });
 }
 
@@ -52,7 +53,7 @@ navLink.forEach(n => n.addEventListener('click', linkAction));
 
 
 
-
+// ----------------USER MENU---------------- //
 const navMenuUser = document.getElementById('nav-menu-user');
 const navCloseUser = document.getElementById('nav-close-user');
 const navButtons = document.getElementById('nav-buttons');
@@ -60,7 +61,7 @@ const navButtons = document.getElementById('nav-buttons');
 // Function to open the user menu
 const openUserMenu = () => {
     navMenuUser.classList.add('show-menu-user');
-    navCloseUser.style.display = 'block';
+    navCloseUser.style.display = 'flex';
 };
 
 // Event listener for opening the user menu when clicking on button__welcome
