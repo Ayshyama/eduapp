@@ -13,40 +13,37 @@
     {% block extra_css %}
     {% endblock %}
     <!------SPLINE------>
-    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
-    <script type="importmap">
-        {
-          "imports": {
-            "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@0.9.523/build/runtime.js"
-          }
-        }
-
-
-
-
-
-
-    </script>
+{#    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>#}
+{#    <script type="importmap">#}
+{#        {#}
+{#          "imports": {#}
+{#            "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@0.9.523/build/runtime.js"#}
+{#          }#}
+{#        }#}
+{##}
+{#    </script>#}
     <!------REMIXICONS------>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+
+    <script src="{% static 'js/navbar.js' %}" defer></script>
+
 </head>
 
 <body>
-
 <!------HEADER------>
 {% block header %}
     <header class="header" id="header">
         <nav class="nav__container">
             <div class="nav__menu" id="nav-menu">
-                <div class="hero__shapes">
-                    <div class="hero__shape-big-1"></div>
-                    <div class="hero__shape-big-2"></div>
-                </div>
+{#                <div class="hero__shapes">#}
+{#                    <div class="hero__shape-big-1"></div>#}
+{#                    <div class="hero__shape-big-2"></div>#}
+{#                </div>#}
                 <ul class="nav__list">
-                    <div class="nav__close" id="nav-close">
+                    <li class="nav__close" id="nav-close">
                         <i class="ri-close-line"></i>
-                    </div>
+                    </li>
                     {% for item in menu %}
                         <li class="nav__item">
                             <a href="{% url item.url_name %}"
@@ -55,6 +52,8 @@
                         </li>
                     {% endfor %}
                 </ul>
+
+
             </div>
             <div class="nav__toggle" id="nav-toggle">
                 <i class="ri-menu-fill"></i>
@@ -78,10 +77,10 @@
                         </span>
 
                         <div class="nav__menu-user" id="nav-menu-user">
-                            <div class="hero__shapes">
-                                <div class="hero__shape-big-1"></div>
-                                <div class="hero__shape-big-2"></div>
-                            </div>
+{#                            <div class="hero__shapes">#}
+{#                                <div class="hero__shape-big-1"></div>#}
+{#                                <div class="hero__shape-big-2"></div>#}
+{#                            </div>#}
                             <ul class="nav__list-user">
                                 <li class="nav__close-user" id="nav-close-user">
                                     <i class="ri-close-line"></i>
@@ -111,10 +110,6 @@
                         </lord-icon>
                         </span>
                         <div class="nav__menu-user" id="nav-menu-user">
-                            <div class="hero__shapes">
-                                <div class="hero__shape-big-1"></div>
-                                <div class="hero__shape-big-2"></div>
-                            </div>
 
                             <ul class="nav__list-user">
                                 <li class="nav__close-user" id="nav-close-user">
@@ -175,10 +170,8 @@
     </footer>
 {% endblock %}
 
-<script src="{% static 'js/scrollreveal.js' %}"></script>
-<script src="{% static 'js/navbar.js' %}"></script>
-<script src="{% static 'js/btn_animation.js' %}"></script>
-<script type="module" src="{% static 'js/spline.js' %}"></script>
+{#<script src="{% static 'js/btn_animation.js' %}"></script>#}
+{#<script type="module" src="{% static 'js/spline.js' %}"></script>#}
 
 </body>
 </html>

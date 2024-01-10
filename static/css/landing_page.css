@@ -91,8 +91,7 @@
 .hero__shape-big-2{
     position: absolute;
     border-radius: 50%;
-    filter: blur(140px);
-    z-index: 0;
+    filter: blur(160px);
 }
 .hero__shape-small{
     width: 200px;
@@ -106,16 +105,16 @@
     height: 260px;
 }
 .hero__shape-big-1{
-    background-color: rgba(13, 25, 100, 0.4);
+    background-color: rgba(24, 224, 17, 0.7);
     top: 0;
-    left: 15%;
+    left: 60%;
     width: 220px;
     height: 220px;
 }
 .hero__shape-big-2{
-    background-color: rgba(62, 20, 87, 0.4);
-    top: 0;
-    left: 40%;
+    background-color: rgba(62, 20, 87, 0.60);
+    top: 60%;
+    left: -20%;
 }
 .hero__shape-bg-1{
     position: absolute;

@@ -22,6 +22,20 @@ checkScreenWidth();
 // Listen for window resize event
 window.addEventListener('resize', checkScreenWidth);
 
+const debounce = (func, delay) => {
+    let timeoutId;
+    return () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(func, delay);
+    };
+};
+
+// Debounced window resize event
+window.addEventListener('resize', debounce(checkScreenWidth, 250));
+
+
+
+
 // MENU SHOW
 if (navToggle) {
     navToggle.addEventListener('click', () => {
