@@ -13,24 +13,27 @@
     {% block extra_css %}
     {% endblock %}
     <!------SPLINE------>
-{#    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>#}
-{#    <script type="importmap">#}
-{#        {#}
-{#          "imports": {#}
-{#            "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@0.9.523/build/runtime.js"#}
-{#          }#}
-{#        }#}
-{##}
-{#    </script>#}
+    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+          "imports": {
+            "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@0.9.523/build/runtime.js"
+          }
+        }
+    </script>
     <!------REMIXICONS------>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
 
     <script src="{% static 'js/navbar.js' %}" defer></script>
+    <script src="{% static 'js/btn_animation.js' %}" defer></script>
+    <script type="module" src="{% static 'js/spline.js' %}" defer></script>
 
 </head>
 
 <body>
+            <img src="{% static 'img/shape-bg-2.png' %}" alt="" class="hero__shape-bg-2">
+            <img src="{% static 'img/shape-bg-1.png' %}" alt="" class="hero__shape-bg-1">
 <!------HEADER------>
 {% block header %}
     <header class="header" id="header">
@@ -65,7 +68,7 @@
             <div class="nav__buttons" id="nav-buttons">
                 {% if user.is_authenticated %}
                     <div href="#" class="nav__button button__welcome">
-                        <span>
+                        <span class="user-span" id="auth-icon">
                             <p>
                         Welcome, {{ user.username }}!
                                 </p>
@@ -77,10 +80,6 @@
                         </span>
 
                         <div class="nav__menu-user" id="nav-menu-user">
-{#                            <div class="hero__shapes">#}
-{#                                <div class="hero__shape-big-1"></div>#}
-{#                                <div class="hero__shape-big-2"></div>#}
-{#                            </div>#}
                             <ul class="nav__list-user">
                                 <li class="nav__close-user" id="nav-close-user">
                                     <i class="ri-close-line"></i>
@@ -101,51 +100,43 @@
                     </div>
 
                 {% else %}
-                    <div href="#" class="nav__button button__welcome">
-                        <span>
-                        <lord-icon class="user__icon"
-                                   src="https://cdn.lordicon.com/kxrhwtdg.json"
-                                   trigger="hover"
-                                   colors="primary:#4be1ec,secondary:#cb5eee">
-                        </lord-icon>
+                    <div href="#" class="nav__button button__auth">
+                        <span class="auth-span" id="auth-icon">
+                            <lord-icon class="user__icon"
+                                       src="https://cdn.lordicon.com/kxrhwtdg.json"
+                                       trigger="hover"
+                                       colors="primary:#4be1ec,secondary:#cb5eee">
+                            </lord-icon>
                         </span>
+                        <div class="nav__menu-user-desktop" id="nav-menu-user-desktop">
+                            <ul class="nav__list-user-desktop">
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user-signin" href="{% url 'account_login' %}">Sign In</a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user-signup" href="{% url 'account_signup' %}">Sign Up</a>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="nav__menu-user" id="nav-menu-user">
-
                             <ul class="nav__list-user">
                                 <li class="nav__close-user" id="nav-close-user">
                                     <i class="ri-close-line"></i>
                                 </li>
                                 <li class="nav__item-user">
-                                    <a class="nav__link-user" href="{% url 'account_login' %}">Sign In</a>
+                                    <a class="nav__link-user-signin" href="{% url 'account_login' %}">Sign In</a>
                                 </li>
                                 <li class="nav__item-user">
-                                    <a class="nav__link-user" href="{% url 'account_signup' %}">Sign Up</a>
+                                    <a class="nav__link-user-signup" href="{% url 'account_signup' %}">Sign Up</a>
                                 </li>
                             </ul>
-
-
                         </div>
-                    </div>
 
-                    {#                    <a href="{% url 'account_login' %}" class="nav__button button__signin">#}
-                    {#                        <span>#}
-                    {#                        Sign In#}
-                    {#                        </span>#}
-                    {#                    </a>#}
-                    {#                    <a href="{% url 'account_signup' %}" class="nav__button button__signup">#}
-                    {#                        <span>#}
-                    {#                            Sign Up#}
-                    {#                        </span>#}
-                    {#                    </a>#}
+                    </div>
                 {% endif %}
             </div>
         </nav>
-    </header>
-{% endblock header %}
-<!-- Django Messages -->
-
-{% block messages %}
-    <div class="container messages">
+                <div class="container messages">
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
@@ -154,6 +145,12 @@
             {% endfor %}
         {% endif %}
     </div>
+    </header>
+{% endblock header %}
+<!-- Django Messages -->
+
+{% block messages %}
+
 {% endblock messages %}
 
 {% block content %}
@@ -170,8 +167,7 @@
     </footer>
 {% endblock %}
 
-{#<script src="{% static 'js/btn_animation.js' %}"></script>#}
-{#<script type="module" src="{% static 'js/spline.js' %}"></script>#}
+
 
 </body>
 </html>

@@ -9,7 +9,9 @@
 .hero__container{
     position: relative;
     border-radius: 50px;
-    top: 100px;
+    top: calc(var(--header-height) + 4rem);
+    left: 50%;
+    transform: translateX(-50%);
     padding: 14px;
 }
 
@@ -123,7 +125,7 @@
     width: 100%;
     height: 100vh;
     object-fit: cover;
-    mix-blend-mode: soft-light  ;
+    mix-blend-mode: soft-light;
     opacity: 1;
 }
 .hero__shape-bg-2{
@@ -134,7 +136,7 @@
     height: 100vh;
     object-fit: cover;
     mix-blend-mode: soft-light;
-    opacity: 0.35;
+    opacity: 0.25;
 }
 
 canvas {
@@ -155,6 +157,7 @@ canvas {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        text-align: center;
     }
     canvas {
 
@@ -165,6 +168,12 @@ canvas {
         padding: 28px;
     }
 }
+@media screen and (min-width: 1281px) {
+    .hero__description {
+        max-width: 600px;
+    }
+}
+
 
 
 
