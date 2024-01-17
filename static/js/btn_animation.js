@@ -1,6 +1,3 @@
-console.log("btn_animation.js is loaded");
-
-// BUTTON ANIMATION from CHATGPT
 let btn = document.querySelector('.hero__button');
 let angle = 0;
 let rafId; // RequestAnimationFrame ID
@@ -11,5 +8,4 @@ const updateGradient = () => {
   rafId = requestAnimationFrame(updateGradient);
 };
 
-// Start the animation immediately
 rafId = requestAnimationFrame(updateGradient);

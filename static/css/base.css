@@ -33,7 +33,7 @@
 /* Responsive typography */
 @media screen and (min-width: 1024px) {
     :root {
-        --biggest-font-size: 4rem;
+        --biggest-font-size: 7rem;
         --h2-font-size: 1.5rem;
         --normal-font-size: 1rem;
         --smaller-font-size: .813rem;
@@ -69,9 +69,8 @@ a {
 }
 
 .main {
-    overflow: hidden; /* For the animations */
+    /*overflow: hidden; !* For the animations *!*/
 }
-
 
 /*=============== HEADER NAVBAR ===============*/
 .header {
@@ -103,20 +102,24 @@ a {
     text-align: center;
     justify-content: center;
 }
+
 .nav__logo {
     flex: 1;
     display: flex;
     justify-content: center;
 }
+
 .nav__button {
     height: 46px;
 }
+
 .nav__buttons {
     flex: 1;
     text-align: center;
     align-items: center;
     z-index: 1;
 }
+
 .button__welcome {
     position: relative;
     display: flex;
@@ -125,6 +128,7 @@ a {
     justify-content: center;
     align-items: center;
 }
+
 .button__auth {
     position: relative;
     display: flex;
@@ -161,178 +165,12 @@ a {
     color: var(--text-color);
 }
 
-
-
-/*=============== Sign In Button ===============*/
-
-
-
-
-.button__signin {
-    border: 0;
-    text-align: center;
-}
-
-
-/*.nav__button:hover {*/
-/*    box-shadow: 0 8px 60px hsla(203, 71%, 25%, .65);*/
-/*}*/
-
-/*.nav__button i {*/
-/*    position: relative;*/
-/*    inset: -1px;*/
-/*    display: block;*/
-/*    border-radius: 5px;*/
-/*}*/
-
-/*.nav__button i,*/
-/*.nav__button i:nth-child(2) {*/
-/*    background: linear-gradient(var(--x),*/
-/*    var(--second-color),*/
-/*        !*var(--body-color),*! var(--first-color));*/
-/*    !*filter: blur(2px);*!*/
-/*}*/
-
-
-
-
-/*=============== Active Link ===============*/
-.active-link {
-    background: linear-gradient(90deg,
-    var(--second-color) 0%,
-    var(--first-color) 100%);
-    -webkit-background-clip: text;
-    color: transparent;
-}
-
-/*=============== Messages Style ===============*/
-/*.messages .alert {*/
-/*    top: 100px;*/
-/*    position: relative;*/
-/*    padding: 10px;*/
-/*    margin-bottom: 20px;*/
-/*    border-radius: 5px;*/
-/*    transition: all 0.3s ease-in-out;*/
-/*}*/
-/*.alert-info {*/
-/*    color: #31708f;*/
-/*    background-color: #d9edf7;*/
-/*    border-color: #bce8f1;*/
-/*}*/
-/*.alert-success {*/
-/*    color: var(--text-color);*/
-/*    background-color: rgba(178, 241, 152, 0.50);*/
-/*}*/
-/*.alert-warning {*/
-/*    color: #8a6d3b;*/
-/*    background-color: #fcf8e3;*/
-/*    border-color: #faebcc;*/
-/*}*/
-/*.alert-danger {*/
-/*    color: #a94442;*/
-/*    background-color: #f2dede;*/
-/*    border-color: #ebccd1;*/
-/*}*/
-/*.alert-dismissible .close {*/
-/*    position: relative;*/
-/*    top: -2px;*/
-/*    right: -21px;*/
-/*    color: inherit;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/* Base styles for the messages container */
-.messages {
-    top: 0;
-    position: relative;
-    font-family: 'Staatliches', sans-serif;
-    text-transform: uppercase;
-    animation: moveIn 2s cubic-bezier(.36, 0, .06, 1) alternate infinite;
-    text-align: center;
-}
-
-/* Style for each alert message */
-.messages .alert {
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
-    /* Add more specific styles for each type of alert here */
-}
-
-/* Keyframes for the animation */
-@keyframes moveIn {
-    0%, 100% {
-        transform: translateY(0);
-        opacity: 1;
-        filter: blur(0px);
-    }
-    50% {
-        opacity: 0;
-        filter: blur(10px);
-    }
-}
-
-/* Specific styles for different alert types */
-.alert-info {
-    color: var(--text-color);
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-}
-
-.alert-success {
-    color: var(--text-color);
-    background-color: rgba(1, 255, 84, 0.45);
-}
-
-.alert-warning {
-    color: var(--text-color);
-    background-color: #fcf8e3;
-    border-color: #faebcc;
-}
-
-.alert-danger {
-    color: var(--text-color);
-    background-color: #f2dede;
-    border-color: #ebccd1;
-}
-
-.alert-dismissible .close {
-    position: relative;
-    top: -2px;
-    right: -21px;
-    color: inherit;
-    cursor: pointer;
-}
-
-
-/* Adjust the translateY and scaleY values based on the message index */
-/* You might need to adjust the nth-child values based on the number of messages */
-.messages .alert:nth-child(1) {
-    transform: translateY(-0.1em);
-}
-
-.messages .alert:nth-child(2) {
-    transform: translateY(-0.3em) scaleY(1.1);
-}
-
-.messages .alert:nth-child(3) {
-    transform: translateY(-0.5em) scaleY(1.2);
-}
-
-.messages .alert:nth-child(4) {
-    transform: translateY(-0.7em) scaleY(1.3);
-}
-
-
-
-
-
 .nav__list-user-desktop {
     display: none;
 }
+
 .nav__list,
-.nav__list-user{
+.nav__list-user {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -340,10 +178,11 @@ a {
     justify-content: center;
     z-index: 1;
 }
+
 .nav__link,
 .nav__link-user,
 .nav__link-user-signin,
-.nav__link-user-signup{
+.nav__link-user-signup {
     display: flex;
     text-align: center;
     justify-content: center;
@@ -353,6 +192,7 @@ a {
     transition: color .4s;
     padding: 24px;
 }
+
 .nav__link,
 .nav__link-user,
 .nav__link-user-signin,
@@ -381,18 +221,20 @@ a {
     background: linear-gradient(90deg, rgba(184, 128, 219, 0.15) 0%, rgba(81, 170, 225, 0.15) 100%);
     z-index: -1;
     opacity: 0;
+    transition: opacity 0.4s ease-in-out;
 }
+
 .nav__link:hover::before,
 .nav__link-user:hover::before,
 .nav__link-user-signin:hover::before,
 .nav__link-user-signup:hover::before,
-.button__welcome:hover::before,
 .nav__close:hover::before,
 .nav__close-user:hover::before,
 .active-link:hover::before {
     opacity: 1;
-    transition: opacity .4s;
+    transition: opacity .4s ease-in-out;
 }
+
 .nav__link:hover,
 .nav__link-user:hover,
 .nav__link-user-signin:hover,
@@ -401,7 +243,7 @@ a {
 .nav__close-user:hover,
 .active-link:hover {
     color: var(--first-color);
-    transition: color 0.4s;
+    transition: color 0.4s ease-in-out;
     box-shadow: 2px 2px 30px rgba(4, 4, 4, 0.15);
 }
 
@@ -418,10 +260,108 @@ a {
     height: 100%;
 }
 
-
 .nav__logo img {
-        width: 140px;
+    width: 140px;
+}
+
+/*=============== Sign In Button ===============*/
+.button__signin {
+    border: 0;
+    text-align: center;
+}
+
+/*=============== Active Link ===============*/
+.active-link {
+    background: linear-gradient(90deg,
+    var(--second-color) 0%,
+    var(--first-color) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/*=============== Messages Style ===============*/
+/* Base styles for the messages container */
+.messages {
+    top: 16px;
+    position: relative;
+    text-transform: uppercase;
+    animation: moveIn 1.5s cubic-bezier(.36, 0, .06, 1) alternate;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.messages span {
+    position: relative;
+    padding: 10px;
+    align-items: center;
+    display: flex;
+    background-color: rgba(4, 8, 22, 0.5);
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 0 5px 5px 0;
+    height: 40px;
+}
+
+.messages span i {
+    font-size: 22px;
+    vertical-align: middle;
+}
+
+/* Style for each alert message */
+.messages .alert {
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    transition: all 0.3s ease-in-out;
+    height: 40px;
+}
+
+/* Keyframes for the animation */
+@keyframes moveIn {
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0px);
     }
+    0% {
+        opacity: 0;
+        filter: blur(10px);
+    }
+}
+
+/* Specific styles for different alert types */
+.alert-info {
+    color: var(--text-color);
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.alert-success {
+    color: var(--text-color);
+    background-color: rgba(1, 255, 84, 0.45);
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.alert-warning {
+    color: var(--text-color);
+    background-color: #ffd900;
+    border-color: #faebcc;
+}
+
+.alert-danger {
+    color: var(--text-color);
+    background-color: #ff3434;
+    border-color: #ebccd1;
+}
+
 /*===============............BREAKPOINTS.............===============*/
 /*=============== For small devices ===============*/
 @media screen and (max-width: 1280px) {
@@ -440,52 +380,64 @@ a {
         -webkit-backdrop-filter: blur(15px);
         will-change: transform;
     }
+
     .nav__menu {
         transform: translateX(-100%);
         transition: transform 0.4s ease-in-out;
     }
+
     .nav__menu-user {
         transform: translateX(100%);
         transition: transform 0.4s ease-in-out;
     }
+
     .show-menu,
     .show-menu-user {
         transform: translateX(0);
     }
+
     .nav__toggle {
         min-width: 60px;
         display: flex;
     }
+
     .button__welcome p {
         display: none;
     }
+
     .nav__logo img {
         width: 260px;
     }
 }
+
 /*=============== For small-medium devices ===============*/
 @media screen and (min-width: 340px) {
     .nav__logo img {
         width: 180px;
     }
+
     .nav__toggle {
         font-size: 2rem;
     }
+
     .user__icon {
         width: 50px;
         height: 50px;
     }
 }
+
 @media screen and (min-width: 360px) {
     .nav__logo img {
         width: 200px;
     }
 }
+
 @media screen and (min-width: 600px) {
     .nav__logo img {
         width: 260px;
     }
 }
+
 /*=============== For large devices ===============*/
 @media screen and (min-width: 1281px) {
     .nav__list {
@@ -493,60 +445,85 @@ a {
         column-gap: 1rem;
         min-width: 400px;
     }
-    .nav__list{
+
+    .nav__list {
         justify-content: left;
     }
-    .nav__list-user{
+
+    .nav__list-user {
         justify-content: right;
     }
+
     .home__title {
         margin-bottom: 3rem;
     }
+
     .hero__description {
         font-size: var(--h2-font-size);
     }
+
     .nav__toggle,
     .nav__close {
         display: none;
     }
+
     .home__container {
         height: 100vh;
         display: grid;
     }
+
     .nav__buttons {
         display: flex;
         justify-content: flex-end;
     }
+
     .nav__link-user-signup {
         border: 1px solid var(--text-color);
         border-radius: 50px;
     }
+
     .nav__link,
-    /*.nav__link-user,*/
     .nav__link-user-signin,
-    .nav__link-user-signup{
+    .nav__link-user-signup {
         font-size: var(--normal-font-size);
         padding: 8px 16px;
     }
+
+    .nav__link::before,
+    .button__welcome::before,
+    .nav__link-user-signin::before,
+    .nav__link-user-signup::before,
+    .nav__close::before,
+    .active-link::before {
+        border-radius: 50px;
+    }
+
     .nav__link:hover::before,
-    /*.nav__link-user:hover::before,*/
     .nav__link-user-signin:hover::before,
     .nav__link-user-signup:hover::before,
     .button__welcome:hover::before,
     .nav__close:hover::before,
-    /*.nav__close-user:hover::before,*/
     .active-link:hover::before {
         border-radius: 50px;
     }
+
+    .button__welcome:hover::before {
+        opacity: 1;
+        transition: opacity .4s;
+    }
+
     .nav__logo {
         max-width: 300px;
     }
-    .nav__logo img{
+
+    .nav__logo img {
         width: 300px;
     }
+
     .nav__buttons {
         min-width: 60px;
         max-width: 400px;
+        margin-right: 16px;
     }
 
     .nav__menu-user {
@@ -563,25 +540,31 @@ a {
         -webkit-backdrop-filter: blur(15px);
         will-change: transform;
     }
+
     .nav__menu-user {
         transform: translateX(100vw);
         transition: transform 0.4s ease-in-out;
     }
+
     .show-menu-user {
         transform: translateX(calc(0vw + 700px));
     }
+
     .nav__button .user-span {
         border: 1px solid var(--text-color);
         border-radius: 50px;
         padding: 12px 24px;
     }
+
     .nav__button .user-span .user__icon {
         margin-right: -12px;
         width: 40px;
     }
+
     .nav__button .auth-span {
         display: none;
     }
+
     .nav__list-user-desktop {
         display: flex;
         flex-direction: row;

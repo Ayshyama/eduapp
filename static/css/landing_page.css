@@ -9,10 +9,11 @@
 .hero__container{
     position: relative;
     border-radius: 50px;
-    top: calc(var(--header-height) + 4rem);
+    top: calc(var(--header-height) + 6rem);
     left: 50%;
     transform: translateX(-50%);
     padding: 14px;
+    height: 4000px;
 }
 
 .hero__title{
@@ -31,22 +32,23 @@
 .hero__description{
     position: relative;
     color: var(--text-color-light);
-    margin-bottom: 1.5rem;
     z-index: 0;
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 .hero__info{
     position: relative;
 }
 
 /*=============== CTA Hero Button ===============*/
-.hero__button{
-  position: relative;
-  width: 160px;
-  height: 50px;
-  display: inline-block;
-  border-radius: 50px;
-  margin-top: 0.5rem;
-    z-index: 2;
+.hero__button {
+    position: relative;
+    width: 160px;
+    height: 50px;
+    display: inline-block;
+    border-radius: 50px;
+    margin-top: 0.5rem;
+    z-index: 2;!important;
 }
 
 .hero__button:hover{
@@ -93,12 +95,12 @@
 .hero__shape-big-2{
     position: absolute;
     border-radius: 50%;
-    filter: blur(160px);
+    filter: blur(100px);
 }
 .hero__shape-small{
     width: 200px;
     height: 200px;
-    background-color: rgba(255, 113, 12, 0.70);
+    background-color: rgba(255, 113, 12, 0.9);
     top: 16rem;
     left: 6rem;
 }
@@ -107,19 +109,19 @@
     height: 260px;
 }
 .hero__shape-big-1{
-    background-color: rgba(24, 224, 17, 0.7);
+    background-color: rgba(24, 224, 17, 0.9);
     top: 0;
     left: 60%;
     width: 220px;
     height: 220px;
 }
 .hero__shape-big-2{
-    background-color: rgba(62, 20, 87, 0.60);
+    background-color: rgba(62, 20, 87, 0.9);
     top: 60%;
     left: -20%;
 }
 .hero__shape-bg-1{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -129,7 +131,7 @@
     opacity: 1;
 }
 .hero__shape-bg-2{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -145,7 +147,7 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 1;
 }
 
 

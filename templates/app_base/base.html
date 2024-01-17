@@ -28,21 +28,20 @@
     <script src="{% static 'js/navbar.js' %}" defer></script>
     <script src="{% static 'js/btn_animation.js' %}" defer></script>
     <script type="module" src="{% static 'js/spline.js' %}" defer></script>
-
 </head>
 
 <body>
-            <img src="{% static 'img/shape-bg-2.png' %}" alt="" class="hero__shape-bg-2">
-            <img src="{% static 'img/shape-bg-1.png' %}" alt="" class="hero__shape-bg-1">
+<img src="{% static 'img/shape-bg-2.png' %}" alt="" class="hero__shape-bg-2">
+<img src="{% static 'img/shape-bg-1.png' %}" alt="" class="hero__shape-bg-1">
 <!------HEADER------>
 {% block header %}
     <header class="header" id="header">
         <nav class="nav__container">
             <div class="nav__menu" id="nav-menu">
-{#                <div class="hero__shapes">#}
-{#                    <div class="hero__shape-big-1"></div>#}
-{#                    <div class="hero__shape-big-2"></div>#}
-{#                </div>#}
+{#                                <div class="hero__shapes">#}
+{#                                    <div class="hero__shape-big-1"></div>#}
+{#                                    <div class="hero__shape-big-2"></div>#}
+{#                                </div>#}
                 <ul class="nav__list">
                     <li class="nav__close" id="nav-close">
                         <i class="ri-close-line"></i>
@@ -136,15 +135,18 @@
                 {% endif %}
             </div>
         </nav>
-                <div class="container messages">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+        <div class="container messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <span class="nav__close-message" id="nav-close-user">
+                    <i class="ri-close-line"></i>
+                </span>
+            {% endif %}
+        </div>
     </header>
 {% endblock header %}
 <!-- Django Messages -->
@@ -166,7 +168,6 @@
         </div>
     </footer>
 {% endblock %}
-
 
 
 </body>
