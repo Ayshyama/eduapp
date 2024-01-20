@@ -1,0 +1,42 @@
+{% extends 'app_base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/exercise.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="exercise-container">
+    <div class="user-info">
+        <p>User: John Doe</p>
+        <p>User life: 5</p>
+        <p>Subject: Programming</p>
+        <p>Module: Introduction to Python</p>
+        <p>Lesson: Functions</p>
+    </div>
+
+    <div class="exercise-content">
+        <div class="exercise-question">
+            <p>Question: What is a function in Python?</p>
+        </div>
+
+        <div class="exercise-response">
+            <div class="result-area">
+                <label>
+                    <textarea placeholder="Your answer will be displayed here..."></textarea>
+                </label>
+            </div>
+            <div class="options">
+                <form>
+                    <!-- Dummy Checkboxes -->
+                    <label><input type="checkbox" name="option1" value="A"> Option A</label>
+                    <label><input type="checkbox" name="option2" value="B"> Option B</label>
+                    <label><input type="checkbox" name="option3" value="C"> Option C</label>
+                    <label><input type="checkbox" name="option4" value="D"> Option D</label>
+                </form>
+                <input type="submit" value="Submit">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+.exercise-container {
+    display: flex;
+    flex-direction: column;
+    margin: 100px 20px 20px;
+}
+
+
+.user-info, .exercise-question {
+    background-color: #f0f0f0; /* Light background */
+    color: #333; /* Darker text color for readability */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 1rem; /* Adjust the font size as needed */
+    font-weight: bold; /* Makes the text bolder */
+}
+
+.exercise-response {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.result-area {
+    flex: 1 1 33%; /* 1/3 of the space */
+    padding: 10px;
+}
+
+.result-area textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    resize: none;
+}
+
+.options {
+    flex: 1 1 66%; /* 2/3 of the space */
+    padding: 10px;
+}
+
+.options form {
+    display: flex;
+    flex-direction: column;
+}
+
+.options label {
+    margin-bottom: 10px;
+}
+
+.options input[type="submit"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.options input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .exercise-response {
+        flex-direction: column;
+    }
+
+    .result-area, .options {
+        flex: 1 1 100%;
+    }
+}
