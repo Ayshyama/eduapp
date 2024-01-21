@@ -2,41 +2,60 @@
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/exercise.css' %}">
+    <link rel="stylesheet" href="{% static 'css/exercise.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="exercise-container">
-    <div class="user-info">
-        <p>User: John Doe</p>
-        <p>User life: 5</p>
-        <p>Subject: Programming</p>
-        <p>Module: Introduction to Python</p>
-        <p>Lesson: Functions</p>
-    </div>
+    <div class="exercise-container">
+        <div class="user-info">
+            <p>User life: {{ user.life }}</p>
+            <p>Subject: {{ object.lesson.module.subject.name }}</p>
+            <p>Module: {{ object.lesson.module.name }}</p>
+            <p>Lesson: {{ object.lesson.name }}</p>
+            <p>Is this exercise done: {{ is_done }}</p>
+            <p>Keywords:</p>
+            {% for keyword in keywords %}
+                <span>{{ keyword.keyword }}</span>
+            {% endfor %}
 
-    <div class="exercise-content">
-        <div class="exercise-question">
-            <p>Question: What is a function in Python?</p>
         </div>
 
-        <div class="exercise-response">
-            <div class="result-area">
-                <label>
-                    <textarea placeholder="Your answer will be displayed here..."></textarea>
-                </label>
+        <div class="exercise-content">
+            <div class="exercise-question">
+                <p>{{ object.name }}</p>
             </div>
-            <div class="options">
-                <form>
-                    <!-- Dummy Checkboxes -->
-                    <label><input type="checkbox" name="option1" value="A"> Option A</label>
-                    <label><input type="checkbox" name="option2" value="B"> Option B</label>
-                    <label><input type="checkbox" name="option3" value="C"> Option C</label>
-                    <label><input type="checkbox" name="option4" value="D"> Option D</label>
-                </form>
-                <input type="submit" value="Submit">
+
+            <div class="exercise-response">
+                <div class="result-area">
+                    <label>
+                        <textarea placeholder="Your result will be displayed here..."></textarea>
+                    </label>
+                </div>
+                <div class="options">
+                    <form>
+                    {% if object.is_test %}
+                    	{% for question in questions %}
+
+                            <label for="id_answer_{{ question.id }}">
+                                <input type="checkbox"
+                                       id="id_answer_{{ question.id }}"
+                                       name="name_answer_{{ question.id }}"
+                                       value="{{ question.is_correct }}"> {{ question.name }}</label>
+                        {% endfor %}
+                    {% else %}
+                    	<label>
+                            <textarea class="task-area" disabled>{{ object.code }}</textarea>
+                        </label>
+                    {% endif %} 
+                        
+                    </form>
+                    <button class="exercise-button" id="submit">Submit</button>
+                    <a href="{% url 'finish_exercise' object.lesson.module.subject.id %}">
+                        <button class="exercise-button" id="next">Next</button>
+                    </a>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

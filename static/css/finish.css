@@ -1,0 +1,41 @@
+.congratulations-container {
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(203, 233, 245, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.congratulations-container h1 {
+    color: var(--first-color);
+    margin-bottom: 20px;
+}
+
+.congratulations-container p {
+    font-size: var(--normal-font-size);
+    margin-bottom: 10px;
+}
+
+.btn-dashboard {
+    display: inline-block;
+    background-color: var(--second-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: var(--font-semi-bold);
+    transition: background-color 0.3s;
+}
+
+.btn-dashboard:hover {
+    background-color: var(--first-color);
+}
+
+.subject-image {
+    max-width: 100%; /* Ensures the image is responsive and fits the container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Optional: Adds rounded corners */
+    margin-bottom: 20px; /* Adds space below the image */
+}

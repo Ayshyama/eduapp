@@ -1,0 +1,17 @@
+{% extends 'app_base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+	<link rel="stylesheet" href="{% static 'css/finish.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="congratulations-container">
+        <img src="{{ object.image.url }}" alt="{{ object.name }}" class="subject-image">
+        <h1>Congratulations, {{ user.username }}!</h1>
+        <p>You have successfully completed the <strong>{{ object.name }}</strong> course.</p>
+        <p>Completion Date: <strong>{% load tz %}{% now "Y-m-d" %}</strong></p>
+        <p>Your dedication and hard work have paid off. Keep learning and growing!</p>
+        <a href="#" class="btn-dashboard">Go to Dashboard</a>
+    </div>
+{% endblock %}
