@@ -40,9 +40,6 @@ def create_user_progress(sender, instance, action, reverse, model, pk_set, **kwa
             UserProgress.objects.create(user=instance, exercise_id=exercise_pk)
 
 
-# Connect the signal
-m2m_changed.connect(create_user_progress, sender=CustomUser.exercises_done.through)
-
 '''
 Signal Receiver:
 - The @receiver decorator is used to register the function create_user_progress as 
@@ -63,11 +60,4 @@ to the many-to-many field.
 - If the action is post_add (which occurs after new items have been added to the many-to-many field) and the change is not 
 happening on the reverse side of the relation, the function iterates over the primary key set of added exercises and 
 creates a new UserProgress instance for each one, associating the exercise with the user.
-
-Signal Connection:
-- Although the @receiver decorator already connects the create_user_progress function to the m2m_changed signal, 
-the last line explicitly connects the signal again, which is redundant and not necessary given the use of the decorator.
-This setup allows the application to automatically track user progress on exercises without requiring additional code to
-manage the creation of UserProgress instances whenever exercises are added to a user's exercises_done set. It leverages 
-Django's signals framework to hook into the lifecycle of the database operations.
 '''
