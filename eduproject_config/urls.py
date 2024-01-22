@@ -10,6 +10,7 @@ urlpatterns = [
     path('user/', include('allauth.urls')),
     path("user/", include("app_accounts.urls")),
     path("exercises/", include("app_exercises.urls")),
+    path("dashboard/", include("app_dashboard.urls")),
 ]
 
 if settings.DEBUG:

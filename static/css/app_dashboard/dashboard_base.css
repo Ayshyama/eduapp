@@ -1,4 +1,4 @@
-.profile-container {
+.dashboard-container {
     left: 50%;
     transform: translateX(-50%);
     position: relative;
@@ -20,6 +20,7 @@
 }
 
 .user-info {
+    border-left: 1px solid var(--border-color);
     flex-basis: 75%;
     padding: 10px;
 }
@@ -28,8 +29,8 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
 }
 
