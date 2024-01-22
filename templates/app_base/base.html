@@ -31,8 +31,10 @@
 </head>
 
 <body>
+
 <img src="{% static 'img/shape-bg-2.png' %}" alt="" class="hero__shape-bg-2">
 <img src="{% static 'img/shape-bg-1.png' %}" alt="" class="hero__shape-bg-1">
+
 <!------HEADER------>
 {% block header %}
     <header class="header" id="header">
@@ -88,6 +90,18 @@
                                 </li>
                                 <li class="nav__item-user">
                                     <a class="nav__link-user" href="#">Profile</a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user" href="{% url 'exercise' 1 %}">Exercise test - </a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user" href="{% url 'exercise' 2 %}">Exercise test + </a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user" href="{% url 'exercise' 12 %}">Exercise code - </a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user" href="{% url 'exercise' 13 %}">Exercise code + </a>
                                 </li>
                                 <li class="nav__item-user">
                                     <a class="nav__link-user" href="{% url 'account_logout' %}">Sign Out</a>

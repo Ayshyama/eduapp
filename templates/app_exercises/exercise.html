@@ -1,0 +1,61 @@
+{% extends 'app_base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/exercise.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="exercise-container">
+        <div class="user-info">
+            <p>User life: {{ user.life }}</p>
+            <p>Subject: {{ object.lesson.module.subject.name }}</p>
+            <p>Module: {{ object.lesson.module.name }}</p>
+            <p>Lesson: {{ object.lesson.name }}</p>
+            <p>Is this exercise done: {{ is_done }}</p>
+            <p>Keywords:</p>
+            {% for keyword in keywords %}
+                <span>{{ keyword.keyword }}</span>
+            {% endfor %}
+
+        </div>
+
+        <div class="exercise-content">
+            <div class="exercise-question">
+                <p>{{ object.name }}</p>
+            </div>
+
+            <div class="exercise-response">
+                <div class="result-area">
+                    <label>
+                        <textarea placeholder="Your result will be displayed here..."></textarea>
+                    </label>
+                </div>
+                <div class="options">
+                    <form>
+                    {% if object.is_test %}
+                    	{% for question in questions %}
+
+                            <label for="id_answer_{{ question.id }}">
+                                <input type="checkbox"
+                                       id="id_answer_{{ question.id }}"
+                                       name="name_answer_{{ question.id }}"
+                                       value="{{ question.is_correct }}"> {{ question.name }}</label>
+                        {% endfor %}
+                    {% else %}
+                    	<label>
+                            <textarea class="task-area" disabled>{{ object.code }}</textarea>
+                        </label>
+                    {% endif %} 
+                        
+                    </form>
+                    <button class="exercise-button" id="submit">Submit</button>
+                    <a href="{% url 'finish_exercise' object.lesson.module.subject.id %}">
+                        <button class="exercise-button" id="next">Next</button>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
