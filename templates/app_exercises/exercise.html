@@ -12,6 +12,7 @@
             <p>Subject: {{ object.lesson.module.subject.name }}</p>
             <p>Module: {{ object.lesson.module.name }}</p>
             <p>Lesson: {{ object.lesson.name }}</p>
+            <p>Exercise: {{ object.name }}</p>
             <p>Is this exercise done: {{ is_done }}</p>
             <p>Keywords:</p>
             {% for keyword in keywords %}
@@ -22,9 +23,17 @@
 
         <div class="exercise-content">
             <div class="exercise-question">
-                <p>{{ object.name }}</p>
+                <p>{{ object.description }}</p>
             </div>
-
+            {% if not object.is_test %}
+                <div class="exercise-code">
+                <pre>
+                    <code class="python">
+                        {{ object.code }}
+                    </code>
+                </pre>
+                </div>
+            {% endif %}
             <div class="exercise-response">
                 <div class="result-area">
                     <label>
@@ -33,21 +42,21 @@
                 </div>
                 <div class="options">
                     <form>
-                    {% if object.is_test %}
-                    	{% for question in questions %}
+                        {% if object.is_test %}
+                            {% for question in questions %}
 
-                            <label for="id_answer_{{ question.id }}">
-                                <input type="checkbox"
-                                       id="id_answer_{{ question.id }}"
-                                       name="name_answer_{{ question.id }}"
-                                       value="{{ question.is_correct }}"> {{ question.name }}</label>
-                        {% endfor %}
-                    {% else %}
-                    	<label>
-                            <textarea class="task-area" disabled>{{ object.code }}</textarea>
-                        </label>
-                    {% endif %} 
-                        
+                                <label for="id_answer_{{ question.id }}">
+                                    <input type="checkbox"
+                                           id="id_answer_{{ question.id }}"
+                                           name="name_answer_{{ question.id }}"
+                                           value="{{ question.is_correct }}"> {{ question.name }}</label>
+                            {% endfor %}
+                        {% else %}
+                            <label>
+                                <textarea class="task-area" placeholder="Place your code here"></textarea>
+                            </label>
+                        {% endif %}
+
                     </form>
                     <button class="exercise-button" id="submit">Submit</button>
                     <a href="{% url 'finish_exercise' object.lesson.module.subject.id %}">

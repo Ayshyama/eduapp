@@ -30,7 +30,8 @@ class Lesson(models.Model):
 
 
 class Exercise(models.Model):
-    name = models.TextField()
+    name = models.CharField(max_length=100, default='Exercise')
+    description = models.TextField()
     code = models.TextField(blank=True)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     keywords = models.ManyToManyField('Keywords')
