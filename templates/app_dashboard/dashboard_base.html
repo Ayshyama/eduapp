@@ -1,0 +1,44 @@
+{% extends 'app_base/base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/app_dashboard/dashboard_base.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="dashboard-container container">
+        <div class="sidebar">
+            <img src="{% if user.image %}{{ user.image.url }}
+                {% else %}{% static 'img/app_accounts/default_avatar.jpg' %}{% endif %}" alt="User Avatar"
+                 class="avatar">
+            <br>
+            <h1>{{ user.username }}</h1>
+        <hr>
+            <br>
+        email:
+            <h3>{{ user.email }}</h3>
+            <br>
+        joined on:
+            <h3>{{ user.date_joined }}</h3>
+
+
+
+        </div>
+
+        <div class="user-info">
+            <h1>Dashboard</h1>
+            <br>
+            <br>
+            <h2>Activity last year</h2>
+            <br>
+            {% for post in posts %}
+                <div class="post">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content }}</p>
+                    <a href="{% url 'app_blog:post_detail' post.slug %}">Read More</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
