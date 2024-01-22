@@ -49,10 +49,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   function fadeOut(element, callback) {
     element.style.opacity = 0;
-    element.style.visibility = "visible"; // Делаем форму видимой перед анимацией
+    element.style.visibility = "visible";
     setTimeout(() => {
-      callback(); // Вызываем обратный вызов после исчезновения
-    }, 500); // Время анимации
+      callback();
+    }, 500);
   }
 
   function fadeIn(element) {

@@ -34,9 +34,6 @@ navLink.forEach(n => n.addEventListener('click', linkAction));
 
 
 
-
-
-
 // ----------------USER MENU---------------- //
 const navMenuUser = document.getElementById('nav-menu-user');
 const navCloseUser = document.getElementById('nav-close-user');
