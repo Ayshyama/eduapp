@@ -8,7 +8,7 @@
 {% block content %}
     <div class="exercise-container container">
         <div class="user-info">
-            <p>User life: {{ user.life }}</p>
+            <p>User life: <span id="user-life">{{ user.life }}</span></p>
             <p>Subject: {{ object.lesson.module.subject.name }}</p>
             <p>Module: {{ object.lesson.module.name }}</p>
             <p>Lesson: {{ object.lesson.name }}</p>
@@ -37,7 +37,7 @@
             <div class="exercise-response">
                 <div class="result-area">
                     <label>
-                        <textarea placeholder="Your result will be displayed here..."></textarea>
+                        <textarea id="result-area" placeholder="Your result will be displayed here..."></textarea>
                     </label>
                 </div>
                 <div class="options">
@@ -58,7 +58,11 @@
                         {% endif %}
 
                     </form>
-                    <button class="exercise-button" id="submit">Submit</button>
+                    <button class="exercise-button" id="submit"
+                            exercise-id="{{ object.id }}"
+                            exercise-is-test="{{ object.is_test|lower }}"
+                    >Submit
+                    </button>
                     <a href="{% url 'finish_exercise' object.lesson.module.subject.id %}">
                         <button class="exercise-button" id="next">Next</button>
                     </a>
@@ -67,4 +71,72 @@
             </div>
         </div>
     </div>
+    <script defer>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const submitButton = document.getElementById('submit');
+            const resultArea = document.getElementById('result-area');
+            const exerciseIsTest = submitButton.getAttribute('exercise-is-test') === 'true';
+            const exerciseId = submitButton.getAttribute('exercise-id');
+            const csrftoken = getCookie('csrftoken');
+
+            submitButton.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                const url = exerciseIsTest ? `/exercises/api/submit_test/${exerciseId}/` : `/exercises/api/submit_code/${exerciseId}/`;
+                let data = {};
+
+                if (exerciseIsTest) {
+                    let answers = {};
+                    document.querySelectorAll('[name^="name_answer_"]').forEach(input => {
+                        answers[input.name] = input.checked;
+                    });
+                    data['answer'] = answers;
+                } else {
+                    const codeArea = document.querySelector('.task-area');
+                    data['answer'] = codeArea.value;
+                }
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body: JSON.stringify(data),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        const isCorrect = data['is_correct'];
+                        const message = data['message'];
+                        const userLife = data['user_life'];
+                        document.getElementById('user-life').innerText = userLife;
+                        if (isCorrect) {
+                            resultArea.style.backgroundColor = 'green';
+                        } else {
+                            resultArea.style.backgroundColor = 'red';
+                        }
+                        resultArea.value = message;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+
+    </script>
 {% endblock %}
