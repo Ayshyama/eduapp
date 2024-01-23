@@ -8,26 +8,23 @@
     <title>{{ title }}</title>
     <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/landing_page.css' %}">
-    {% block extra_css %}
-    {% endblock %}
-    <!------SPLINE------>
-    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
-    <script type="importmap">
-        {
-          "imports": {
-            "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@0.9.523/build/runtime.js"
-          }
-        }
-    </script>
-    <!------REMIXICONS------>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
 
-    <script src="{% static 'js/navbar.js' %}" defer></script>
-    <script src="{% static 'js/btn_animation.js' %}" defer></script>
-{#    <script type="module" src="{% static 'js/spline.js' %}" defer></script>#}
+    {% block links %}
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/landing_page.css' %}">
+
+        <!------REMIXICONS------>
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <script src="https://cdn.lordicon.com/bhenfmcm.js" defer></script>
+
+        <script src="{% static 'js/navbar.js' %}" defer></script>
+        <script type="module" src="{% static 'js/messages.js' %}" defer></script>
+    {% endblock %}
+
+    {% block extra_links %}
+    {% endblock %}
+
+
 </head>
 
 <body>
@@ -157,7 +154,20 @@
                 </span>
             {% endif %}
         </div>
+
+        <div class="container messages">
+            <div class="alert alert-success">
+                TEST SUCCESS!
+            </div>
+            <br><br>
+            <span class="nav__close-message" id="nav-close-user">
+                    <i class="ri-close-line"></i>
+            </span>
+        </div>
+
+
     </header>
+
 {% endblock header %}
 
 {% block messages %}

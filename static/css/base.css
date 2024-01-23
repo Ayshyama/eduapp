@@ -18,7 +18,7 @@
     /*========== Font and typography ==========*/
     /*.5rem = 8px | 1rem = 16px ...*/
     --body-font: 'Oxanium', cursive;
-    --biggest-font-size: 2.25rem;
+    --biggest-font-size: 2rem;
     --h2-font-size: 1.25rem;
     --normal-font-size: .938rem;
     --smaller-font-size: .75rem;
@@ -33,8 +33,8 @@
 /* Responsive typography */
 @media screen and (min-width: 1024px) {
     :root {
-        --biggest-font-size: 7rem;
-        --h2-font-size: 1.5rem;
+        --biggest-font-size: 5rem;
+        --h2-font-size: 1.9rem;
         --normal-font-size: 1rem;
         --smaller-font-size: .813rem;
     }
@@ -66,10 +66,6 @@ a {
 .container {
     max-width: 1400px;
     min-width: 320px;
-}
-
-.main {
-    /*overflow: hidden; !* For the animations *!*/
 }
 
 /*=============== HEADER NAVBAR ===============*/
@@ -244,7 +240,6 @@ a {
 .active-link:hover {
     color: var(--first-color);
     transition: color 0.4s ease-in-out;
-    box-shadow: 2px 2px 30px rgba(4, 4, 4, 0.15);
 }
 
 .nav__close,
@@ -299,11 +294,13 @@ a {
     align-items: center;
     display: flex;
     background-color: rgba(4, 8, 22, 0.5);
-    border-right: 1px solid rgba(255, 255, 255, 0.5);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(1, 255, 84, 0.45);
     border-radius: 0 5px 5px 0;
     height: 40px;
+    cursor: pointer;
+}
+.messages span:hover {
+    background-color: rgba(4, 8, 22, 1);
 }
 
 .messages span i {
@@ -311,11 +308,16 @@ a {
     vertical-align: middle;
 }
 
+.messages span i:hover {
+    color: linear-gradient(var(--first-color));
+}
+
+
 /* Style for each alert message */
 .messages .alert {
     padding: 10px;
     border-radius: 5px 0 0 5px;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s ease-in-out;
     height: 40px;
 }
 
@@ -331,6 +333,19 @@ a {
         filter: blur(10px);
     }
 }
+@keyframes moveOut {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+        filter: blur(10px);
+    }
+}
+
 
 /* Specific styles for different alert types */
 .alert-info {
@@ -341,7 +356,7 @@ a {
 
 .alert-success {
     color: var(--text-color);
-    background-color: rgba(1, 255, 84, 0.45);
+    background-color: rgba(1, 255, 84, 0.50);
     width: 100%;
     text-align: center;
     align-items: center;
@@ -352,14 +367,24 @@ a {
 
 .alert-warning {
     color: var(--text-color);
-    background-color: #ffd900;
-    border-color: #faebcc;
+    background-color: rgba(255,217,0,0.65);
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .alert-danger {
     color: var(--text-color);
-    background-color: #ff3434;
-    border-color: #ebccd1;
+    background-color: rgba(255, 52, 52, 0.65);
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 /*===============............BREAKPOINTS.............===============*/
@@ -452,14 +477,6 @@ a {
 
     .nav__list-user {
         justify-content: right;
-    }
-
-    .home__title {
-        margin-bottom: 3rem;
-    }
-
-    .hero__description {
-        font-size: var(--h2-font-size);
     }
 
     .nav__toggle,

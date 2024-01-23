@@ -1,38 +1,52 @@
 {% extends "app_base/base.html" %}
 {% load static %}
 
+{% block extra_links %}
+<!------SPLINE------>
+    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js" defer></script>
+    <script type="importmap">
+          {
+            "imports": {
+              "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@1.0.32/build/runtime.js"
+            }
+          }
 
-<body>
+    </script>
+    <script type="module" src="{% static 'js/spline.js' %}" defer></script>
+
+    <script src="{% static 'js/btn_animation.js' %}" defer></script>
+{% endblock extra_links %}
+
 <!------HERO CONTENT------>
 {% block hero %}
-
     <main class="main">
-        <section class="hero">
+        <canvas id="canvas3d"></canvas>
 
-{#            <canvas id="canvas3d"></canvas>#}
+        <section class="hero container">
 
-            <div class="hero__container container">
-                <div class="hero__info">
-                    <h1 class="hero__title">
-                        <span>Empower Your Coding Journey</span>
-                    </h1>
-
-                    <p class="hero__description">
-                        From foundational skills to advanced topics,
-                        immerse yourself in a comprehensive
-                        IT learning experience.
-                    </p>
-
-                    <a href="{% url 'account_login' %}" class="hero__button">
-                        <i><i></i></i>
-                        <span>
-                        Get Started
-                        </span>
-                    </a>
-                </div>
+            <div class="hero__container-title container">
+                <h1 class="hero__title">
+                    <span>Empower Your Coding Journey</span>
+                </h1>
             </div>
 
+            <div class="hero__container-desc container">
+                <p class="hero__description">
+                    From foundational skills to advanced topics,
+                    immerse yourself in a comprehensive
+                    IT learning experience.
+                </p>
+            </div>
         </section>
+
+                <div class="hero__container-cta container">
+                <a href="{% url 'account_login' %}" class="hero__button">
+                    <i><i></i></i>
+                    <span>
+                        Get Started
+                        </span>
+                </a>
+            </div>
     </main>
 {% endblock %}
-</body>
+

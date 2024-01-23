@@ -1,126 +1,133 @@
-.main{
-    height: 100vh;
+.main {
+    height: 200vh;
     max-width: 100%;
 }
-.hero{
-    position: relative;
-}
 
-.hero__container{
+.hero {
+    display: block;
     position: relative;
-    border-radius: 50px;
-    top: calc(var(--header-height) + 6rem);
+    height: auto;
+    margin-top: calc(var(--header-height) + 6rem);
     left: 50%;
     transform: translateX(-50%);
-    padding: 14px;
-    height: 4000px;
+    padding: 0 12px;
 }
 
-.hero__title{
+
+.hero__container-title {
+    position: relative;
     font-size: var(--biggest-font-size);
-    margin-bottom: 1rem;
+    max-width: 900px;
 }
 
-.hero__title span{
+.hero__title span {
     background: linear-gradient(90deg,
-                var(--second-color) 0%,
-                var(--first-color) 100%);
+    var(--second-color) 0%,
+    var(--first-color) 100%);
     -webkit-background-clip: text;
     color: transparent;
 }
 
-.hero__description{
-    position: relative;
-    color: var(--text-color-light);
-    z-index: 0;
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
-.hero__info{
-    position: relative;
+.hero__container-desc {
+    margin-top: 3rem;
+    max-width: 700px;
+    font-size: var(--h2-font-size);
 }
 
 /*=============== CTA Hero Button ===============*/
-.hero__button {
+.hero__container-cta {
     position: relative;
+    margin-top: 1.85rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+.hero__button {
+    position: absolute;
     width: 160px;
     height: 50px;
     display: inline-block;
     border-radius: 50px;
     margin-top: 0.5rem;
-    z-index: 2;!important;
+    margin-left: 17%;
 }
 
-.hero__button:hover{
-  box-shadow: 0 8px 48px hsla(203,71%,25%,.5);
+.hero__button:hover {
+    box-shadow: 0 8px 48px hsla(203, 71%, 25%, .5);
 }
 
-.hero__button i{
-  position: absolute;
-  inset: -1px;
-  display: block;
-  border-radius: 50px;
+.hero__button i {
+    position: absolute;
+    inset: -1px;
+    display: block;
+    border-radius: 50px;
 }
 
 .hero__button i,
-.hero__button i:nth-child(2){
-  background: linear-gradient(var(--x),
-  var(--second-color),
-  var(--first-color));
+.hero__button i:nth-child(2) {
+    background: linear-gradient(var(--x),
+    var(--second-color),
+    var(--first-color));
 }
 
-.hero__button span{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  background: var(--body-color);
+.hero__button span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background: var(--body-color);
     color: white;
 }
 
-.hero__button span:before{
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
+.hero__button span:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
 }
+
 /*=============== Shapes ===============*/
 .hero__shape-small,
 .hero__shape-big-1,
-.hero__shape-big-2{
+.hero__shape-big-2 {
     position: absolute;
     border-radius: 50%;
     filter: blur(100px);
 }
-.hero__shape-small{
+
+.hero__shape-small {
     width: 200px;
     height: 200px;
     background-color: rgba(255, 113, 12, 0.9);
     top: 16rem;
     left: 6rem;
 }
-.hero__shape-big-2{
+
+.hero__shape-big-2 {
     width: 260px;
     height: 260px;
 }
-.hero__shape-big-1{
+
+.hero__shape-big-1 {
     background-color: rgba(24, 224, 17, 0.9);
     top: 0;
     left: 60%;
     width: 220px;
     height: 220px;
 }
-.hero__shape-big-2{
+
+.hero__shape-big-2 {
     background-color: rgba(62, 20, 87, 0.9);
     top: 60%;
     left: -20%;
 }
-.hero__shape-bg-1{
+
+.hero__shape-bg-1 {
     position: fixed;
     top: 0;
     left: 0;
@@ -130,7 +137,8 @@
     mix-blend-mode: soft-light;
     opacity: 1;
 }
-.hero__shape-bg-2{
+
+.hero__shape-bg-2 {
     position: fixed;
     top: 0;
     left: 0;
@@ -142,7 +150,7 @@
 }
 
 canvas {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -151,35 +159,17 @@ canvas {
 }
 
 
-
-
 @media screen and (min-width: 340px) {
-    .hero__info {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    canvas {
 
-    }
 }
+
 @media screen and (min-width: 560px) {
-    .hero__container {
-        padding: 28px;
-    }
+
 }
+
 @media screen and (min-width: 1281px) {
-    .hero__description {
-        max-width: 600px;
-    }
+
 }
-
-
-
-
-
 
 
 
