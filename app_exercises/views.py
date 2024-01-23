@@ -107,7 +107,7 @@ class SubmitCodeAPIView(SubmitBaseAPIView):
         return CodeAnswerSerializer(data=data)
 
     def check_answer(self, exercise, answer):
-        # chat logic will be here
+        # Chat logic will be here
         if random.randint(1, 5) == 1:
             return {'is_correct': True, 'message': 'You are right!'}
         else:
