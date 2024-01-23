@@ -38,27 +38,39 @@ class NextExerciseView(RedirectView):
     pattern_name = 'exercise'
 
 
-class SubmitTestAPIView(APIView):
+class SubmitBaseAPIView(APIView):
     def post(self, request, pk):
         exercise = Exercise.objects.get(pk=pk)
-        serializer = TestAnswerSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
             answer = serializer.validated_data['answer']
             result = self.check_answer(exercise, answer)
+
             if result['is_correct']:
                 request.user.exercises_done.add(exercise)
                 if request.user.life < 10:
                     request.user.life += 1
-                    request.user.save()
             else:
                 if request.user.life > 0:
                     request.user.life -= 1
-                    request.user.save()
+
+            request.user.save()
             result['user_life'] = request.user.life
             return Response(result)
         else:
             return Response(serializer.errors, status=400)
+
+    def get_serializer(self, data):
+        raise NotImplementedError
+
+    def check_answer(self, exercise, answer):
+        raise NotImplementedError
+
+
+class SubmitTestAPIView(SubmitBaseAPIView):
+    def get_serializer(self, data):
+        return TestAnswerSerializer(data=data)
 
     def check_answer(self, exercise, answer):
         exercise_set = set((item.id, item.is_correct) for item in exercise.testanswer_set.all())
@@ -71,30 +83,11 @@ class SubmitTestAPIView(APIView):
             return {'is_correct': False, 'message': 'You are wrong! Try again!'}
 
 
-class SubmitCodeAPIView(APIView):
-    def post(self, request, pk):
-        exercise = Exercise.objects.get(pk=pk)
-        serializer = CodeAnswerSerializer(data=request.data)
-
-        if serializer.is_valid():
-            answer = serializer.validated_data['answer']
-            result = self.check_answer(exercise, answer)
-            if result['is_correct']:
-                request.user.exercises_done.add(exercise)
-                if request.user.life < 10:
-                    request.user.life += 1
-                    request.user.save()
-            else:
-                if request.user.life > 0:
-                    request.user.life -= 1
-                    request.user.save()
-            result['user_life'] = request.user.life
-            return Response(result)
-        else:
-            return Response(serializer.errors, status=400)
+class SubmitCodeAPIView(SubmitBaseAPIView):
+    def get_serializer(self, data):
+        return CodeAnswerSerializer(data=data)
 
     def check_answer(self, exercise, answer):
-        # chat interaction will be here
         if random.randint(1, 5) == 1:
             return {'is_correct': True, 'message': 'You are right!'}
         else:
