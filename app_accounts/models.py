@@ -32,13 +32,13 @@ class UserStatistic(models.Model):
     date = models.DateField(auto_now_add=True)
     progress = models.PositiveSmallIntegerField(default=0)
 
-
-@receiver(m2m_changed, sender=CustomUser.exercises_done.through)
-def create_user_progress(sender, instance, action, reverse, model, pk_set, **kwargs):
-    if action == "post_add" and not reverse:
-        for exercise_pk in pk_set:
-            UserProgress.objects.create(user=instance, exercise_id=exercise_pk)
-
+#
+# @receiver(m2m_changed, sender=CustomUser.exercises_done.through)
+# def create_user_progress(sender, instance, action, reverse, model, pk_set, **kwargs):
+#     if action == "post_add" and not reverse:
+#         for exercise_pk in pk_set:
+#             UserProgress.objects.create(user=instance, exercise_id=exercise_pk)
+#
 
 '''
 Signal Receiver:
