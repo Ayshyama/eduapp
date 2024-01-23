@@ -1,8 +1,9 @@
 {% extends 'app_base/base.html' %}
 {% load static %}
 
-{% block extra_css %}
+{% block extra_links %}
     <link rel="stylesheet" href="{% static 'css/exercise.css' %}">
+    <script type="module" src="{% static 'js/exercise_submit.js' %}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -71,72 +72,5 @@
             </div>
         </div>
     </div>
-    <script defer>
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const submitButton = document.getElementById('submit');
-            const resultArea = document.getElementById('result-area');
-            const exerciseIsTest = submitButton.getAttribute('exercise-is-test') === 'true';
-            const exerciseId = submitButton.getAttribute('exercise-id');
-            const csrftoken = getCookie('csrftoken');
-
-            submitButton.addEventListener('click', function (event) {
-                event.preventDefault();
-
-                const url = exerciseIsTest ? `/exercises/api/submit_test/${exerciseId}/` : `/exercises/api/submit_code/${exerciseId}/`;
-                let data = {};
-
-                if (exerciseIsTest) {
-                    let answers = {};
-                    document.querySelectorAll('[name^="name_answer_"]').forEach(input => {
-                        answers[input.name] = input.checked;
-                    });
-                    data['answer'] = answers;
-                } else {
-                    const codeArea = document.querySelector('.task-area');
-                    data['answer'] = codeArea.value;
-                }
-
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrftoken,
-                    },
-                    body: JSON.stringify(data),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        const isCorrect = data['is_correct'];
-                        const message = data['message'];
-                        const userLife = data['user_life'];
-                        document.getElementById('user-life').innerText = userLife;
-                        if (isCorrect) {
-                            resultArea.style.backgroundColor = 'green';
-                        } else {
-                            resultArea.style.backgroundColor = 'red';
-                        }
-                        resultArea.value = message;
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            });
-        });
-
-    </script>
 {% endblock %}
