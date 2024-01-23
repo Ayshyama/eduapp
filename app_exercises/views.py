@@ -1,25 +1,31 @@
 import random
 
 from django.urls import reverse
-from django.views.generic import TemplateView, DetailView, UpdateView, RedirectView
+from django.views.generic import DetailView, RedirectView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from app_accounts.models import UserProgress
 from app_base.nav_menu import menu2
-from app_exercises.models import Exercise, TestAnswer, Subject
+from app_exercises.models import Exercise, Subject
 from app_exercises.serializers import TestAnswerSerializer, CodeAnswerSerializer
 
 
 class FinishExerciseView(DetailView):
     model = Subject
     template_name = 'app_exercises/finish.html'
+    extra_context = {
+        'title': 'Exercise',
+        'menu': menu2,
+        'menu_selected': 0,
+    }
 
 
 class ExerciseView(DetailView):
     model = Exercise
     template_name = 'app_exercises/exercise.html'
-    extra_context = {  # Need to pass these 3 context variables to each inherited from base.html template
-        'title': 'EDU APP',
+    extra_context = {
+        'title': 'Exercise',
         'menu': menu2,
         'menu_selected': 0,
     }
@@ -35,7 +41,22 @@ class ExerciseView(DetailView):
 
 class NextExerciseView(RedirectView):
     permanent = True
-    pattern_name = 'exercise'
+
+    def get_redirect_url(self, *args, **kwargs):
+        user = self.request.user
+        exercise = Exercise.objects.get(pk=self.kwargs['pk'])
+        subject = exercise.lesson.module.subject
+
+        exercises_done = UserProgress.objects.filter(user=user).values_list('exercise', flat=True)
+        queryset = Exercise.objects.filter(lesson__module__subject=subject).exclude(pk__in=exercises_done)
+
+        next_exercise = queryset.filter(pk__gt=exercise.pk).first()
+        next_exercise = next_exercise if next_exercise else queryset.first()
+
+        if next_exercise:
+            return reverse('exercise', kwargs={'pk': next_exercise.pk})
+        else:
+            return reverse('finish_exercise', kwargs={'pk': subject.pk})
 
 
 class SubmitBaseAPIView(APIView):
@@ -49,13 +70,11 @@ class SubmitBaseAPIView(APIView):
 
             if result['is_correct']:
                 request.user.exercises_done.add(exercise)
-                if request.user.life < 10:
-                    request.user.life += 1
             else:
                 if request.user.life > 0:
                     request.user.life -= 1
+                    request.user.save()
 
-            request.user.save()
             result['user_life'] = request.user.life
             return Response(result)
         else:
@@ -88,6 +107,7 @@ class SubmitCodeAPIView(SubmitBaseAPIView):
         return CodeAnswerSerializer(data=data)
 
     def check_answer(self, exercise, answer):
+        # chat logic will be here
         if random.randint(1, 5) == 1:
             return {'is_correct': True, 'message': 'You are right!'}
         else:
