@@ -82,6 +82,7 @@ class ExerciseAdmin(admin.ModelAdmin):
     short_name.short_description = 'Name'
 
     list_display = ('id', 'short_name', 'lesson', 'is_test')
+    list_display_links = ('id', 'short_name')
     search_fields = ['name']
     list_filter = ('lesson', 'is_test')
 

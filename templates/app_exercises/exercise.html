@@ -64,7 +64,7 @@
                             exercise-is-test="{{ object.is_test|lower }}"
                     >Submit
                     </button>
-                    <a href="{% url 'finish_exercise' object.lesson.module.subject.id %}">
+                    <a href="{% url 'next_exercise' object.id %}">
                         <button class="exercise-button" id="next">Next</button>
                     </a>
 
