@@ -78,6 +78,7 @@ class SubmitBaseAPIView(APIView):
             result['user_life'] = request.user.life
             return Response(result)
         else:
+            print(serializer.errors)
             return Response(serializer.errors, status=400)
 
     def get_serializer(self, data):
@@ -108,6 +109,8 @@ class SubmitCodeAPIView(SubmitBaseAPIView):
 
     def check_answer(self, exercise, answer):
         # Chat logic will be here
+        print("type(answer): ", type(answer))
+        print("answer: ", answer, sep='\n')
         if random.randint(1, 5) == 1:
             return {'is_correct': True, 'message': 'You are right!'}
         else:
