@@ -1,16 +1,17 @@
 .congratulations-container {
-    max-width: 600px;
-    margin: 40px auto;
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: rgba(203, 233, 245, 0.8);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(var(--header-height) *4);
 }
 
 .congratulations-container h1 {
     color: var(--first-color);
     margin-bottom: 20px;
+    font-size: var(--biggest-font-size);
 }
 
 .congratulations-container p {
@@ -19,14 +20,14 @@
 }
 
 .btn-dashboard {
-    display: inline-block;
-    background-color: var(--second-color);
+    border: 1px solid white;
     color: var(--text-color);
     padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
     font-weight: var(--font-semi-bold);
-    transition: background-color 0.3s;
+    cursor: pointer;
+    width: 200px;
+    border-radius: 50px;
+    text-align: center;
 }
 
 .btn-dashboard:hover {
@@ -34,8 +35,20 @@
 }
 
 .subject-image {
-    max-width: 100%; /* Ensures the image is responsive and fits the container */
+    max-width: 10%; /* Ensures the image is responsive and fits the container */
     height: auto; /* Maintain aspect ratio */
     border-radius: 5px; /* Optional: Adds rounded corners */
     margin-bottom: 20px; /* Adds space below the image */
+}
+
+body {
+  margin: 0;
+}
+html,
+body {
+  height: 100%;
+	overflow: hidden;
+}
+canvas {
+  display: block;
 }

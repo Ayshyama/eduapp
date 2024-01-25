@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
+from django.template.defaultfilters import slugify
+
 from app_exercises.models import Exercise
 
 
@@ -12,6 +14,12 @@ class CustomUser(AbstractUser):
     life = models.PositiveSmallIntegerField(default=10)
     exercises_done = models.ManyToManyField(Exercise, through='UserProgress')
     day_streak = models.PositiveSmallIntegerField(default=0)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.username)
+        super().save(*args, **kwargs)
 
 
 class UserExerciseConversation(models.Model):
