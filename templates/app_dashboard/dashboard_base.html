@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="{% static 'css/app_dashboard/dashboard_progress.css' %}">
 
 
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script type="text/javascript" src="{% static 'js/calendar-heatmap.js' %}"></script>
-<link rel="stylesheet" type="text/css" href="{% static 'css/app_dashboard/calendar-heatmap.css' %}">
-<script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
-
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/calendar-heatmap.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/app_dashboard/calendar-heatmap.css' %}">
+    <script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-    {% block user_info %}
-        <div class="dashboard-container container">
-            <div class="sidebar">
+    <div class="dashboard__container container">
+
+        {% block user_info %}
+            <div class="dashboard__sidebar">
                 <img src="{% if user.image %}{{ user.image.url }}
                     {% else %}{% static 'img/app_accounts/default_avatar.jpg' %}{% endif %}" alt="User Avatar"
                      class="avatar">
@@ -31,12 +31,20 @@
                 joined on:
                 <h3>{{ user.date_joined }}</h3>
             </div>
+        {% endblock user_info %}
+        <div class="dashboard__mainbar">
+            {% block dashboard_header %}
+                <div class="dashboard__header">
+                    <h1>Dashboard</h1>
+                    <br>
+                    <br>
+                </div>
+            {% endblock dashboard_header %}
 
-    {% endblock user_info %}
-
-    {% block user_progress %}
+            {% block dashboard_progress %}
+            {% endblock dashboard_progress %}
+        </div>
     </div>
-    {% endblock user_progress%}
 
-{% endblock %}
+{% endblock content %}
 

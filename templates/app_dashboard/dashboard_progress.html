@@ -2,11 +2,9 @@
 
 
 
-{% block user_progress %}
-<div class="user-info">
-    <h1>Dashboard</h1>
-    <br>
-    <br>
+{% block dashboard_progress %}
+<div class="dashboard__progress">
+
     <h2>Activity last year</h2>
     <br>
     {% if progress_data %}
@@ -77,68 +75,68 @@ console.log('Data:', example_data);
     })();
     </script>
 
-{#<script>#}
-{#  function fetchUserProgress() {#}
-{#    fetch('/dashboard/user-progress-json/')#}
-{#      .then(response => response.json())#}
-{#      .then(data => {#}
-{#        transformAndRenderData(data);#}
-{#      })#}
-{#      .catch(error => console.error('Error fetching user progress:', error));#}
-{#  }#}
+{#    <script>#}
+{#        function fetchUserProgress() {#}
+{#        fetch('/dashboard/json/user-progress/')#}
+{#          .then(response => response.json())#}
+{#          .then(data => {#}
+{#            transformAndRenderData(data);#}
+{#          })#}
+{#          .catch(error => console.error('Error fetching user progress:', error));#}
+{#      }#}
 {##}
-{#  function transformAndRenderData(data) {#}
-{#    const transformedData = data.map(entry => {#}
-{#      const details = entry.details.map(detail => {#}
-{#        return {#}
-{#          name: detail.name,#}
-{#          date: new Date(detail.date), // Convert string date to Date object#}
-{#          value: detail.value#}
+{#      function transformAndRenderData(data) {#}
+{#        const transformedData = data.map(entry => {#}
+{#          const details = entry.details.map(detail => {#}
+{#            return {#}
+{#              name: detail.name,#}
+{#              date: new Date(detail.date), // Convert string date to Date object#}
+{#              value: detail.value#}
+{#            };#}
+{#          });#}
+{##}
+{#          return {#}
+{#            date: new Date(entry.date), // Convert string date to Date object#}
+{#            details: details,#}
+{#            init: function() {#}
+{#              // Calculate total value for the day#}
+{#              this.total = this.details.reduce(function(prev, e) {#}
+{#                return prev + e.value;#}
+{#              }, 0);#}
+{#              return this;#}
+{#            }#}
+{#          };#}
+{#        }).map(obj => obj.init());#}
+{##}
+{#        console.log('Transformed Data:', transformedData);#}
+{#        renderHeatmap(transformedData);#}
+{#      }#}
+{##}
+{#      function renderHeatmap(data) {#}
+{#        // Set the div target id#}
+{#        var div_id = 'calendar';#}
+{##}
+{#        // Set custom color for the calendar heatmap#}
+{#        var color = '#08c534';#}
+{##}
+{#        // Set overview type (choices are year, month, and day)#}
+{#        var overview = 'year';#}
+{##}
+{#        // Handler function#}
+{#        var print = function (val) {#}
+{#          console.log(val);#}
 {#        };#}
+{##}
+{#        // Initialize calendar heatmap with transformed data#}
+{#        calendarHeatmap.init(data, div_id, color, overview, print);#}
+{#      }#}
+{##}
+{#      // Run fetchUserProgress on DOM load#}
+{#      document.addEventListener('DOMContentLoaded', function() {#}
+{#        fetchUserProgress();#}
 {#      });#}
-{##}
-{#      return {#}
-{#        date: new Date(entry.date), // Convert string date to Date object#}
-{#        details: details,#}
-{#        init: function() {#}
-{#          // Calculate total value for the day#}
-{#          this.total = this.details.reduce(function(prev, e) {#}
-{#            return prev + e.value;#}
-{#          }, 0);#}
-{#          return this;#}
-{#        }#}
-{#      };#}
-{#    }).map(obj => obj.init());#}
-{##}
-{#    console.log('Transformed Data:', transformedData);#}
-{#    renderHeatmap(transformedData);#}
-{#  }#}
-{##}
-{#  function renderHeatmap(data) {#}
-{#    // Set the div target id#}
-{#    var div_id = 'calendar';#}
-{##}
-{#    // Set custom color for the calendar heatmap#}
-{#    var color = '#08c534';#}
-{##}
-{#    // Set overview type (choices are year, month, and day)#}
-{#    var overview = 'year';#}
-{##}
-{#    // Handler function#}
-{#    var print = function (val) {#}
-{#      console.log(val);#}
-{#    };#}
-{##}
-{#    // Initialize calendar heatmap with transformed data#}
-{#    calendarHeatmap.init(data, div_id, color, overview, print);#}
-{#  }#}
-{##}
-{#  // Run fetchUserProgress on DOM load#}
-{#  document.addEventListener('DOMContentLoaded', function() {#}
-{#    fetchUserProgress();#}
-{#  });#}
-{#</script>#}
+{#    </script>#}
 
 
-{% endblock %}
+{% endblock dashboard_progress %}
 

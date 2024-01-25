@@ -152,6 +152,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 
+LOGIN_REDIRECT_URL = 'user_profile'
+ACCOUNT_LOGIN_REDIRECT_URL = 'user_profile'
+
 # Celery Configuration
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'

@@ -21,10 +21,15 @@ class FinishExerciseView(DetailView):
         'menu_selected': 0,
     }
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_slug'] = self.request.user.username
+        return context
+
 
 class ExerciseView(DetailView):
     model = Exercise
-    template_name = 'app_exercises/exercise.html'
+    template_name = 'app_exercises/exc_base.html'
     extra_context = {
         'title': 'Exercise',
         'menu': menu2,
@@ -37,6 +42,7 @@ class ExerciseView(DetailView):
         context['is_done'] = exercise.userprogress_set.filter(user=self.request.user).exists()
         context['questions'] = exercise.testanswer_set.all()
         context['keywords'] = exercise.keywords.all()
+        context['user_slug'] = self.request.user.username
         return context
 
 
