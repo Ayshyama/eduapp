@@ -3,7 +3,16 @@
 
 {% block extra_links %}
     <link rel="stylesheet" href="{% static 'css/exercise.css' %}">
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <!-- CodeMirror Theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+
     <script type="module" src="{% static 'js/exercise_submit.js' %}" defer></script>
+    <!-- CodeMirror JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <!-- Language Mode (Python) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -54,7 +63,8 @@
                             {% endfor %}
                         {% else %}
                             <label>
-                                <textarea class="task-area" placeholder="Place your code here"></textarea>
+                                <textarea id="task-area" class="task-area"
+                                          placeholder="Place your code here"></textarea>
                             </label>
                         {% endif %}
 

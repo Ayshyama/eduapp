@@ -1,3 +1,4 @@
+let codeEditor; // Global reference to the CodeMirror instance
 
 function getCookie(name) {
     let cookieValue = null;
@@ -11,33 +12,37 @@ function getCookie(name) {
             }
         }
     }
-
-    console.log('Cookie Value for', name, ':', cookieValue); // DEBUG
     return cookieValue;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOM fully loaded and parsed'); // DEBUG
-    console.log('exercise js loaded'); // DEBUG
     const submitButton = document.getElementById('submit');
     const resultArea = document.getElementById('result-area');
     const exerciseIsTest = submitButton.getAttribute('exercise-is-test') === 'true';
     const exerciseId = submitButton.getAttribute('exercise-id');
     const csrftoken = getCookie('csrftoken');
 
+    // Initialize CodeMirror
+    codeEditor = CodeMirror.fromTextArea(document.getElementById("task-area"), {
+        mode: "python",
+        theme: "monokai",
+        lineNumbers: true,
+        indentUnit: 4,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        extraKeys: {"Tab": "autocomplete"}
+    });
+    codeEditor.setSize("300", "200");
+
     if (!submitButton) {
-        console.error('Submit button not found!'); // DEBUG
+        console.error('Submit button not found!');
         return;
     }
-    console.log('Exercise is a test:', exerciseIsTest);
-    console.log('Exercise ID:', exerciseId);
-    console.log('CSRF Token:', csrftoken);
 
     submitButton.addEventListener('click', function (event) {
         event.preventDefault();
 
         const url = exerciseIsTest ? `/exercises/api/submit_test/${exerciseId}/` : `/exercises/api/submit_code/${exerciseId}/`;
-        console.log('Submitting to URL:', url); // DEBUG
         let data = {};
 
         if (exerciseIsTest) {
@@ -46,11 +51,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 answers[input.name] = input.checked;
             });
             data['answer'] = answers;
-            console.log('Test answers:', answers); // DEBUG
         } else {
-            const codeArea = document.querySelector('.task-area');
+            // Update the original textarea value with the CodeMirror content
+            const codeArea = document.getElementById("task-area");
+            codeArea.value = codeEditor.getValue();
             data['answer'] = codeArea.value;
-            console.log('Code answer:', codeArea.value); // DEBUG
         }
 
         fetch(url, {
@@ -61,24 +66,21 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify(data),
         })
-            .then(response => {
-                console.log('Response received'); // DEBUG
-                return response.json();
-            })
-            .then(data => {
-                const isCorrect = data['is_correct'];
-                const message = data['message'];
-                const userLife = data['user_life'];
-                document.getElementById('user-life').innerText = userLife;
-                if (isCorrect) {
-                    resultArea.style.backgroundColor = 'green';
-                } else {
-                    resultArea.style.backgroundColor = 'red';
-                }
-                resultArea.value = message;
-            })
-            .catch(error => {
-                console.error('Error during fetch:', error);
-            });
+        .then(response => response.json())
+        .then(data => {
+            const isCorrect = data['is_correct'];
+            const message = data['message'];
+            const userLife = data['user_life'];
+            document.getElementById('user-life').innerText = userLife;
+            if (isCorrect) {
+                resultArea.style.backgroundColor = 'green';
+            } else {
+                resultArea.style.backgroundColor = 'red';
+            }
+            resultArea.value = message;
+        })
+        .catch(error => {
+            console.error('Error during fetch:', error);
+        });
     });
 });
