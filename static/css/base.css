@@ -18,10 +18,10 @@
     /*========== Font and typography ==========*/
     /*.5rem = 8px | 1rem = 16px ...*/
     --body-font: 'Oxanium', cursive;
-    --biggest-font-size: 2rem;
-    --h2-font-size: 1.25rem;
-    --normal-font-size: .938rem;
-    --smaller-font-size: .75rem;
+    --biggest-font-size: 3.1rem;
+    --h2-font-size: 1.915rem;
+    --normal-font-size: 1.18rem;
+    --smaller-font-size: 0.91rem;
 
     /*========== Font weight ==========*/
     --font-semi-bold: 600;
@@ -34,9 +34,9 @@
 @media screen and (min-width: 1024px) {
     :root {
         --biggest-font-size: 5rem;
-        --h2-font-size: 1.9rem;
-        --normal-font-size: 1rem;
-        --smaller-font-size: .813rem;
+        --h2-font-size: 1.915rem;
+        --normal-font-size: 1.17rem;
+        --smaller-font-size: .89rem;
     }
 }
 

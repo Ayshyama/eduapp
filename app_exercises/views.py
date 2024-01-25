@@ -1,5 +1,8 @@
 import random
 
+from asgiref.sync import sync_to_async
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import DetailView, RedirectView
 from rest_framework.response import Response
@@ -7,6 +10,7 @@ from rest_framework.views import APIView
 
 from app_accounts.models import UserProgress
 from app_base.nav_menu import menu2
+from app_exercises.gpt_utils import evaluate_code_with_chatgpt
 from app_exercises.models import Exercise, Subject
 from app_exercises.serializers import TestAnswerSerializer, CodeAnswerSerializer
 

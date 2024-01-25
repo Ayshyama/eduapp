@@ -13,11 +13,20 @@
     padding: 0 12px;
 }
 
+.hero__btn {
+    display: block;
+    position: relative;
+    height: 100px;
+        left: 50%;
+    transform: translateX(-50%);
+    padding: 0 12px;
+        z-index: 10;
+
+}
 
 .hero__container-title {
     position: relative;
     font-size: var(--biggest-font-size);
-    max-width: 900px;
 }
 
 .hero__title span {
@@ -30,16 +39,16 @@
 
 .hero__container-desc {
     margin-top: 3rem;
-    max-width: 700px;
     font-size: var(--h2-font-size);
+    padding: 0 12px;
+
 }
 
 /*=============== CTA Hero Button ===============*/
 .hero__container-cta {
     position: relative;
     margin-top: 1.85rem;
-    left: 50%;
-    transform: translateX(-50%);
+
     z-index: 10;
 }
 .hero__button {
@@ -49,11 +58,12 @@
     display: inline-block;
     border-radius: 50px;
     margin-top: 0.5rem;
-    margin-left: 17%;
+        left: 50%;
+    transform: translateX(-50%);
 }
 
 .hero__button:hover {
-    box-shadow: 0 8px 48px hsla(203, 71%, 25%, .5);
+    box-shadow: 0 8px 62px hsla(203, 71%, 25%, .75);
 }
 
 .hero__button i {
@@ -158,17 +168,61 @@ canvas {
     z-index: 1;
 }
 
-
-@media screen and (min-width: 340px) {
-
+#canvas3d {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
-@media screen and (min-width: 560px) {
+#canvas3d.loaded {
+  opacity: 1;
+}
 
+
+
+
+@media screen and (min-width: 340px) {
+    .hero__container-desc {
+        font-size: var(--normal-font-size);
+        align-content: center;
+        text-align: center;
+    }
+    .hero__container-title {
+        text-align: center;
+    }
+    .hero__container-cta {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+}
+
+
+@media screen and (min-width: 560px) {
+    .hero {
+        justify-content: center;
+        align-content: center;
+    }
+    .hero__container-desc {
+        width: 100%;
+        display: flex;
+        font-size: var(--h2-font-size);
+        justify-content: center;
+    }
 }
 
 @media screen and (min-width: 1281px) {
-
+    .hero__container-title {
+        max-width: 900px;
+        text-align: left;
+    }
+    .hero__container-desc {
+        max-width: 700px;
+        font-size: var(--h2-font-size);
+        text-align: left;
+    }
+    .hero__container-cta {
+        max-width: 700px;
+    }
 }
 
 
