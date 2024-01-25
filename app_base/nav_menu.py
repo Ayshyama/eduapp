@@ -5,7 +5,8 @@ menu1 = [
 ]
 
 menu2 = [
-    {'name': 'Item1',       'url_name': 'landing_page'},
-    {'name': 'Item2',       'url_name': 'landing_page'},
-    {'name': 'Item3',       'url_name': 'landing_page'},
+    {'name': 'Courses',       'url_name': 'user_dashboard'},
+    {'name': 'Progress',      'url_name': 'user_progress'},
+    {'name': 'Profile',       'url_name': 'user_profile'},
 ]
+

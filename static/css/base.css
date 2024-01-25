@@ -396,13 +396,13 @@ a {
         width: 100%;
         padding: 1.2rem 0 3.5rem;
         overflow: hidden;
-        background-color: rgba(4, 8, 22, 0.6);
+        background-color: rgba(4, 8, 22, 0.75);
         height: 100vh;
         z-index: 5;
         top: 0;
         left: 0;
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         will-change: transform;
     }
 
@@ -548,13 +548,13 @@ a {
         width: calc(50vw);
         padding: 1.2rem 0 3.5rem;
         overflow: hidden;
-        background-color: rgba(4, 8, 22, 0.6);
+        background-color: rgba(4, 8, 22, 0.75);
         height: 100vh;
         z-index: 5;
         top: 0;
         left: 0;
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         will-change: transform;
     }
 

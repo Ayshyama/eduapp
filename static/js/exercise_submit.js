@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         autoCloseBrackets: true,
         extraKeys: {"Tab": "autocomplete"}
     });
-    codeEditor.setSize("300", "200");
+    // codeEditor.setSize("100%", "100%");
 
     if (!submitButton) {
         console.error('Submit button not found!');
