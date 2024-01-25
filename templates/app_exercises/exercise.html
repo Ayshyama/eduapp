@@ -59,7 +59,8 @@
                                     <input type="checkbox"
                                            id="id_answer_{{ question.id }}"
                                            name="name_answer_{{ question.id }}"
-                                           value="{{ question.is_correct }}"> {{ question.name }}</label>
+                                           {% if is_done and question.is_correct %}checked{% endif %}
+                                    > {{ question.name }}</label>
                             {% endfor %}
                         {% else %}
                             <label>
