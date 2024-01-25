@@ -1,8 +1,5 @@
 import random
 
-from asgiref.sync import sync_to_async
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import DetailView, RedirectView
 from rest_framework.response import Response
@@ -112,10 +109,7 @@ class SubmitCodeAPIView(SubmitBaseAPIView):
         return CodeAnswerSerializer(data=data)
 
     def check_answer(self, exercise, answer):
-        # Chat logic will be here
-        print("type(answer): ", type(answer))
-        print("answer: ", answer, sep='\n')
-        if random.randint(1, 5) == 1:
-            return {'is_correct': True, 'message': 'You are right!'}
-        else:
-            return {'is_correct': False, 'message': 'You are wrong! Try again!'}
+        is_correct, message = evaluate_code_with_chatgpt(exercise.description, exercise.code, answer).split('\n', 1)
+        is_correct = is_correct == '46546554'
+        return {'is_correct': is_correct, 'message': message}
+    
