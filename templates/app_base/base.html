@@ -19,6 +19,7 @@
 
         <script src="{% static 'js/navbar.js' %}" defer></script>
         <script type="module" src="{% static 'js/messages.js' %}" defer></script>
+
     {% endblock %}
 
     {% block extra_links %}
@@ -43,9 +44,15 @@
                     </li>
                     {% for item in menu %}
                         <li class="nav__item">
-                            <a href="{% url item.url_name %}"
-                               class="nav__link {% if forloop.counter0 == menu_selected %}active-link{% endif %}"
-                            >{{ item.name }}</a>
+                            {% if item.url_name == 'user_progress' or item.url_name == 'user_profile' %}
+                                <a href="{% url item.url_name slug=user_slug %}"
+                                   class="nav__link {% if forloop.counter0 == menu_selected %}active-link{% endif %}"
+                                >{{ item.name }}</a>
+                            {% else %}
+                                <a href="{% url item.url_name %}"
+                                   class="nav__link {% if forloop.counter0 == menu_selected %}active-link{% endif %}"
+                                >{{ item.name }}</a>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>
@@ -79,10 +86,12 @@
                                     <i class="ri-close-line"></i>
                                 </li>
                                 <li class="nav__item-user">
-                                    <a class="nav__link-user" href="{% url 'user_progress' %}">Dashboard</a>
+                                    <a class="nav__link-user"
+                                       href="{% url 'user_dashboard' %}">Dashboard</a>
                                 </li>
                                 <li class="nav__item-user">
-                                    <a class="nav__link-user" href="{% url 'account_profile' %}">Profile</a>
+                                    <a class="nav__link-user"
+                                       href="{% url 'user_profile' slug=user.slug %}">Profile</a>
                                 </li>
                                 <li class="nav__item-user">
                                     <a class="nav__link-user" href="{% url 'exercise' 1 %}">Exercise test - </a>
@@ -117,10 +126,10 @@
                         <div class="nav__menu-user-desktop" id="nav-menu-user-desktop">
                             <ul class="nav__list-user-desktop">
                                 <li class="nav__item-user">
-                                    <a class="nav__link-user-signin" href="{% url 'account_login' %}">Sign In</a>
+                                    <a class="nav__link-user-signin" href="{% url 'user_login' %}">Sign In</a>
                                 </li>
                                 <li class="nav__item-user">
-                                    <a class="nav__link-user-signup" href="{% url 'account_signup' %}">Sign Up</a>
+                                    <a class="nav__link-user-signup" href="{% url 'user_signup' %}">Sign Up</a>
                                 </li>
                             </ul>
                         </div>
@@ -130,10 +139,10 @@
                                     <i class="ri-close-line"></i>
                                 </li>
                                 <li class="nav__item-user">
-                                    <a class="nav__link-user-signin" href="{% url 'account_login' %}">Sign In</a>
+                                    <a class="nav__link-user-signin" href="{% url 'user_login' %}">Sign In</a>
                                 </li>
                                 <li class="nav__item-user">
-                                    <a class="nav__link-user-signup" href="{% url 'account_signup' %}">Sign Up</a>
+                                    <a class="nav__link-user-signup" href="{% url 'user_signup' %}">Sign Up</a>
                                 </li>
                             </ul>
                         </div>

@@ -61,6 +61,7 @@
                                                name="name_answer_{{ question.id }}"
                                                {% if is_done and question.is_correct %}checked{% endif %}
                                         > {{ question.name }}</label>
+
                                 {% endfor %}
                             {% else %}
                                 <label>
