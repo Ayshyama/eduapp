@@ -1,0 +1,25 @@
+{% extends 'app_dashboard/dashboard_base.html' %}
+{% load static %}
+
+{% block extra_links %}
+    <link rel="stylesheet" href="{% static 'css/app_dashboard/courses.css' %}">
+{% endblock extra_links %}
+
+{% block content %}
+    <div class="courses-container">
+        <!-- Example course items -->
+        <div class="course-item">
+            <a href="#">
+                <img src="{% static 'img/course1.jpg' %}" alt="Course 1">
+                <h3>Course 1</h3>
+            </a>
+        </div>
+        <div class="course-item">
+            <a href="#">
+                <img src="{% static 'img/course2.jpg' %}" alt="Course 2">
+                <h3>Course 2</h3>
+            </a>
+        </div>
+        <!-- Add more courses as needed -->
+    </div>
+{% endblock content %}

@@ -1,5 +1,3 @@
-import random
-
 from django.urls import reverse
 from django.views.generic import DetailView, RedirectView
 from rest_framework.response import Response

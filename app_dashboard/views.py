@@ -4,13 +4,14 @@ from django.db.models import Count
 from django.db.models.functions import TruncDate, TruncDay
 from django.http import Http404, JsonResponse
 from django.urls import reverse_lazy
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 from app_accounts.models import CustomUser, UserProgress
 from app_base.nav_menu import menu2
 
-
 from django.shortcuts import get_object_or_404
+
+from app_exercises.models import Subject
 
 
 class UserDashboardView(LoginRequiredMixin, DetailView):
@@ -63,7 +64,8 @@ class UserDashboardProgressView(LoginRequiredMixin, DetailView):
             .annotate(progress_count=Count('id')) \
             .order_by('date')
 
-        progress_data = {progress['date'].strftime('%Y-%m-%d'): progress['progress_count'] for progress in user_progress}
+        progress_data = {progress['date'].strftime('%Y-%m-%d'): progress['progress_count'] for progress in
+                         user_progress}
 
         context['progress_data'] = progress_data
 
@@ -95,3 +97,12 @@ def user_progress_json(request):
 
     return JsonResponse(progress_data, safe=False)
 
+
+class CourseListView(ListView):
+    model = Subject
+    template_name = 'app_dashboard/courses.html'
+    extra_context = {
+        'title': 'Subjects',
+        'menu': menu2,
+        'menu_selected': 0,
+    }
