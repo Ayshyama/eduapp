@@ -1,0 +1,99 @@
+{% extends 'app_base/base.html' %}
+{% load static %}
+
+{% block extra_links %}
+    <link rel="stylesheet" href="{% static 'css/app_exercises/exc_base.css' %}">
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <!-- CodeMirror Theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+
+    <script type="module" src="{% static 'js/exercise_submit.js' %}" defer></script>
+    <!-- CodeMirror JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <!-- Language Mode (Python) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="exercise__container big-container">
+        <div class="exercise__header">
+            <div class="header-flex-column-1" id="user-life">User Life <3<3<3<3<3<3<3<3<3<3</div>
+            <div class="header-flex-column-2">Lesson name: {{ object.name }}</div>
+            <div class="header-flex-column-3">CodeMirror Settings</div>
+        </div>
+
+
+        <div class="exercise__content">
+
+            <div class="exercise__question">
+                <div class="exercise__menu">
+                    <div class="menu-flex-column-1">Task</div>
+                    <div class="menu-flex-column-2">Results</div>
+                    <div class="menu-flex-column-3">RoboCode</div>
+                </div>
+                <p>{{ object.description }}</p>
+                <hr>
+
+                {% if not object.is_test %}
+                    <div class="exercise__code">
+                <pre>
+                    <code class="python">
+                        {{ object.code }}
+                    </code>
+                </pre>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="exercise__solution">
+
+
+                <div class="exercise__response">
+                    <div class="options">
+                        <form>
+                            {% if object.is_test %}
+                                {% for question in questions %}
+
+                                    <label for="id_answer_{{ question.id }}">
+                                        <input type="checkbox"
+                                               id="id_answer_{{ question.id }}"
+                                               name="name_answer_{{ question.id }}"
+                                               {% if is_done and question.is_correct %}checked{% endif %}
+                                        > {{ question.name }}</label>
+                                {% endfor %}
+                            {% else %}
+                                <label>
+                                <textarea id="task-area" class="task-area"
+                                          placeholder="Place your code here"></textarea>
+                                </label>
+                            {% endif %}
+
+                        </form>
+
+
+                    </div>
+
+                    <div class="result-area">
+                        <label>
+                            <textarea id="result-area" placeholder="Your result will be displayed here..."></textarea>
+                        </label>
+                    </div>
+                    <div class="exc__buttons">
+                        <button class="exc__button" id="submit"
+                                exercise-id="{{ object.id }}"
+                                exercise-is-test="{{ object.is_test|lower }}"
+                        >Submit
+                        </button>
+                        <a href="{% url 'next_exercise' object.id %}">
+                            <button class="exc__button" id="next">Next</button>
+                        </a>
+                        <br> <br>Is this exercise done: {{ is_done }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
