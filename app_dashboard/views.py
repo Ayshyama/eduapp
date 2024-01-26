@@ -30,7 +30,6 @@ class UserDashboardView(LoginRequiredMixin, DetailView):
         extra_context = {
             'title': 'User Profile',
             'menu': menu2,
-            'menu_selected': 2,
             'user_slug': user_slug,
         }
 
@@ -106,3 +105,8 @@ class CourseListView(ListView):
         'menu': menu2,
         'menu_selected': 0,
     }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        return context
