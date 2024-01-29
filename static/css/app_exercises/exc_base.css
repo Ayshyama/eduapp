@@ -16,7 +16,9 @@
 
 .exercise__header {
     backdrop-filter: blur(15px);
-    background: rgba(81, 170, 225, 0.25);
+    /*background: rgba(81, 170, 225, 0.25);*/
+    background: linear-gradient(90deg, rgba(184, 128, 219, 0.15) 0%, rgba(81, 170, 225, 0.15) 100%);
+
     position: relative;
     display: flex;
     justify-content: space-between;
