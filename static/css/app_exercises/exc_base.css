@@ -30,11 +30,16 @@
     flex: 1;
     text-align: center;
     padding: 10px;
-    border: 1px solid var(--text-color-light);
+    border-left: 1px solid var(--text-color-light);
+    border-top: 1px solid var(--text-color-light);
+    border-bottom: 1px solid var(--text-color-light);
     align-items: center;
     justify-content: center;
     display: flex;
     height: 100%;
+}
+.header-flex-column-3 {
+    border-right: 1px solid var(--text-color-light);
 }
 
 .header-flex-column-2 {
@@ -61,7 +66,8 @@
     flex: 1;
     text-align: center;
     padding: 10px;
-    border: 1px solid var(--text-color-light);
+    border-left: 1px solid var(--text-color-light);
+    border-bottom: 1px solid var(--text-color-light);
     align-items: center;
     justify-content: center;
     display: flex;
@@ -102,7 +108,7 @@
     overflow: auto;
     flex-basis: auto;
     flex-grow: initial;
-    width: 25.28%;
+    width: 25.25%;
     min-width: 15%;
     max-width: 85%;
     position: relative;
