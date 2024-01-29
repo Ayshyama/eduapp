@@ -1,7 +1,7 @@
-import random
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DetailView, RedirectView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -12,7 +12,7 @@ from app_exercises.models import Exercise, Subject
 from app_exercises.serializers import TestAnswerSerializer, CodeAnswerSerializer
 
 
-class FinishExerciseView(DetailView):
+class FinishExerciseView(LoginRequiredMixin, DetailView):
     model = Subject
     template_name = 'app_exercises/finish.html'
     extra_context = {
@@ -27,7 +27,7 @@ class FinishExerciseView(DetailView):
         return context
 
 
-class ExerciseView(DetailView):
+class ExerciseView(LoginRequiredMixin, DetailView):
     model = Exercise
     template_name = 'app_exercises/exc_base.html'
     extra_context = {
@@ -46,7 +46,7 @@ class ExerciseView(DetailView):
         return context
 
 
-class NextExerciseView(RedirectView):
+class NextExerciseView(LoginRequiredMixin, RedirectView):
     permanent = True
 
     def get_redirect_url(self, *args, **kwargs):
@@ -67,6 +67,8 @@ class NextExerciseView(RedirectView):
 
 
 class SubmitBaseAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, pk):
         exercise = Exercise.objects.get(pk=pk)
         serializer = self.get_serializer(data=request.data)
@@ -118,4 +120,3 @@ class SubmitCodeAPIView(SubmitBaseAPIView):
         is_correct, message = evaluate_code_with_chatgpt(exercise.description, exercise.code, answer).split('\n', 1)
         is_correct = is_correct == '46546554'
         return {'is_correct': is_correct, 'message': message}
-    

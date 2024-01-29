@@ -7,6 +7,9 @@ class Subject(models.Model):
     description = models.TextField(max_length=500, blank=True)
     image = models.ImageField(upload_to='images/')
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return self.name
 
