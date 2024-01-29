@@ -8,7 +8,7 @@
     left: 50%;
     transform: translateX(-50%);
     position: relative;
-    top: calc(var(--header-height) *2);
+    top: calc(var(--header-height) * 2);
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -16,7 +16,7 @@
 
 .exercise__header {
     backdrop-filter: blur(15px);
-    background: rgba(18, 72, 126, 0.5);
+    background: rgba(81, 170, 225, 0.25);
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -30,7 +30,7 @@
     flex: 1;
     text-align: center;
     padding: 10px;
-    border: 1px solid white;
+    border: 1px solid var(--text-color-light);
     align-items: center;
     justify-content: center;
     display: flex;
@@ -41,10 +41,11 @@
     flex: 2;
     text-align: center;
 }
-.exercise__menu{
+
+.exercise__menu {
     flex: 1;
     backdrop-filter: blur(15px);
-    background: rgb(185, 122, 5);
+    /*background: rgba(255, 212, 59, 0.7);*/
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -56,6 +57,7 @@
 .menu-flex-column-1,
 .menu-flex-column-2,
 .menu-flex-column-3 {
+    position: relative;
     flex: 1;
     text-align: center;
     padding: 10px;
@@ -66,10 +68,11 @@
     cursor: pointer;
     height: 100%;
 }
+
 .menu-flex-column-1:hover,
 .menu-flex-column-2:hover,
 .menu-flex-column-3:hover {
-    background: rgba(17, 85, 236, 0.74);
+    /*background: #306998;*/
 }
 
 
@@ -81,7 +84,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    min-height: calc(100dvh - (var(--header-height)*3.07));
+    min-height: calc(100dvh - (var(--header-height) * 3.07));
     height: auto;
     overflow: auto;
     position: relative;
@@ -112,8 +115,8 @@
     top: 0;
     bottom: 0;
     width: 12px;
-    cursor: ew-resize;
-    background: rgba(255, 255, 255, 0.1);
+    cursor: col-resize;
+    background: rgba(72, 120, 211, 0.1);
 }
 
 .resize-hande-horizontal::after {
@@ -124,8 +127,9 @@
     bottom: 0;
     margin-right: 4px;
 }
+
 .resize-hande-horizontal:hover {
-    background: rgba(163, 223, 255, 0.4);
+    background: rgba(72, 120, 211, 0.4);
 }
 
 .resize-hande-horizontal, .resize-handle::after {
@@ -142,11 +146,17 @@
     height: auto;
     padding: 20px;
 }
+
+.exc__buttons {
+    margin-top: 20px;
+}
+
 .exc__button {
     height: 46px;
     width: 80px;
     border-radius: 50px;
 }
+
 .exc__button:hover {
     cursor: pointer;
     background: rgba(17, 85, 236, 0.74);
@@ -158,6 +168,7 @@
     resize: vertical;
     overflow: auto;
 }
+
 /* Style the resize handle bar */
 .codemirror-resize {
     position: absolute;
@@ -165,14 +176,15 @@
     bottom: 0;
     left: 0;
     height: 12px;
-    cursor: ns-resize;
-    background: rgba(255, 255, 255, 0.1);
+    cursor: row-resize;
+    background: rgba(72, 120, 211, 0.1);
     z-index: 10;
 }
 
 .codemirror-resize:hover {
-    background: rgba(163, 223, 255, 0.4);
+    background: rgba(72, 120, 211, 0.4);
 }
+
 .codemirror-resize::after {
     content: '';
     position: absolute;
@@ -190,12 +202,20 @@
     flex-direction: column;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 #result-area {
     resize: none;
     margin-top: 20px;
     width: 100%;
-    height: 200px;
+    height: 400px;
     padding: 20px;
+    color: var(--text-color);
+    font-size: var(--normal-font-size);
 }
 
 .exercise__question p {
@@ -208,12 +228,109 @@
 .exersice__code-io {
     padding: 20px;
 }
+
 .exercise__code {
     padding: 20px;
     background-color: #262626;
 }
-code {
-  font-family: monospace;
-  font-size: 90%;
 
+code {
+    font-family: monospace;
+    font-size: 90%;
+}
+
+.selected {
+    background: linear-gradient(90deg, var(--second-color) 0%, var(--first-color) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.menu-flex-column-1::before,
+.menu-flex-column-2::before,
+.menu-flex-column-3::before {
+    flex: 1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(184, 128, 219, 0.15) 0%, rgba(81, 170, 225, 0.15) 100%);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity .4s ease-in-out;
+}
+
+.menu-flex-column-1:hover::before,
+.menu-flex-column-2:hover::before,
+.menu-flex-column-3:hover::before {
+    opacity: 1;
+    transition: opacity .4s ease-in-out;
+}
+
+.heart-icon {
+    width: 25px;
+    height: 25px;
+
+
+}
+
+#heart-container {
+    margin-left: 20px;
+}
+
+
+#theme-selector {
+    appearance: none; /* Remove default select styling */
+    background: #75F;
+    color: #FFF;
+    border: none;
+    padding: 20px 40px;
+    width: 100%; /* Full width of the container */
+    border-radius: 3px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+
+}
+
+/* Style options */
+#theme-selector option {
+    background: #191A1D;
+    color: #FFF;
+    font-size: 16px;
+}
+
+/* Triangle icon */
+.header-flex-column-3 span {
+    content: '';
+    position: absolute;
+    right: 8.5%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-top-color: #FFF;
+}
+
+/* Hide the original select and replace it with a custom div */
+#theme-selector {
+    opacity: 0;
+    width: 25%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 75%;
+}
+
+/*.custom-select-display {*/
+/*    display: block;*/
+/*    background: #75F;*/
+/*    color: #FFF;*/
+/*    padding: 20px 40px;*/
+/*    border-radius: 3px;*/
+/*    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);*/
+/*    pointer-events: none; !* Makes it so you can't select the text *!*/
+/*}*/
+
+/* Style the custom select when the original select is focused */
+#theme-selector:focus + .custom-select-display {
+    background: #555;
+    color: #FFF;
 }

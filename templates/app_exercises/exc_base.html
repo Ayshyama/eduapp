@@ -7,20 +7,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <!-- CodeMirror Theme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/darcula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/material.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/idea.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/eclipse.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/3024-night.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/ambiance.min.css">
+    <script defer>
+        const heartSvgUrl = "{% static 'img/heart.svg' %}";
+    </script>
     <script type="module" src="{% static 'js/exercise_submit.js' %}" defer></script>
     <!-- CodeMirror JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
     <!-- Language Mode (Python) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+
 {% endblock %}
 
 {% block content %}
     <div class="exercise__container big-container">
         <div class="exercise__header">
-            <div class="header-flex-column-1" id="user-life">User Life <3<3<3<3<3<3<3<3<3<3</div>
+            <!-- Add a data attribute with the image URL -->
+            <div class="header-flex-column-1" id="user-life" data-initial-life="{{ request.user.life }}"
+                 data-heart-svg-url="{% static 'img/heart.svg' %}">User
+                Life:
+                <div id="heart-container"></div>
+
+            </div>
             <div class="header-flex-column-2">Lesson name: {{ object.name }}</div>
-            <div class="header-flex-column-3">CodeMirror Settings</div>
+                <div class="header-flex-column-3">
+                CodeMirror Theme <span></span>
+                <select id="theme-selector">
+                    <option value="monokai">Monokai</option>
+                    <option value="darcula">Darcula</option>
+                    <option value="material">Material</option>
+                    <option value="idea">Idea</option>
+                    <option value="eclipse">Eclipse</option>
+                    <option value="3024-night">3024 Night</option>
+                    <option value="ambiance">Ambiance</option>
+                </select>
+            </div>
+
+
         </div>
 
 
@@ -28,20 +56,19 @@
 
             <div class="exercise__question">
                 <div class="exercise__menu">
-                    <div class="menu-flex-column-1">Task</div>
+                    <div class="menu-flex-column-1 selected">Task</div>
                     <div class="menu-flex-column-2">Results</div>
                     <div class="menu-flex-column-3">RoboCode</div>
                 </div>
                 <p>{{ object.description|linebreaksbr }}</p>
-                <hr>
 
                 {% if not object.is_test %}
                     <div class="exersice__code-io ">
-                    <div class="exercise__code">
-                        <code class="python">
-                            {{ object.code|linebreaksbr }}
-                        </code>
-                    </div>
+                        <div class="exercise__code">
+                            <code class="python">
+                                {{ object.code|linebreaksbr }}
+                            </code>
+                        </div>
                     </div>
                 {% endif %}
                 <div class="resize-hande-horizontal"></div>
@@ -75,12 +102,12 @@
 
                         </form>
 
-
                     </div>
 
                     <div class="result-area">
                         <label>
-                            <textarea id="result-area" placeholder="Your result will be displayed here..."></textarea>
+                            <textarea id="result-area" placeholder="Your result will be displayed here..."
+                                      readonly></textarea>
                         </label>
                     </div>
                     <div class="exc__buttons">
@@ -127,6 +154,20 @@
             });
         });
     </script>
+
+{#    <script>#}
+{#        document.addEventListener('DOMContentLoaded', function () {#}
+{#            var themeSelector = document.getElementById('theme-selector');#}
+{#            var displayDiv = document.createElement('div');#}
+{#            displayDiv.className = 'custom-select-display';#}
+{#            displayDiv.textContent = themeSelector.options[themeSelector.selectedIndex].text;#}
+{#            themeSelector.parentNode.insertBefore(displayDiv, themeSelector);#}
+{##}
+{#            themeSelector.addEventListener('change', function () {#}
+{#                displayDiv.textContent = themeSelector.options[themeSelector.selectedIndex].text;#}
+{#            });#}
+{#        });#}
+{#    </script>#}
 
 
 {% endblock %}

@@ -6,8 +6,6 @@ app.load('https://prod.spline.design/tbWXvuEYkNG6dv3B/scene.splinecode').then(()
     canvas.classList.add('loaded');
 });
 
-
-// Настройки
 const fadeOutHeight = 350;
 let lastKnownScrollPosition = 0;
 let ticking = false;

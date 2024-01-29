@@ -2,10 +2,14 @@
 
 {% load static %}
 
-{% block extra_extra_links %}
+{% block extra_links %}
+    <link rel="stylesheet" href="{% static 'css/app_dashboard/dashboard_base.css' %}">
     <link rel="stylesheet" href="{% static 'css/app_dashboard/courses.css' %}">
-{% endblock extra_extra_links %}
+{% endblock extra_links %}
 
+
+                {% block canvas %}
+                {% endblock %}
 {% block dashboard_progress %}
     <div class="courses-container">
         {% for course in object_list %}

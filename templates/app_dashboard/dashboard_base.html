@@ -4,20 +4,28 @@
 
 {% block extra_links %}
     <link rel="stylesheet" href="{% static 'css/app_dashboard/dashboard_base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app_dashboard/dashboard_progress.css' %}">
 
+    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@1.0.38/build/runtime.js"
+        }
+      }
+    </script>
+    <script type="module" src="{% static 'js/spline_pass.js' %}"></script>
 
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script type="text/javascript" src="{% static 'js/calendar-heatmap.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/app_dashboard/calendar-heatmap.css' %}">
-    <script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
     {% block extra_extra_links %}
     {% endblock %}
 {% endblock %}
 
 {% block content %}
-    <div class="dashboard__container container">
+                {% block canvas %}
+                    <canvas id="canvas3d-dashboard"></canvas>
+                {% endblock canvas %}
 
+
+    <div class="dashboard__container container">
         {% block user_info %}
             <div class="dashboard__sidebar">
                 <img src="{% if user.image %}{{ user.image.url }}

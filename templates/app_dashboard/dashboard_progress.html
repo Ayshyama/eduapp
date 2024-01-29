@@ -1,6 +1,17 @@
 {% extends 'app_dashboard/dashboard_base.html' %}
+{% load static %}
 
 
+{% block extra_links %}
+    <link rel="stylesheet" href="{% static 'css/app_dashboard/dashboard_base.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/app_dashboard/dashboard_progress.css' %}">
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/calendar-heatmap.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/app_dashboard/calendar-heatmap.css' %}">
+    <script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
+{% endblock %}
 
 {% block dashboard_progress %}
 <div class="dashboard__progress">
