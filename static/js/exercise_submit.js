@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // codeEditor.setSize("100%", "100%");
 
 
+
     if (!submitButton) {
         console.error('Submit button not found!');
         return;
@@ -85,4 +86,33 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error during fetch:', error);
         });
     });
+
+    // Ensure this is after the CodeMirror instance has been created
+    const cmResizeHandle = document.createElement('div');
+    cmResizeHandle.className = 'codemirror-resize';
+    codeEditor.getWrapperElement().appendChild(cmResizeHandle);
+    let isResizing = false;
+
+    cmResizeHandle.addEventListener('mousedown', function (e) {
+        isResizing = true;
+        let startY = e.clientY;
+        let startHeight = codeEditor.getWrapperElement().offsetHeight;
+
+        function doDrag(e) {
+            if (isResizing) {
+                const newHeight = startHeight + e.clientY - startY;
+                codeEditor.setSize(null, newHeight + 'px');
+            }
+        }
+
+        function stopDrag(e) {
+            isResizing = false;
+            document.documentElement.removeEventListener('mousemove', doDrag, false);
+            document.documentElement.removeEventListener('mouseup', stopDrag, false);
+        }
+
+        document.documentElement.addEventListener('mousemove', doDrag, false);
+        document.documentElement.addEventListener('mouseup', stopDrag, false);
+    });
+
 });

@@ -32,18 +32,19 @@
                     <div class="menu-flex-column-2">Results</div>
                     <div class="menu-flex-column-3">RoboCode</div>
                 </div>
-                <p>{{ object.description }}</p>
+                <p>{{ object.description|linebreaksbr }}</p>
                 <hr>
 
                 {% if not object.is_test %}
+                    <div class="exersice__code-io ">
                     <div class="exercise__code">
-                <pre>
-                    <code class="python">
-                        {{ object.code }}
-                    </code>
-                </pre>
+                        <code class="python">
+                            {{ object.code|linebreaksbr }}
+                        </code>
+                    </div>
                     </div>
                 {% endif %}
+                <div class="resize-hande-horizontal"></div>
             </div>
 
             <div class="exercise__solution">
@@ -64,10 +65,12 @@
 
                                 {% endfor %}
                             {% else %}
+
                                 <label>
                                 <textarea id="task-area" class="task-area"
                                           placeholder="Place your code here"></textarea>
                                 </label>
+
                             {% endif %}
 
                         </form>
@@ -96,5 +99,34 @@
 
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const handle = document.querySelector('.resize-hande-horizontal');
+            const exerciseQuestion = document.querySelector('.exercise__question');
+            let isResizing = false;
+
+            handle.addEventListener('mousedown', function (e) {
+                isResizing = true;
+                let startX = e.clientX;
+                let startWidth = exerciseQuestion.offsetWidth;
+
+                function doDrag(e) {
+                    if (isResizing) {
+                        exerciseQuestion.style.width = (startWidth + e.clientX - startX) + 'px';
+                    }
+                }
+
+                function stopDrag(e) {
+                    isResizing = false;
+                    document.documentElement.removeEventListener('mousemove', doDrag, false);
+                    document.documentElement.removeEventListener('mouseup', stopDrag, false);
+                }
+
+                document.documentElement.addEventListener('mousemove', doDrag, false);
+                document.documentElement.addEventListener('mouseup', stopDrag, false);
+            });
+        });
+    </script>
+
 
 {% endblock %}
