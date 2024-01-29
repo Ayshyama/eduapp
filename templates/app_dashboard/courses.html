@@ -1,0 +1,22 @@
+{% extends 'app_dashboard/dashboard_base.html' %}
+
+{% load static %}
+
+{% block extra_links %}
+    <link rel="stylesheet" href="{% static 'css/app_dashboard/dashboard_base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app_dashboard/courses.css' %}">
+{% endblock extra_links %}
+
+
+                {% block canvas %}
+                {% endblock %}
+{% block dashboard_progress %}
+    <div class="courses-container">
+        {% for course in object_list %}
+            <a href="{% url 'exercise' course.module_set.first.lesson_set.first.exercise_set.first.id %}" class="course">
+                <img src="{{ course.image.url }}" alt="{{ course.name }}" class="course-image">
+                <span class="course-name">{{ course.name }}</span>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock dashboard_progress %}

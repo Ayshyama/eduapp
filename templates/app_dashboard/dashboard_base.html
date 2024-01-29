@@ -1,0 +1,60 @@
+{% extends 'app_base/base.html' %}
+
+{% load static %}
+
+{% block extra_links %}
+    <link rel="stylesheet" href="{% static 'css/app_dashboard/dashboard_base.css' %}">
+
+    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@1.0.38/build/runtime.js"
+        }
+      }
+    </script>
+    <script type="module" src="{% static 'js/spline_pass.js' %}"></script>
+
+    {% block extra_extra_links %}
+    {% endblock %}
+{% endblock %}
+
+{% block content %}
+                {% block canvas %}
+                    <canvas id="canvas3d-dashboard"></canvas>
+                {% endblock canvas %}
+
+
+    <div class="dashboard__container container">
+        {% block user_info %}
+            <div class="dashboard__sidebar">
+                <img src="{% if user.image %}{{ user.image.url }}
+                    {% else %}{% static 'img/app_accounts/default_avatar.jpg' %}{% endif %}" alt="User Avatar"
+                     class="avatar">
+                <br>
+                <h1>{{ user.username }}</h1>
+                <hr>
+                <br>
+                email:
+                <h3>{{ user.email }}</h3>
+                <br>
+                joined on:
+                <h3>{{ user.date_joined }}</h3>
+            </div>
+        {% endblock user_info %}
+        <div class="dashboard__mainbar">
+            {% block dashboard_header %}
+                <div class="dashboard__header">
+                    <h1>Dashboard</h1>
+                    <br>
+                    <br>
+                </div>
+            {% endblock dashboard_header %}
+
+            {% block dashboard_progress %}
+            {% endblock dashboard_progress %}
+        </div>
+    </div>
+
+{% endblock content %}
+

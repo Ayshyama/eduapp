@@ -5,129 +5,154 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>EDU APP</title>
+    <title>{{ title }}</title>
     <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/landing_page.css' %}">
-    <!------SPLINE------>
-    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
-    <script type="importmap">
-      {
-        "imports": {
-          "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@0.9.455/build/runtime.js"
-        }
-      }
 
-    </script>
-    <!------REMIXICONS------>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+    {% block links %}
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/landing_page.css' %}">
+
+        <!------REMIXICONS------>
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <script src="https://cdn.lordicon.com/bhenfmcm.js" defer></script>
+
+        <script src="{% static 'js/navbar.js' %}" defer></script>
+        <script type="module" src="{% static 'js/messages.js' %}" defer></script>
+
+    {% endblock %}
+
+    {% block extra_links %}
+    {% endblock %}
+
+
 </head>
 
 <body>
-<!-- Django Messages -->
-<div class="container messages">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-</div>
+
+<img src="{% static 'img/shape-bg-2.png' %}" alt="" class="hero__shape-bg-2">
+<img src="{% static 'img/shape-bg-1.png' %}" alt="" class="hero__shape-bg-1">
+
 <!------HEADER------>
 {% block header %}
     <header class="header" id="header">
-        <nav class="nav container">
-            <!-- Logo -->
-            <a href="#" class="nav__logo" style="font-size:50px;!important;">
-                {#            <img src="{% static 'img/logo.png' %}" alt="PYIO">#}
-                PYIO
-            </a>
-
+        <nav class="nav__container">
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                    <li class="nav__item">
-                        <a href="#" class="nav__link">Home</a>
+                    <li class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
                     </li>
-                    <li class="nav__item">
-                        <a href="#" class="nav__link">Features</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#" class="nav__link active-link">About</a>
-                    </li>
+                    {% for item in menu %}
+                        <li class="nav__item">
+                            <a href="{% url item.url_name %}"
+                               class="nav__link {% if forloop.counter0 == menu_selected %}active-link{% endif %}"
+                            >{{ item.name }}</a>
+                        </li>
+                    {% endfor %}
                 </ul>
 
-                <!------Close Button------>
-                <div class="nav__close" id="nav-close">
-                    <i class="ri-close-line"></i>
-                </div>
 
             </div>
-
-            <!------Toggle Button------>
             <div class="nav__toggle" id="nav-toggle">
                 <i class="ri-menu-fill"></i>
             </div>
+            <a href="{% url 'landing_page' %}" class="nav__logo">
+                <img src="{% static 'img/logo.png' %}" alt="PYIO">
+            </a>
 
-            <div class="nav__buttons">
+            <div class="nav__buttons" id="nav-buttons">
                 {% if user.is_authenticated %}
-                    <a href="#" class="nav__button nav__button--signin">
-                    <span>
-                <lord-icon
-                        src="https://cdn.lordicon.com/kxrhwtdg.json"
-                        trigger="hover"
-                        colors="primary:#4be1ec,secondary:#cb5eee"
-                        style="width:36px;height:36px;margin-left: -12px">
-                </lord-icon>
-                Welcome, {{ user.username }}!
-                </span>
-                    <a href="{% url 'account_logout' %}" class="nav__button nav__button--signin">
-                <span>
-                <lord-icon
-                        src="https://cdn.lordicon.com/kxrhwtdg.json"
-                        trigger="hover"
-                        colors="primary:#4be1ec,secondary:#cb5eee"
-                        style="width:36px;height:36px;margin-left: -12px">
-                </lord-icon>
-                Sign Out
-                </span>
-                    </a>
+                    <div href="#" class="nav__button button__welcome">
+                        <span class="user-span" id="auth-icon">
+                            <p>
+                        Welcome, {{ user.username }}!
+                                </p>
+                        <lord-icon class="user__icon"
+                                   src="https://cdn.lordicon.com/kxrhwtdg.json"
+                                   trigger="hover"
+                                   colors="primary:#4be1ec,secondary:#cb5eee">
+                        </lord-icon>
+                        </span>
+
+                        <div class="nav__menu-user" id="nav-menu-user">
+                            <ul class="nav__list-user">
+                                <li class="nav__close-user" id="nav-close-user">
+                                    <i class="ri-close-line"></i>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user"
+                                       href="{% url 'user_dashboard' %}">Dashboard</a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user"
+                                       href="{% url 'user_profile' %}">Profile</a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user" href="{% url 'account_logout' %}">Sign Out</a>
+                                </li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+
                 {% else %}
-                    <a href="{% url 'account_login' %}" class="nav__button nav__button--signin">
-                <span>
-                <lord-icon
-                        src="https://cdn.lordicon.com/kxrhwtdg.json"
-                        trigger="hover"
-                        colors="primary:#4be1ec,secondary:#cb5eee"
-                        style="width:36px;height:36px;margin-left: -12px">
-                </lord-icon>
-                Sign In
-                </span>
-                    </a>
+                    <div href="#" class="nav__button button__auth">
+                        <span class="auth-span" id="auth-icon">
+                            <lord-icon class="user__icon"
+                                       src="https://cdn.lordicon.com/kxrhwtdg.json"
+                                       trigger="hover"
+                                       colors="primary:#4be1ec,secondary:#cb5eee">
+                            </lord-icon>
+                        </span>
+                        <div class="nav__menu-user-desktop" id="nav-menu-user-desktop">
+                            <ul class="nav__list-user-desktop">
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user-signin" href="{% url 'user_login' %}">Sign In</a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user-signup" href="{% url 'user_signup' %}">Sign Up</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav__menu-user" id="nav-menu-user">
+                            <ul class="nav__list-user">
+                                <li class="nav__close-user" id="nav-close-user">
+                                    <i class="ri-close-line"></i>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user-signin" href="{% url 'user_login' %}">Sign In</a>
+                                </li>
+                                <li class="nav__item-user">
+                                    <a class="nav__link-user-signup" href="{% url 'user_signup' %}">Sign Up</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
                 {% endif %}
-
-
-                <!-- Sign In and Sign Up buttons -->
-                {#        <div class="nav__buttons">#}
-                {##}
-                {#            <a href="{% url 'account_login' %}" class="nav__button nav__button--signin">#}
-                {##}
-                {#                <span>#}
-                {#                <lord-icon#}
-                {#                src="https://cdn.lordicon.com/kxrhwtdg.json"#}
-                {#                trigger="hover"#}
-                {#                colors="primary:#4be1ec,secondary:#cb5eee"#}
-                {#                style="width:36px;height:36px;margin-left: -12px">#}
-                {#                </lord-icon>#}
-                {#                Sign In#}
-                {#                </span>#}
-                {#            </a>#}
-                {#        </div>#}
-
+            </div>
         </nav>
+        <div class="container messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <span class="nav__close-message" id="nav-close-user">
+                    <i class="ri-close-line"></i>
+                </span>
+            {% endif %}
+        </div>
     </header>
+
+{% endblock header %}
+
+{% block messages %}
+{% endblock messages %}
+
+{% block content %}
 {% endblock %}
 
 {% block hero %}
@@ -140,16 +165,6 @@
         </div>
     </footer>
 {% endblock %}
-
-
-<!------SCROLLREVEAL JS------>
-<script src="{% static 'js/scrollreveal.js' %}"></script>
-<!------NAVBAR JS------>
-<script src="{% static 'js/navbar.js' %}"></script>
-<!------BTN ANIMATION JS------>
-<script src="{% static 'js/btn_animation.js' %}"></script>
-<!------SPLINE CANVAS JS------>
-<script type="module" src="{% static 'js/spline.js' %}"></script>
 
 
 </body>

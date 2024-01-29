@@ -2,16 +2,24 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
+from django.template.defaultfilters import slugify
+
 from app_exercises.models import Exercise
 
 
 class CustomUser(AbstractUser):
     bio = models.TextField(max_length=500, blank=True)
-    image = models.ImageField(upload_to='images/', blank=True)
+    image = models.ImageField(upload_to='profile/%Y/%m/%d/', blank=True)
     email = models.EmailField(unique=True)
     life = models.PositiveSmallIntegerField(default=10)
     exercises_done = models.ManyToManyField(Exercise, through='UserProgress')
     day_streak = models.PositiveSmallIntegerField(default=0)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.username)
+        super().save(*args, **kwargs)
 
 
 class UserExerciseConversation(models.Model):
@@ -37,11 +45,10 @@ class UserStatistic(models.Model):
 def create_user_progress(sender, instance, action, reverse, model, pk_set, **kwargs):
     if action == "post_add" and not reverse:
         for exercise_pk in pk_set:
-            UserProgress.objects.create(user=instance, exercise_id=exercise_pk)
+            # Check if the UserProgress already exists
+            if not UserProgress.objects.filter(user=instance, exercise_id=exercise_pk).exists():
+                UserProgress.objects.create(user=instance, exercise_id=exercise_pk)
 
-
-# Connect the signal
-m2m_changed.connect(create_user_progress, sender=CustomUser.exercises_done.through)
 
 '''
 Signal Receiver:
@@ -63,11 +70,4 @@ to the many-to-many field.
 - If the action is post_add (which occurs after new items have been added to the many-to-many field) and the change is not 
 happening on the reverse side of the relation, the function iterates over the primary key set of added exercises and 
 creates a new UserProgress instance for each one, associating the exercise with the user.
-
-Signal Connection:
-- Although the @receiver decorator already connects the create_user_progress function to the m2m_changed signal, 
-the last line explicitly connects the signal again, which is redundant and not necessary given the use of the decorator.
-This setup allows the application to automatically track user progress on exercises without requiring additional code to
-manage the creation of UserProgress instances whenever exercises are added to a user's exercises_done set. It leverages 
-Django's signals framework to hook into the lifecycle of the database operations.
 '''

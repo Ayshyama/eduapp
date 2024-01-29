@@ -1,158 +1,167 @@
-.main{
-    height: 100vh;
+.main {
+    height: 200vh;
     max-width: 100%;
 }
-.hero{
+
+.hero {
+    display: block;
     position: relative;
-    padding: 4rem;
+    height: auto;
+    margin-top: calc(var(--header-height) + 6rem);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 12px;
 }
 
-.hero__container{
+.hero__btn {
+    width: 200px;
+    display: block;
     position: relative;
-    padding: 7rem 0 2rem;
+    height: 100px;
+    left: 35%;
+    transform: translateX(-75%);
+    padding: 0 12px;
+    z-index: 10;
+
 }
 
-.hero__title{
+.hero__container-title {
+    position: relative;
     font-size: var(--biggest-font-size);
-    margin-bottom: 1rem;
 }
 
-.hero__title span{
+.hero__title span {
     background: linear-gradient(90deg,
-                var(--second-color) 0%,
-                var(--first-color) 100%);
+    var(--second-color) 0%,
+    var(--first-color) 100%);
     -webkit-background-clip: text;
     color: transparent;
 }
 
-.hero__description{
-    position: relative;
-    color: var(--text-color-light);
-    margin-bottom: 1.5rem;
-    z-index: 2;
+.hero__container-desc {
+    margin-top: 3rem;
+    font-size: var(--h2-font-size);
+    padding: 0 12px;
+
 }
-.hero__info{
-    position: relative;
-}
-
-.hero__img-char{
-    position: absolute;
-    width: 700px;
-    justify-self: center;
-    bottom: 150px;
-    left: -65px;
-    z-index: 1;
-}
-
-.hero__img-char img{
-    position: absolute;
-    filter: drop-shadow(0 10px 32px hsla(221, 61%, 52%, 0.75));
-}
-
-
-
 
 /*=============== CTA Hero Button ===============*/
-.hero__button{
-  position: relative;
-  width: 160px;
-  height: 50px;
-  display: inline-block;
-  border-radius: 5px;
-  margin-top: 0.5rem;
-    z-index: 2;
+.hero__container-cta {
+    position: relative;
+    margin-top: 1.85rem;
+
+    z-index: 10;
+}
+.hero__button {
+    position: absolute;
+    width: 160px;
+    height: 50px;
+    display: inline-block;
+    border-radius: 50px;
+    margin-top: 0.5rem;
+        left: 50%;
+    transform: translateX(-50%);
 }
 
-.hero__button:hover{
-  box-shadow: 0 8px 48px hsla(203,71%,25%,.5);
+.hero__button:hover {
+    box-shadow: 0 8px 62px hsla(203, 71%, 25%, .75);
 }
 
-.hero__button i{
-  position: absolute;
-  inset: -1px;
-  display: block;
-  border-radius: 5px;
+.hero__button i {
+    position: absolute;
+    inset: -1px;
+    display: block;
+    border-radius: 50px;
 }
 
 .hero__button i,
-.hero__button i:nth-child(2){
-  background: linear-gradient(var(--x),
-  var(--second-color),
-  /*var(--body-color),*/
-  var(--first-color));
-  filter: blur(2px);
+.hero__button i:nth-child(2) {
+    background: linear-gradient(var(--x),
+    var(--second-color),
+    var(--first-color));
 }
 
-.hero__button span{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 3px;
-  background: var(--body-color);
+.hero__button span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background: var(--body-color);
     color: white;
 }
 
-.hero__button span:before{
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
+.hero__button span:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
 }
-/*=============== Shapes ===============*/
 
+/*=============== Shapes ===============*/
 .hero__shape-small,
 .hero__shape-big-1,
-.hero__shape-big-2{
+.hero__shape-big-2 {
     position: absolute;
     border-radius: 50%;
-    filter: blur(140px);
-    background-color: var(--first-color);
+    filter: blur(100px);
 }
 
-.hero__shape-small{
+.hero__shape-small {
+    width: 200px;
+    height: 200px;
+    background-color: rgba(255, 113, 12, 0.9);
+    top: 16rem;
+    left: 6rem;
+}
+
+.hero__shape-big-2 {
     width: 260px;
     height: 260px;
-    background-color: var(--first-color);
-    top: -2.5rem;
-    left: -2.5rem;
 }
 
-.hero__shape-big-1,
-.hero__shape-big-2{
-    width: 260px;
-    height: 260px;
+.hero__shape-big-1 {
+    background-color: rgba(24, 224, 17, 0.9);
+    top: 0;
+    left: 60%;
+    width: 220px;
+    height: 220px;
 }
 
-.hero__shape-big-1{
-    background-color: var(--first-color);
-    top: 30rem;
-    left: 35rem;
+.hero__shape-big-2 {
+    background-color: rgba(62, 20, 87, 0.9);
+    top: 60%;
+    left: -20%;
 }
 
-.hero__shape-big-2{
-    background-color: var(--second-color);
-    top: 62rem;
-    left: 7rem;
-}
-
-.hero__shape-bg{
-    position: absolute;
+.hero__shape-bg-1 {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     object-fit: cover;
     mix-blend-mode: soft-light;
-    opacity: .15;
+    opacity: 1;
+}
+
+.hero__shape-bg-2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    mix-blend-mode: soft-light;
+    opacity: 0.25;
 }
 
 canvas {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -160,15 +169,62 @@ canvas {
     z-index: 1;
 }
 
+#canvas3d {
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+#canvas3d.loaded {
+  opacity: 1;
+}
 
 
 
 
+@media screen and (min-width: 340px) {
+    .hero__container-desc {
+        font-size: var(--normal-font-size);
+        align-content: center;
+        text-align: center;
+    }
+    .hero__container-title {
+        text-align: center;
+    }
+    .hero__container-cta {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+}
 
 
+@media screen and (min-width: 560px) {
+    .hero {
+        justify-content: center;
+        align-content: center;
+    }
+    .hero__container-desc {
+        width: 100%;
+        display: flex;
+        font-size: var(--h2-font-size);
+        justify-content: center;
+    }
+}
 
-
-
+@media screen and (min-width: 1281px) {
+    .hero__container-title {
+        max-width: 900px;
+        text-align: left;
+    }
+    .hero__container-desc {
+        max-width: 700px;
+        font-size: var(--h2-font-size);
+        text-align: left;
+    }
+    .hero__container-cta {
+        max-width: 700px;
+    }
+}
 
 
 

@@ -1,42 +1,112 @@
-console.log("navbar.js is loaded");                         // Check if the file is loaded
-
-
-const navMenu = document.getElementById('nav-menu'),        // Get the menu
-    navToggle = document.getElementById('nav-toggle'),      // Get the toggle button
-    navClose = document.getElementById('nav-close');        // Get the close button
-
+// ----------------NAV MENU---------------- //
+const navMenu = document.getElementById('nav-menu'),
+    navToggle = document.getElementById('nav-toggle'),
+    navClose = document.getElementById('nav-close');
 
 // MENU SHOW
-if (navToggle) {                                    // If the toggle button exists
-    navToggle.addEventListener('click', () => {     // When the toggle button is clicked
-        navMenu.classList.add('show-menu');         // Show the menu
-        navToggle.style.display = 'none';           // Hide the toggle button
-        navClose.style.display = 'block';           // Show the close button
+if (navToggle) {
+    navToggle.addEventListener('click', () => {
+        if (navMenu.classList.contains('show-menu')) {
+            navMenu.classList.remove('show-menu');
+            // navClose.style.display = 'none';
+        } else {
+            navMenu.classList.add('show-menu');
+            navClose.style.display = 'flex';
+        }
     });
 }
 
+// MENU HIDDEN
+if (navClose) {
+    navClose.addEventListener('click', () => {
+        navMenu.classList.remove('show-menu');
+        // navClose.style.display = 'none';
+    });
+}
+
+// REMOVE MENU MOBILE
+const navLink = document.querySelectorAll('.nav__link');
+const linkAction = () => {
+    navMenu.classList.remove('show-menu');
+    // navClose.style.display = 'none';
+};
+navLink.forEach(n => n.addEventListener('click', linkAction));
+
+
+
+// ----------------USER MENU---------------- //
+const navMenuUser = document.getElementById('nav-menu-user');
+const navCloseUser = document.getElementById('nav-close-user');
+const navButtons = document.getElementById('auth-icon');
+
+// Function to open the user menu
+const openUserMenu = () => {
+    navMenuUser.classList.add('show-menu-user');
+    navCloseUser.style.display = 'flex';
+};
+
+// MENU SHOW
+if (navButtons) {
+    navButtons.addEventListener('click', openUserMenu);
+}
 
 // MENU HIDDEN
-if (navClose) {                                     // If the close button exists
-    navClose.addEventListener('click', () => {      // When the close button is clicked
-        navMenu.classList.remove('show-menu');      // Hide the menu
-        navToggle.style.display = 'block';          // Show the toggle button
-        navClose.style.display = 'none';            // Hide the close button
-    });
+const closeUserMenu = () => {
+    setTimeout(() => {
+        navMenuUser.classList.remove('show-menu-user');
+    }, 50);
+    // navCloseUser.style.display = 'none';
+};
+
+if (navCloseUser) {
+    navCloseUser.addEventListener('click', closeUserMenu);
 }
 
 
 // REMOVE MENU MOBILE
-const navLink = document.querySelectorAll('.nav__link');        // Get all the links
-const linkAction = () => {                                      // When a link is clicked
-    navMenu.classList.remove('show-menu');                      // Hide the menu
-    navToggle.style.display = 'block';                          // Show the toggle button
-    navClose.style.display = 'none';                            // Hide the close button
-}
-navLink.forEach(n => n.addEventListener('click', linkAction));  // Add the event listener to all the links
+const navLinkUser = document.querySelectorAll('.nav__link-user');
+const linkActionUser = () => {
+    navMenuUser.classList.remove('show-menu-user');
+    navButtons.style.display = 'flex';
+    // navCloseUser.style.display = 'none';
+};
+navLinkUser.forEach(n => n.addEventListener('click', linkActionUser));
 
 
 
 
 
 
+
+
+
+//Function to check screen width and hide/show menu accordingly
+const checkScreenWidth = () => {
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth > 1280) {
+        navMenu.classList.remove('show-menu');
+        navToggle.style.display = 'none';
+        navClose.style.display = 'none';
+        navCloseUser.style.display = 'none';
+    } else {
+        navToggle.style.display = 'flex';
+    }
+};
+
+// Initial check on page load
+checkScreenWidth();
+
+// Listen for window resize event
+window.addEventListener('resize', checkScreenWidth);
+
+const debounce = (func, delay) => {
+    let timeoutId;
+    return () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(func, delay);
+    };
+};
+
+// Debounced window resize event
+window.addEventListener('resize', debounce(checkScreenWidth, 250));

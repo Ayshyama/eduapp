@@ -13,15 +13,15 @@
     --second-color: hsl(277, 56%, 68%);
     --text-color: hsl(203, 8%, 98%);
     --text-color-light: hsl(203, 8%, 80%);
-    --body-color: hsl(260, 20%, 18%);
+    --body-color: hsl(227, 70%, 5%);
 
     /*========== Font and typography ==========*/
     /*.5rem = 8px | 1rem = 16px ...*/
     --body-font: 'Oxanium', cursive;
-    --biggest-font-size: 2.25rem;
-    --h2-font-size: 1.25rem;
-    --normal-font-size: .938rem;
-    --smaller-font-size: .75rem;
+    --biggest-font-size: 3.1rem;
+    --h2-font-size: 1.915rem;
+    --normal-font-size: 1.18rem;
+    --smaller-font-size: 0.91rem;
 
     /*========== Font weight ==========*/
     --font-semi-bold: 600;
@@ -33,10 +33,10 @@
 /* Responsive typography */
 @media screen and (min-width: 1024px) {
     :root {
-        --biggest-font-size: 4rem;
-        --h2-font-size: 1.5rem;
-        --normal-font-size: 1rem;
-        --smaller-font-size: .813rem;
+        --biggest-font-size: 5rem;
+        --h2-font-size: 1.915rem;
+        --normal-font-size: 1.17rem;
+        --smaller-font-size: .89rem;
     }
 }
 
@@ -62,162 +62,207 @@ a {
     text-decoration: none;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-}
-
 /*=============== REUSABLE CSS CLASSES ===============*/
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     min-width: 320px;
-    margin: 0 auto;
-    padding: 0 15px;
 }
-
-.main {
-    overflow: hidden; /* For the animations */
-}
-
 
 /*=============== HEADER NAVBAR ===============*/
 .header {
     position: fixed;
     width: 100%;
+    max-width: 1400px;
     top: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: var(--z-fixed);
     transition: backgroung .3s;
-    padding: 10px;
+    padding: 12px;
 }
 
-.nav {
-    height: calc(var(--header-height) + 1.5rem);
+.nav__container {
     position: relative;
+    height: calc(var(--header-height) + 2rem);
     display: flex;
     justify-content: space-between;
+    gap: 8px;
     align-items: center;
+}
 
+.nav__toggle {
+    font-size: 1.5rem;
+    display: flex;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+}
+
+.nav__logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav__button {
+    height: 46px;
+}
+
+.nav__buttons {
+    flex: 1;
+    text-align: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.button__welcome {
+    position: relative;
+    display: flex;
+    border-radius: 50px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.button__auth {
+    position: relative;
+    display: flex;
+    border-radius: 50px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.user__icon {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+}
+
+.nav__button span {
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .nav__logo,
 .nav__toggle,
 .nav__link,
+.nav__link-user,
+.nav__link-user-signin,
+.nav__link-user-signup,
 .nav__button {
     color: var(--text-color);
 }
 
-.nav__logo {
-    max-width: 300px;
-    flex: 1;
-    text-align: left;
-    vertical-align: middle;
+.nav__list-user-desktop {
+    display: none;
 }
 
-.nav__toggle {
-    font-size: 1.5rem;
-    cursor: pointer;
-    flex: 1;
-    text-align: center;
-    margin-top: 0.5rem;
-}
-
-
-/*=============== Sign In Button ===============*/
-.nav__buttons {
-    flex: 1;
-    text-align: right;
-}
-
-.nav__button {
+.nav__list,
+.nav__list-user {
     position: relative;
-    width: 130px;
-    height: 46px;
-    display: inline-block;
-    border-radius: 5px;
-    margin-top: 0.5rem;
-    border: 1px solid var(--first-color);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    z-index: 1;
 }
 
-.nav__button:hover {
-    box-shadow: 0 8px 48px hsla(203, 71%, 25%, .5);
+.nav__link,
+.nav__link-user,
+.nav__link-user-signin,
+.nav__link-user-signup {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    font-weight: var(--font-semi-bold);
+    font-size: var(--h2-font-size);
+    transition: color .4s;
+    padding: 24px;
 }
 
-.nav__button i {
-    position: absolute;
-    inset: -1px;
-    display: block;
-    border-radius: 5px;
+.nav__link,
+.nav__link-user,
+.nav__link-user-signin,
+.nav__link-user-signup,
+.nav__close,
+.nav__close-user,
+.active-link {
+    position: relative;
+    overflow: hidden;
 }
 
-.nav__button i,
-.nav__button i:nth-child(2) {
-    background: linear-gradient(var(--x),
-    var(--second-color),
-        /*var(--body-color),*/ var(--first-color));
-    /*filter: blur(2px);*/
-}
-
-.nav__button span {
+.nav__link::before,
+.nav__link-user::before,
+.nav__link-user-signin::before,
+.nav__link-user-signup::before,
+.button__welcome::before,
+.nav__close::before,
+.nav__close-user::before,
+.active-link::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 3px;
-    background: rgba(255, 255, 255, 0);
+    background: linear-gradient(90deg, rgba(184, 128, 219, 0.15) 0%, rgba(81, 170, 225, 0.15) 100%);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
 }
 
-
-@media screen and (max-width: 768px) {
-    .nav__menu {
-        position: fixed;
-        background-color: var(--body-color);
-        width: 100%;
-        left: 0;
-        top: -100%;
-        padding: 4rem 0 3.5rem;
-        transition: top .4s ease;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
-        overflow: hidden;
-    }
-
-    .nav__button {
-        width: 100px;
-        height: 40px;
-    }
+.nav__link:hover::before,
+.nav__link-user:hover::before,
+.nav__link-user-signin:hover::before,
+.nav__link-user-signup:hover::before,
+.nav__close:hover::before,
+.nav__close-user:hover::before,
+.active-link:hover::before {
+    opacity: 1;
+    transition: opacity .4s ease-in-out;
 }
 
-.nav__list {
-    display: flex;
-    flex-direction: column;
-    row-gap: 3rem;
-    text-align: center;
-}
-
-.nav__link {
-    font-weight: var(--font-semi-bold);
-    transition: color .4s;
-}
-
-.nav__link:hover {
+.nav__link:hover,
+.nav__link-user:hover,
+.nav__link-user-signin:hover,
+.nav__link-user-signup:hover,
+.nav__close:hover,
+.nav__close-user:hover,
+.active-link:hover {
     color: var(--first-color);
+    transition: color 0.4s ease-in-out;
 }
 
-.nav__close {
-    position: absolute;
+.nav__close,
+.nav__close-user {
+    display: flex;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
     cursor: pointer;
-    top: 1rem;
-    font-size: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
+    font-size: 2rem;
+    height: 100%;
 }
 
-.show-menu {
-    top: 0;
+.nav__logo img {
+    width: 140px;
+}
+
+/*=============== Sign In Button ===============*/
+.button__signin {
+    border: 0;
+    text-align: center;
 }
 
 /*=============== Active Link ===============*/
@@ -229,81 +274,321 @@ img {
     color: transparent;
 }
 
+/*=============== Messages Style ===============*/
+/* Base styles for the messages container */
+.messages {
+    top: 16px;
+    position: relative;
+    text-transform: uppercase;
+    animation: moveIn 1.5s cubic-bezier(.36, 0, .06, 1) alternate;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
 
-/*===============............BREAKPOINTS.............===============*/
-/*=============== For small devices ===============*/
-@media screen and (max-width: 340px) {
-    .container {
-        margin-inline: 1rem;
+.messages span {
+    position: relative;
+    padding: 10px;
+    align-items: center;
+    display: flex;
+    background-color: rgba(4, 8, 22, 0.5);
+    border: 1px solid rgba(1, 255, 84, 0.45);
+    border-radius: 0 5px 5px 0;
+    height: 40px;
+    cursor: pointer;
+}
+.messages span:hover {
+    background-color: rgba(4, 8, 22, 1);
+}
+
+.messages span i {
+    font-size: 22px;
+    vertical-align: middle;
+}
+
+.messages span i:hover {
+    color: linear-gradient(var(--first-color));
+}
+
+
+/* Style for each alert message */
+.messages .alert {
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    transition: all 0.4s ease-in-out;
+    height: 40px;
+}
+
+/* Keyframes for the animation */
+@keyframes moveIn {
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+    0% {
+        opacity: 0;
+        filter: blur(10px);
+    }
+}
+@keyframes moveOut {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+        filter: blur(10px);
     }
 }
 
-/*=============== For medium devices ===============*/
-@media screen and (min-width: 767px) {
-    .nav__toggle,
-    .nav__close {
+
+/* Specific styles for different alert types */
+.alert-info {
+    color: var(--text-color);
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.alert-success {
+    color: var(--text-color);
+    background-color: rgba(1, 255, 84, 0.50);
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.alert-warning {
+    color: var(--text-color);
+    background-color: rgba(255,217,0,0.65);
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.alert-danger {
+    color: var(--text-color);
+    background-color: rgba(255, 52, 52, 0.65);
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/*===============............BREAKPOINTS.............===============*/
+/*=============== For small devices ===============*/
+@media screen and (max-width: 1280px) {
+    .nav__menu,
+    .nav__menu-user {
+        position: fixed;
+        width: 100%;
+        padding: 1.2rem 0 3.5rem;
+        overflow: hidden;
+        background-color: rgba(4, 8, 22, 0.75);
+        height: 100vh;
+        z-index: 5;
+        top: 0;
+        left: 0;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        will-change: transform;
+    }
+
+    .nav__menu {
+        transform: translateX(-100%);
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .nav__menu-user {
+        transform: translateX(100%);
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .show-menu,
+    .show-menu-user {
+        transform: translateX(0);
+    }
+
+    .nav__toggle {
+        min-width: 60px;
+        display: flex;
+    }
+
+    .button__welcome p {
         display: none;
     }
 
+    .nav__logo img {
+        width: 260px;
+    }
+}
+
+/*=============== For small-medium devices ===============*/
+@media screen and (min-width: 340px) {
+    .nav__logo img {
+        width: 180px;
+    }
+
+    .nav__toggle {
+        font-size: 2rem;
+    }
+
+    .user__icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media screen and (min-width: 360px) {
+    .nav__logo img {
+        width: 200px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .nav__logo img {
+        width: 260px;
+    }
+}
+
+/*=============== For large devices ===============*/
+@media screen and (min-width: 1281px) {
     .nav__list {
         flex-direction: row;
-        column-gap: 4rem;
+        column-gap: 1rem;
+        min-width: 400px;
+    }
+
+    .nav__list {
+        justify-content: left;
+    }
+
+    .nav__list-user {
+        justify-content: right;
+    }
+
+    .nav__toggle,
+    .nav__close {
+        display: none;
     }
 
     .home__container {
         height: 100vh;
         display: grid;
     }
-}
 
-/*=============== For large devices ===============*/
-@media screen and (min-width: 1024px) {
-    .home__title {
-        margin-bottom: 3rem;
+    .nav__buttons {
+        display: flex;
+        justify-content: flex-end;
     }
 
-    .hero__description {
-        font-size: var(--h2-font-size);
+    .nav__link-user-signup {
+        border: 1px solid var(--text-color);
+        border-radius: 50px;
+    }
+
+    .nav__link,
+    .nav__link-user-signin,
+    .nav__link-user-signup {
+        font-size: var(--normal-font-size);
+        padding: 8px 16px;
+    }
+
+    .nav__link::before,
+    .button__welcome::before,
+    .nav__link-user-signin::before,
+    .nav__link-user-signup::before,
+    .nav__close::before,
+    .active-link::before {
+        border-radius: 50px;
+    }
+
+    .nav__link:hover::before,
+    .nav__link-user-signin:hover::before,
+    .nav__link-user-signup:hover::before,
+    .button__welcome:hover::before,
+    .nav__close:hover::before,
+    .active-link:hover::before {
+        border-radius: 50px;
+    }
+
+    .button__welcome:hover::before {
+        opacity: 1;
+        transition: opacity .4s;
+    }
+
+    .nav__logo {
+        max-width: 300px;
+    }
+
+    .nav__logo img {
+        width: 300px;
+    }
+
+    .nav__buttons {
+        min-width: 60px;
+        max-width: 400px;
+        margin-right: 16px;
+    }
+
+    .nav__menu-user {
+        position: fixed;
+        width: calc(50vw);
+        padding: 1.2rem 0 3.5rem;
+        overflow: hidden;
+        background-color: rgba(4, 8, 22, 0.75);
+        height: 100vh;
+        z-index: 5;
+        top: 0;
+        left: 0;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        will-change: transform;
+    }
+
+    .nav__menu-user {
+        transform: translateX(100vw);
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .show-menu-user {
+        transform: translateX(calc(0vw + 700px));
+    }
+
+    .nav__button .user-span {
+        border: 1px solid var(--text-color);
+        border-radius: 50px;
+        padding: 12px 24px;
+    }
+
+    .nav__button .user-span .user__icon {
+        margin-right: -12px;
+        width: 40px;
+    }
+
+    .nav__button .auth-span {
+        display: none;
+    }
+
+    .nav__list-user-desktop {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
     }
 }
 
-/*!* Messages styling *!*/
-/*.messages .alert {*/
-/*    padding: 10px;*/
-/*    margin-bottom: 20px;*/
-/*    border: 1px solid transparent;*/
-/*    border-radius: 4px;*/
-/*    transition: all 0.3s ease-in-out;*/
-/*}*/
 
-/*.alert-info {*/
-/*    color: #31708f;*/
-/*    background-color: #d9edf7;*/
-/*    border-color: #bce8f1;*/
-/*}*/
 
-/*.alert-success {*/
-/*    color: #3c763d;*/
-/*    background-color: #dff0d8;*/
-/*    border-color: #d6e9c6;*/
-/*}*/
 
-/*.alert-warning {*/
-/*    color: #8a6d3b;*/
-/*    background-color: #fcf8e3;*/
-/*    border-color: #faebcc;*/
-/*}*/
-
-/*.alert-danger {*/
-/*    color: #a94442;*/
-/*    background-color: #f2dede;*/
-/*    border-color: #ebccd1;*/
-/*}*/
-
-/*.alert-dismissible .close {*/
-/*    position: relative;*/
-/*    top: -2px;*/
-/*    right: -21px;*/
-/*    color: inherit;*/
-/*    cursor: pointer;*/
-/*}*/
