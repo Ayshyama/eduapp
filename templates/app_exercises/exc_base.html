@@ -35,7 +35,7 @@
 
             </div>
             <div class="header-flex-column-2">Lesson name: {{ object.name }}</div>
-                <div class="header-flex-column-3">
+            <div class="header-flex-column-3">
                 CodeMirror Theme <span></span>
                 <select id="theme-selector">
                     <option value="monokai">Monokai</option>
@@ -155,19 +155,37 @@
         });
     </script>
 
-{#    <script>#}
-{#        document.addEventListener('DOMContentLoaded', function () {#}
-{#            var themeSelector = document.getElementById('theme-selector');#}
-{#            var displayDiv = document.createElement('div');#}
-{#            displayDiv.className = 'custom-select-display';#}
-{#            displayDiv.textContent = themeSelector.options[themeSelector.selectedIndex].text;#}
-{#            themeSelector.parentNode.insertBefore(displayDiv, themeSelector);#}
-{##}
-{#            themeSelector.addEventListener('change', function () {#}
-{#                displayDiv.textContent = themeSelector.options[themeSelector.selectedIndex].text;#}
-{#            });#}
-{#        });#}
-{#    </script>#}
+    {#    <script>#}
+    {#        document.addEventListener('DOMContentLoaded', function () {#}
+    {#            var themeSelector = document.getElementById('theme-selector');#}
+    {#            var displayDiv = document.createElement('div');#}
+    {#            displayDiv.className = 'custom-select-display';#}
+    {#            displayDiv.textContent = themeSelector.options[themeSelector.selectedIndex].text;#}
+    {#            themeSelector.parentNode.insertBefore(displayDiv, themeSelector);#}
+    {##}
+    {#            themeSelector.addEventListener('change', function () {#}
+    {#                displayDiv.textContent = themeSelector.options[themeSelector.selectedIndex].text;#}
+    {#            });#}
+    {#        });#}
+    {#    </script>#}
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeSelector = document.getElementById('theme-selector');
+            const indicatorSpan = document.querySelector('.header-flex-column-3 span');
+            document.addEventListener('click', (event) => {
+                const isDropdownClicked = themeSelector.contains(event.target);
+                const isSpanClicked = indicatorSpan.contains(event.target);
+                if (isDropdownClicked || isSpanClicked) {
+                    indicatorSpan.classList.toggle('active');
+                } else {
+                    indicatorSpan.classList.remove('active');
+                }
+            });
+            themeSelector.addEventListener('change', () => {
+                indicatorSpan.classList.remove('active');
+            });
+        });
+    </script>
 
 {% endblock %}

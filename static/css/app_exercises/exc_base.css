@@ -309,11 +309,16 @@ code {
 /* Triangle icon */
 .header-flex-column-3 span {
     content: '';
-    position: absolute;
-    right: 8.5%;
-    top: 50%;
+    position: relative;
+    margin-left: 2%;
+    top: 14%;
     transform: translateY(-50%);
     border: 6px solid transparent;
+    border-left-color: #FFF;
+}
+
+.header-flex-column-3 span.active {
+    border-left-color: transparent;
     border-top-color: #FFF;
 }
 

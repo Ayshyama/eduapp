@@ -22,94 +22,137 @@ document.addEventListener('DOMContentLoaded', function () {
     const exerciseId = submitButton.getAttribute('exercise-id');
     const csrftoken = getCookie('csrftoken');
 
-    // Initialize CodeMirror
-    codeEditor = CodeMirror.fromTextArea(document.getElementById("task-area"), {
-        mode: "python",
-        theme: "monokai",
-        lineNumbers: true,
-        indentUnit: 4,
-        matchBrackets: true,
-        autoCloseBrackets: true,
-        extraKeys: {"Tab": "autocomplete"},
-        id: 'code-mirror-element'
-    });
 
-    // Function to get the background color of CodeMirror
-    function getCodeMirrorBackgroundColor() {
-        const cmWrapper = codeEditor.getWrapperElement();
-        const bgColor = window.getComputedStyle(cmWrapper).backgroundColor;
-        return bgColor;
-    }
+    if (!exerciseId) {
+        // Initialize CodeMirror
+        codeEditor = CodeMirror.fromTextArea(document.getElementById("task-area"), {
+            mode: "python",
+            theme: "monokai",
+            lineNumbers: true,
+            indentUnit: 4,
+            matchBrackets: true,
+            autoCloseBrackets: true,
+            extraKeys: {"Tab": "autocomplete"},
+            id: 'code-mirror-element'
+        });
 
-    // Function to set the background color and text color of the result-area textarea based on the selected theme
-    function setResultAreaStyles() {
-        const resultArea = document.getElementById('result-area');
-        const themeSelector = document.getElementById('theme-selector');
-        const selectedTheme = themeSelector.value;
-
-        // Determine the text color based on the selected theme
-        let textColor;
-        if (selectedTheme === 'idea' || selectedTheme === 'eclipse') {
-            textColor = 'black';
-        } else {
-            textColor = 'var(--text-color)';
+        // Function to get the background color of CodeMirror
+        function getCodeMirrorBackgroundColor() {
+            const cmWrapper = codeEditor.getWrapperElement();
+            const bgColor = window.getComputedStyle(cmWrapper).backgroundColor;
+            return bgColor;
         }
 
-        // Set the background color and text color
-        const bgColor = getCodeMirrorBackgroundColor();
-        resultArea.style.backgroundColor = bgColor;
-        resultArea.style.color = textColor;
+        // Function to set the background color and text color of the result-area textarea based on the selected theme
+        function setResultAreaStyles() {
+            const resultArea = document.getElementById('result-area');
+            const themeSelector = document.getElementById('theme-selector');
+            const selectedTheme = themeSelector.value;
+
+            // Determine the text color based on the selected theme
+            let textColor;
+            if (selectedTheme === 'idea' || selectedTheme === 'eclipse') {
+                textColor = 'black';
+            } else {
+                textColor = 'var(--text-color)';
+            }
+
+            // Set the background color and text color
+            const bgColor = getCodeMirrorBackgroundColor();
+            resultArea.style.backgroundColor = bgColor;
+            resultArea.style.color = textColor;
+        }
+
+
+        // Call the function initially
+        setResultAreaStyles();
+
+        // Listen for changes in CodeMirror (e.g., theme changes) and update result-area background color
+        codeEditor.on("change", function () {
+            setResultAreaStyles();
+        });
+
+        // codeEditor.setSize("100%", "100%");
+        const themeSelector = document.getElementById('theme-selector');
+
+        // Listen for changes in CodeMirror theme and update result-area styles accordingly
+        themeSelector.addEventListener('change', function (event) {
+            const newTheme = event.target.value;
+            codeEditor.setOption("theme", newTheme);
+
+            loadThemeCSS(newTheme);
+
+            setResultAreaStyles();
+        });
+
+
+
+        // CodeMirror resize handle
+        const cmResizeHandle = document.createElement('div');
+        cmResizeHandle.className = 'codemirror-resize';
+        codeEditor.getWrapperElement().appendChild(cmResizeHandle);
+        let isResizing = false;
+
+        cmResizeHandle.addEventListener('mousedown', function (e) {
+            isResizing = true;
+            let startY = e.clientY;
+            let startHeight = codeEditor.getWrapperElement().offsetHeight;
+
+            function doDrag(e) {
+                if (isResizing) {
+                    const newHeight = startHeight + e.clientY - startY;
+                    codeEditor.setSize(null, newHeight + 'px');
+                }
+            }
+
+            function stopDrag(e) {
+                isResizing = false;
+                document.documentElement.removeEventListener('mousemove', doDrag, false);
+                document.documentElement.removeEventListener('mouseup', stopDrag, false);
+            }
+
+            document.documentElement.addEventListener('mousemove', doDrag, false);
+            document.documentElement.addEventListener('mouseup', stopDrag, false);
+        });
+
+        // Функция для динамической загрузки CSS тем
+        function loadThemeCSS(themeName) {
+            const themeURL = `https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/${themeName}.min.css`;
+            if (!document.querySelector(`link[href="${themeURL}"]`)) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = themeURL;
+                document.head.appendChild(link);
+            }
+        }
     }
 
+            function generateHeartIcons(numHearts) {
+            const heartContainer = document.getElementById('heart-container');
+            heartContainer.innerHTML = '';
 
-    // Call the function initially
-    setResultAreaStyles();
+            const userLifeElement = document.getElementById('user-life');
 
-    // Listen for changes in CodeMirror (e.g., theme changes) and update result-area background color
-    codeEditor.on("change", function () {
-        setResultAreaStyles();
-    });
+            const heartSvgUrl = userLifeElement.getAttribute('data-heart-svg-url');
 
-    // codeEditor.setSize("100%", "100%");
-    const themeSelector = document.getElementById('theme-selector');
+            let offset = -12;
 
-    // Listen for changes in CodeMirror theme and update result-area styles accordingly
-    themeSelector.addEventListener('change', function (event) {
-        const newTheme = event.target.value;
-        codeEditor.setOption("theme", newTheme);
+            for (let i = 0; i < numHearts; i++) {
+                const heartIcon = document.createElement('img');
+                heartIcon.src = heartSvgUrl;
+                heartIcon.classList.add('heart-icon');
+                heartIcon.style.marginLeft = offset + 'px';
 
-        loadThemeCSS(newTheme);
+                heartIcon.alt = "Heart Icon";
+                heartContainer.appendChild(heartIcon);
 
-        setResultAreaStyles();
-    });
-
-    function generateHeartIcons(numHearts) {
-        const heartContainer = document.getElementById('heart-container');
-        heartContainer.innerHTML = '';
+            }
+        }
 
         const userLifeElement = document.getElementById('user-life');
+        const initialLife = parseInt(userLifeElement.getAttribute('data-initial-life'));
 
-        const heartSvgUrl = userLifeElement.getAttribute('data-heart-svg-url');
-
-        let offset = -12;
-
-        for (let i = 0; i < numHearts; i++) {
-            const heartIcon = document.createElement('img');
-            heartIcon.src = heartSvgUrl;
-            heartIcon.classList.add('heart-icon');
-            heartIcon.style.marginLeft = offset + 'px';
-
-            heartIcon.alt = "Heart Icon";
-            heartContainer.appendChild(heartIcon);
-
-        }
-    }
-
-    const userLifeElement = document.getElementById('user-life');
-    const initialLife = parseInt(userLifeElement.getAttribute('data-initial-life'));
-
-    generateHeartIcons(initialLife);
-
+        generateHeartIcons(initialLife);
 
     if (!submitButton) {
         console.error('Submit button not found!');
@@ -164,42 +207,5 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
-    // CodeMirror resize handle
-    const cmResizeHandle = document.createElement('div');
-    cmResizeHandle.className = 'codemirror-resize';
-    codeEditor.getWrapperElement().appendChild(cmResizeHandle);
-    let isResizing = false;
 
-    cmResizeHandle.addEventListener('mousedown', function (e) {
-        isResizing = true;
-        let startY = e.clientY;
-        let startHeight = codeEditor.getWrapperElement().offsetHeight;
-
-        function doDrag(e) {
-            if (isResizing) {
-                const newHeight = startHeight + e.clientY - startY;
-                codeEditor.setSize(null, newHeight + 'px');
-            }
-        }
-
-        function stopDrag(e) {
-            isResizing = false;
-            document.documentElement.removeEventListener('mousemove', doDrag, false);
-            document.documentElement.removeEventListener('mouseup', stopDrag, false);
-        }
-
-        document.documentElement.addEventListener('mousemove', doDrag, false);
-        document.documentElement.addEventListener('mouseup', stopDrag, false);
-    });
-
-// Функция для динамической загрузки CSS тем
-    function loadThemeCSS(themeName) {
-        const themeURL = `https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/${themeName}.min.css`;
-        if (!document.querySelector(`link[href="${themeURL}"]`)) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = themeURL;
-            document.head.appendChild(link);
-        }
-    }
 });
