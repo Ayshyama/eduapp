@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const csrftoken = getCookie('csrftoken');
 
 
-    if (!exerciseId) {
+    if (!exerciseIsTest) {
         // Initialize CodeMirror
         codeEditor = CodeMirror.fromTextArea(document.getElementById("task-area"), {
             mode: "python",
@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
 
-
         // CodeMirror resize handle
         const cmResizeHandle = document.createElement('div');
         cmResizeHandle.className = 'codemirror-resize';
@@ -127,32 +126,32 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-            function generateHeartIcons(numHearts) {
-            const heartContainer = document.getElementById('heart-container');
-            heartContainer.innerHTML = '';
-
-            const userLifeElement = document.getElementById('user-life');
-
-            const heartSvgUrl = userLifeElement.getAttribute('data-heart-svg-url');
-
-            let offset = -12;
-
-            for (let i = 0; i < numHearts; i++) {
-                const heartIcon = document.createElement('img');
-                heartIcon.src = heartSvgUrl;
-                heartIcon.classList.add('heart-icon');
-                heartIcon.style.marginLeft = offset + 'px';
-
-                heartIcon.alt = "Heart Icon";
-                heartContainer.appendChild(heartIcon);
-
-            }
-        }
+    function generateHeartIcons(numHearts) {
+        const heartContainer = document.getElementById('heart-container');
+        heartContainer.innerHTML = '';
 
         const userLifeElement = document.getElementById('user-life');
-        const initialLife = parseInt(userLifeElement.getAttribute('data-initial-life'));
 
-        generateHeartIcons(initialLife);
+        const heartSvgUrl = userLifeElement.getAttribute('data-heart-svg-url');
+
+        let offset = -12;
+
+        for (let i = 0; i < numHearts; i++) {
+            const heartIcon = document.createElement('img');
+            heartIcon.src = heartSvgUrl;
+            heartIcon.classList.add('heart-icon');
+            heartIcon.style.marginLeft = offset + 'px';
+
+            heartIcon.alt = "Heart Icon";
+            heartContainer.appendChild(heartIcon);
+
+        }
+    }
+
+    const userLifeElement = document.getElementById('user-life');
+    const initialLife = parseInt(userLifeElement.getAttribute('data-initial-life'));
+
+    generateHeartIcons(initialLife);
 
     if (!submitButton) {
         console.error('Submit button not found!');
