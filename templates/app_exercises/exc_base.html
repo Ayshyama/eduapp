@@ -64,14 +64,36 @@
 
                 {% if not object.is_test %}
                     <div class="exersice__code-io ">
-                        <div class="exercise__code">
+                        <div class="exercise__code" id="task-code">
                             <code class="python">
                                 {{ object.code|linebreaksbr }}
                             </code>
                         </div>
                     </div>
                 {% endif %}
+
+                <hr>
+
+                <div class="gpt__container">
+                    <div class="gpt__header">
+                        Ask GPT-4 Mentor
+                    </div>
+                    <div class="gpt__form">
+                        <form action="">
+
+                            <textarea name="gpt__question" id="gpt__question" cols="30" rows="10"
+                                      placeholder="Ask your question here..."></textarea>
+                            <button class="exc__button" id="gpt__submit">Send</button>
+                        </form>
+                    </div>
+                    <div class="gpt__dialog">
+
+                    </div>
+                </div>
+
+
                 <div class="resize-hande-horizontal"></div>
+
             </div>
 
             <div class="exercise__solution">

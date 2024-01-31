@@ -107,7 +107,7 @@
     display: flex;
     height: auto;
     resize: horizontal;
-    overflow: auto;
+
     flex-basis: auto;
     flex-grow: initial;
     width: 25.25%;
@@ -115,6 +115,7 @@
     max-width: 85%;
     position: relative;
     border-right: 1px solid var(--text-color-light);
+    overflow: hidden;
 }
 
 .resize-hande-horizontal {
@@ -163,11 +164,14 @@
     height: 46px;
     width: 80px;
     border-radius: 50px;
+    background-color: #000103;
+    color: var(--text-color);
+    border: 1px solid var(--text-color-light);
 }
 
 .exc__button:hover {
     cursor: pointer;
-    background: rgba(17, 85, 236, 0.74);
+    background-color: #0D40B1;
 }
 
 .CodeMirror {
@@ -224,7 +228,9 @@ form {
     padding: 20px;
     color: var(--text-color);
     font-size: var(--normal-font-size);
+    border: 0;
 }
+
 
 .exercise__question p {
     padding: 20px;
@@ -346,4 +352,55 @@ code {
 #theme-selector:focus + .custom-select-display {
     background: #555;
     color: #FFF;
+}
+
+
+.gpt__container {
+    position: relative;
+    padding: 20px;
+    height: 100%;
+}
+
+.gpt__header {
+    font-weight: 1000;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.gpt__container form {
+}
+
+.gpt__form textarea {
+    resize: none;
+    width: 100%;
+    height: 100px;
+    padding: 20px;
+    background-color: transparent;
+    font-size: var(--normal-font-size);
+    color: var(--text-color);
+    border: 1px solid var(--text-color-light);
+}
+
+.gpt__form button {
+    margin-top: 76px;
+    left: 75%;
+    transform: translateX(-50%);
+    position: absolute;
+    background-color: #000103;
+    color: var(--text-color);
+    border: 1px solid var(--text-color-light);
+}
+
+.gpt__form button:hover {
+    background-color: #0D40B1;
+}
+
+.gpt__dialog {
+    border: 1px solid var(--text-color-light);
+    margin-top: 40px;
+    height: 74%;
+    padding: 20px;
+    overflow: auto;
 }

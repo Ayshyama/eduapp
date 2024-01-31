@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Initialize CodeMirror
         codeEditor = CodeMirror.fromTextArea(document.getElementById("task-area"), {
             mode: "python",
-            theme: "monokai",
+            theme: "material",
             lineNumbers: true,
             indentUnit: 4,
             matchBrackets: true,
@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Function to set the background color and text color of the result-area textarea based on the selected theme
         function setResultAreaStyles() {
             const resultArea = document.getElementById('result-area');
+            const taskCode = document.getElementById('task-code');
             const themeSelector = document.getElementById('theme-selector');
             const selectedTheme = themeSelector.value;
 
@@ -61,6 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const bgColor = getCodeMirrorBackgroundColor();
             resultArea.style.backgroundColor = bgColor;
             resultArea.style.color = textColor;
+            taskCode.style.backgroundColor = bgColor;
+            taskCode.style.color = textColor;
         }
 
 
