@@ -83,7 +83,13 @@
 
                             <input type="text" name="body" id="chat_message_input"
                                    placeholder="Ask your question here..."></input>
-                            <button class="exc__button" id="chat_message_submit">Send</button>
+                            <button class="exc__button" id="chat_message_submit">
+                                <div id="loading" style="display: none;">
+                                    <div class="loader"></div>
+                                </div>
+                                <span id="sendText">Send</span>
+                            </button>
+
                         </form>
                     </div>
                     <div class="gpt__dialog" id="chat_log">
@@ -133,11 +139,14 @@
                         </label>
                     </div>
                     <div class="exc__buttons">
-                        <button class="exc__button" id="submit"
-                                exercise-id="{{ object.id }}"
-                                exercise-is-test="{{ object.is_test|lower }}"
-                        >Submit
+                        <button class="exc__button" id="submit" exercise-id="{{ object.id }}"
+                                exercise-is-test="{{ object.is_test|lower }}">
+                            <div id="submitLoading" style="display: none;">
+                                <div class="loader"></div>
+                            </div>
+                            <span id="submitText">Submit</span>
                         </button>
+
                         <a href="{% url 'next_exercise' object.id %}">
                             <button class="exc__button" id="next">Next</button>
                         </a>
@@ -196,114 +205,129 @@
         });
     </script>
 
-<script>
-let chatName = ''
-let chatSocket = null
-let chatWindowUrl = window.location.href
-let chatRoomUuid = Math.random().toString(36).slice(2, 12)
+    <script>
+        let chatName = ''
+        let chatSocket = null
+        let chatWindowUrl = window.location.href
+        let chatRoomUuid = Math.random().toString(36).slice(2, 12)
 
-{# I want to make JS variable to store username here #}
-const chatJoinElement = document.getElementById('chat_join')
-const chatNameElement = '{{ request.user.username }}'
-const chatRoomElement = document.getElementById('chat_room')
-const chatLogElement = document.getElementById('chat_log')
-const chatInputElement = document.getElementById('chat_message_input')
-const chatSubmitElement = document.getElementById('chat_message_submit')
+        {# I want to make JS variable to store username here #}
+        const chatJoinElement = document.getElementById('chat_join')
+        const chatNameElement = '{{ request.user.username }}'
+        const chatRoomElement = document.getElementById('chat_room')
+        const chatLogElement = document.getElementById('chat_log')
+        const chatInputElement = document.getElementById('chat_message_input')
+        const chatSubmitElement = document.getElementById('chat_message_submit')
 
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function sendMessage() {
+            const message = chatInputElement.value
+            chatSocket.send(JSON.stringify({
+                'type': 'message',
+                'message': chatInputElement.value,
+                'name': chatName,
+            }));
+
+            document.getElementById('sendText').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('chat_message_submit').disabled = true;
+
+
+            chatLogElement.innerHTML += `<div><b style="color: var(--first-color)">${chatName}</b>: ${message} <br>
+<small style="color: var(--text-color-light); justify-content: flex-end; display: flex; font-family: "Times New Roman", Times, serif;>Just now</small><br><br></div>`;
+
+
+            chatInputElement.value = ''
+        }
+
+        function onChatMessage(data) {
+            console.log('onChatMessage', data);
+
+            if (data.type === 'chat_message') {
+                // Check if the message is from the current user
+                if (data.name !== chatName) {
+                    // Append messages from ChatGPT or other users
+                    chatLogElement.innerHTML += `<div><b style="color: var(--second-color)">${data.name}</b>: ${data.message} <br>
+<small style="color: var(--text-color-light); justify-content: flex-end; display: flex; font-family: "Times New Roman", Times, serif;">${data.created_at} ago</small><br><br></div>`;
+
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('sendText').style.display = 'block';
+                    document.getElementById('chat_message_submit').disabled = false;
+
+                }
             }
         }
-    }
-    return cookieValue;
-}
 
-function sendMessage() {
-    const message = chatInputElement.value
-    chatSocket.send(JSON.stringify({
-        'type': 'message',
-        'message': chatInputElement.value,
-        'name': chatName,
-    }))
+        async function joinChatRoom() {
+            chatName = chatNameElement
+            console.log('Joining chat room with name:', chatName)
+            console.log('Room uuid:', chatRoomUuid)
 
-    chatInputElement.value = ''
-}
+            const data = new FormData()
+            data.append('name', chatName)
+            data.append('url', chatWindowUrl)
 
-function onChatMessage(data) {
-    console.log('onChatMessage', data)
+            await fetch(`/exercises/api/create-room/${chatRoomUuid}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: data
+            })
+                .then(function (response) {
+                    return response.json()
+                })
+                .then(function (data) {
+                    console.log('data:', data)
+                })
 
-    if (data.type === 'chat_message') {
-        if (data.agent) {
+            chatSocket = new WebSocket(`ws://${window.location.host}/ws/${chatRoomUuid}/`)
 
-        } else {
-            chatLogElement.innerHTML += `<div><b>${data.name}</b>: ${data.message} ${data.initials} ${data.created_at}</div>`
+            chatSocket.onmessage = function (e) {
+                console.log('onMessage')
+
+                onChatMessage(JSON.parse(e.data))
+            }
+
+            chatSocket.onopen = function (e) {
+                console.log('onOpen - chat socket was opened')
+            }
+
+            chatSocket.onclose = function (e) {
+                console.log('onMessage - chat socket was closed')
+            }
         }
-    }
-}
 
-async function joinChatRoom() {
-    chatName = chatNameElement
-    console.log('Joining chat room with name:', chatName)
-    console.log('Room uuid:', chatRoomUuid)
+        chatJoinElement.onclick = function (e) {
+            e.preventDefault()
 
-    const data = new FormData()
-    data.append('name', chatName)
-    data.append('url', chatWindowUrl)
+            console.log('chat_join clicked')
+            joinChatRoom()
 
-    await fetch(`/exercises/api/create-room/${chatRoomUuid}/`, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: data
-    })
-    .then(function (response) {
-        return response.json()
-    })
-    .then(function (data) {
-        console.log('data:', data)
-    })
+            return false
+        }
 
-    chatSocket = new WebSocket(`ws://${window.location.host}/ws/${chatRoomUuid}/`)
+        chatSubmitElement.onclick = function (e) {
+            e.preventDefault()
 
-    chatSocket.onmessage = function (e) {
-        console.log('onMessage')
+            sendMessage()
 
-        onChatMessage(JSON.parse(e.data))
-    }
-
-    chatSocket.onopen = function (e) {
-        console.log('onOpen - chat socket was opened')
-    }
-
-    chatSocket.onclose = function (e) {
-        console.log('onMessage - chat socket was closed')
-    }
-}
-
-chatJoinElement.onclick = function (e) {
-    e.preventDefault()
-
-    console.log('chat_join clicked')
-    joinChatRoom()
-
-    return false
-}
-
-chatSubmitElement.onclick = function (e) {
-    e.preventDefault()
-
-    sendMessage()
-
-    return false
-}
-</script>
+            return false
+        }
+    </script>
 
 {% endblock %}

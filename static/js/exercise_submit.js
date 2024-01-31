@@ -164,6 +164,10 @@ document.addEventListener('DOMContentLoaded', function () {
     submitButton.addEventListener('click', function (event) {
         event.preventDefault();
 
+        document.getElementById('submitLoading').style.display = 'block';
+        document.getElementById('submitText').style.display = 'none';
+        submitButton.disabled = true;
+
         const url = exerciseIsTest ? `/exercises/api/submit_test/${exerciseId}/` : `/exercises/api/submit_code/${exerciseId}/`;
         let data = {};
 
@@ -198,14 +202,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 generateHeartIcons(userLife);
 
                 if (isCorrect) {
-                    resultArea.style.backgroundColor = 'rgba(10,255,30,0.65)';
+                    resultArea.style.backgroundColor = 'rgba(10,255,30,0.25)';
                 } else {
-                    resultArea.style.backgroundColor = 'rgba(255,30,10,0.65)';
+                    resultArea.style.backgroundColor = 'rgba(255,30,10,0.25)';
                 }
                 resultArea.value = message;
+
+                document.getElementById('submitLoading').style.display = 'none';
+                document.getElementById('submitText').style.display = 'block';
+                submitButton.disabled = false;
             })
             .catch(error => {
                 console.error('Error during fetch:', error);
+                document.getElementById('submitLoading').style.display = 'none';
+                document.getElementById('submitText').style.display = 'block';
+                submitButton.disabled = false;
             });
     });
 
