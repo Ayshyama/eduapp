@@ -58,7 +58,7 @@
                 <div class="exercise__menu">
                     <div class="menu-flex-column-1 selected">Task</div>
                     <div class="menu-flex-column-2">Results</div>
-                    <div class="menu-flex-column-3">RoboCode</div>
+                    <div class="menu-flex-column-3" id="chat_join">RoboCode</div>
                 </div>
                 <p>{{ object.description|linebreaksbr }}</p>
 
@@ -74,19 +74,19 @@
 
                 <hr>
 
-                <div class="gpt__container">
+                <div class="gpt__container" id="chat_room">
                     <div class="gpt__header">
                         Ask GPT-4 Mentor
                     </div>
                     <div class="gpt__form">
                         <form action="">
 
-                            <textarea name="gpt__question" id="gpt__question" cols="30" rows="10"
-                                      placeholder="Ask your question here..."></textarea>
-                            <button class="exc__button" id="gpt__submit">Send</button>
+                            <input type="text" name="body" id="chat_message_input"
+                                   placeholder="Ask your question here..."></input>
+                            <button class="exc__button" id="chat_message_submit">Send</button>
                         </form>
                     </div>
-                    <div class="gpt__dialog">
+                    <div class="gpt__dialog" id="chat_log">
 
                     </div>
                 </div>
@@ -177,20 +177,6 @@
         });
     </script>
 
-    {#    <script>#}
-    {#        document.addEventListener('DOMContentLoaded', function () {#}
-    {#            var themeSelector = document.getElementById('theme-selector');#}
-    {#            var displayDiv = document.createElement('div');#}
-    {#            displayDiv.className = 'custom-select-display';#}
-    {#            displayDiv.textContent = themeSelector.options[themeSelector.selectedIndex].text;#}
-    {#            themeSelector.parentNode.insertBefore(displayDiv, themeSelector);#}
-    {##}
-    {#            themeSelector.addEventListener('change', function () {#}
-    {#                displayDiv.textContent = themeSelector.options[themeSelector.selectedIndex].text;#}
-    {#            });#}
-    {#        });#}
-    {#    </script>#}
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const themeSelector = document.getElementById('theme-selector');
@@ -209,5 +195,115 @@
             });
         });
     </script>
+
+<script>
+let chatName = ''
+let chatSocket = null
+let chatWindowUrl = window.location.href
+let chatRoomUuid = Math.random().toString(36).slice(2, 12)
+
+{# I want to make JS variable to store username here #}
+const chatJoinElement = document.getElementById('chat_join')
+const chatNameElement = '{{ request.user.username }}'
+const chatRoomElement = document.getElementById('chat_room')
+const chatLogElement = document.getElementById('chat_log')
+const chatInputElement = document.getElementById('chat_message_input')
+const chatSubmitElement = document.getElementById('chat_message_submit')
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function sendMessage() {
+    const message = chatInputElement.value
+    chatSocket.send(JSON.stringify({
+        'type': 'message',
+        'message': chatInputElement.value,
+        'name': chatName,
+    }))
+
+    chatInputElement.value = ''
+}
+
+function onChatMessage(data) {
+    console.log('onChatMessage', data)
+
+    if (data.type === 'chat_message') {
+        if (data.agent) {
+
+        } else {
+            chatLogElement.innerHTML += `<div><b>${data.name}</b>: ${data.message} ${data.initials} ${data.created_at}</div>`
+        }
+    }
+}
+
+async function joinChatRoom() {
+    chatName = chatNameElement
+    console.log('Joining chat room with name:', chatName)
+    console.log('Room uuid:', chatRoomUuid)
+
+    const data = new FormData()
+    data.append('name', chatName)
+    data.append('url', chatWindowUrl)
+
+    await fetch(`/exercises/api/create-room/${chatRoomUuid}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: data
+    })
+    .then(function (response) {
+        return response.json()
+    })
+    .then(function (data) {
+        console.log('data:', data)
+    })
+
+    chatSocket = new WebSocket(`ws://${window.location.host}/ws/${chatRoomUuid}/`)
+
+    chatSocket.onmessage = function (e) {
+        console.log('onMessage')
+
+        onChatMessage(JSON.parse(e.data))
+    }
+
+    chatSocket.onopen = function (e) {
+        console.log('onOpen - chat socket was opened')
+    }
+
+    chatSocket.onclose = function (e) {
+        console.log('onMessage - chat socket was closed')
+    }
+}
+
+chatJoinElement.onclick = function (e) {
+    e.preventDefault()
+
+    console.log('chat_join clicked')
+    joinChatRoom()
+
+    return false
+}
+
+chatSubmitElement.onclick = function (e) {
+    e.preventDefault()
+
+    sendMessage()
+
+    return false
+}
+</script>
 
 {% endblock %}

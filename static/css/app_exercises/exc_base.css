@@ -167,11 +167,13 @@
     background-color: #000103;
     color: var(--text-color);
     border: 1px solid var(--text-color-light);
+    transition: background-color 0.4s ease;
 }
 
 .exc__button:hover {
     cursor: pointer;
     background-color: #0D40B1;
+    transition: background-color 0.4s ease;
 }
 
 .CodeMirror {
@@ -372,7 +374,7 @@ code {
 .gpt__container form {
 }
 
-.gpt__form textarea {
+.gpt__form input {
     resize: none;
     width: 100%;
     height: 100px;
@@ -388,13 +390,15 @@ code {
     left: 75%;
     transform: translateX(-50%);
     position: absolute;
-    background-color: #000103;
+    background-color: #02081C;
     color: var(--text-color);
     border: 1px solid var(--text-color-light);
+    transition: background-color 0.3s ease;
 }
 
 .gpt__form button:hover {
     background-color: #0D40B1;
+    transition: background-color 0.4s ease;
 }
 
 .gpt__dialog {
