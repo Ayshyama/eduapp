@@ -35,7 +35,7 @@
 
             </div>
             <div class="header-flex-column-2">Lesson name: {{ object.name }}</div>
-                <div class="header-flex-column-3">
+            <div class="header-flex-column-3">
                 CodeMirror Theme <span></span>
                 <select id="theme-selector">
                     <option value="monokai">Monokai</option>
@@ -58,20 +58,48 @@
                 <div class="exercise__menu">
                     <div class="menu-flex-column-1 selected">Task</div>
                     <div class="menu-flex-column-2">Results</div>
-                    <div class="menu-flex-column-3">RoboCode</div>
+                    <div class="menu-flex-column-3" id="chat_join">RoboCode</div>
                 </div>
                 <p>{{ object.description|linebreaksbr }}</p>
 
                 {% if not object.is_test %}
                     <div class="exersice__code-io ">
-                        <div class="exercise__code">
+                        <div class="exercise__code" id="task-code">
                             <code class="python">
                                 {{ object.code|linebreaksbr }}
                             </code>
                         </div>
                     </div>
                 {% endif %}
+
+                <hr>
+
+                <div class="gpt__container" id="chat_room">
+                    <div class="gpt__header">
+                        Ask GPT-4 Mentor
+                    </div>
+                    <div class="gpt__form">
+                        <form action="">
+
+                            <input type="text" name="body" id="chat_message_input"
+                                   placeholder="Ask your question here..."></input>
+                            <button class="exc__button" id="chat_message_submit">
+                                <div id="loading" style="display: none;">
+                                    <div class="loader"></div>
+                                </div>
+                                <span id="sendText">Send</span>
+                            </button>
+
+                        </form>
+                    </div>
+                    <div class="gpt__dialog" id="chat_log">
+
+                    </div>
+                </div>
+
+
                 <div class="resize-hande-horizontal"></div>
+
             </div>
 
             <div class="exercise__solution">
@@ -111,11 +139,14 @@
                         </label>
                     </div>
                     <div class="exc__buttons">
-                        <button class="exc__button" id="submit"
-                                exercise-id="{{ object.id }}"
-                                exercise-is-test="{{ object.is_test|lower }}"
-                        >Submit
+                        <button class="exc__button" id="submit" exercise-id="{{ object.id }}"
+                                exercise-is-test="{{ object.is_test|lower }}">
+                            <div id="submitLoading" style="display: none;">
+                                <div class="loader"></div>
+                            </div>
+                            <span id="submitText">Submit</span>
                         </button>
+
                         <a href="{% url 'next_exercise' object.id %}">
                             <button class="exc__button" id="next">Next</button>
                         </a>
@@ -155,19 +186,157 @@
         });
     </script>
 
-{#    <script>#}
-{#        document.addEventListener('DOMContentLoaded', function () {#}
-{#            var themeSelector = document.getElementById('theme-selector');#}
-{#            var displayDiv = document.createElement('div');#}
-{#            displayDiv.className = 'custom-select-display';#}
-{#            displayDiv.textContent = themeSelector.options[themeSelector.selectedIndex].text;#}
-{#            themeSelector.parentNode.insertBefore(displayDiv, themeSelector);#}
-{##}
-{#            themeSelector.addEventListener('change', function () {#}
-{#                displayDiv.textContent = themeSelector.options[themeSelector.selectedIndex].text;#}
-{#            });#}
-{#        });#}
-{#    </script>#}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeSelector = document.getElementById('theme-selector');
+            const indicatorSpan = document.querySelector('.header-flex-column-3 span');
+            document.addEventListener('click', (event) => {
+                const isDropdownClicked = themeSelector.contains(event.target);
+                const isSpanClicked = indicatorSpan.contains(event.target);
+                if (isDropdownClicked || isSpanClicked) {
+                    indicatorSpan.classList.toggle('active');
+                } else {
+                    indicatorSpan.classList.remove('active');
+                }
+            });
+            themeSelector.addEventListener('change', () => {
+                indicatorSpan.classList.remove('active');
+            });
+        });
+    </script>
 
+    <script>
+        let chatName = ''
+        let chatSocket = null
+        let chatWindowUrl = window.location.href
+        let chatRoomUuid = Math.random().toString(36).slice(2, 12)
+
+        const chatJoinElement = document.getElementById('chat_join')
+        const chatNameElement = '{{ request.user.username }}'
+        const chatRoomElement = document.getElementById('chat_room')
+        const chatLogElement = document.getElementById('chat_log')
+        const chatInputElement = document.getElementById('chat_message_input')
+        const chatSubmitElement = document.getElementById('chat_message_submit')
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function sendMessage() {
+            const message = chatInputElement.value
+            chatSocket.send(JSON.stringify({
+                'type': 'message',
+                'message': chatInputElement.value,
+                'name': chatName,
+            }));
+
+
+             const imageUrl = "{% static 'img/userlogo.png' %}";
+
+            document.getElementById('sendText').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('chat_message_submit').disabled = true;
+
+
+            chatLogElement.innerHTML += `<div>
+<span><img src="${imageUrl}" alt="User Image" style="position: relative; width: 40px; height: 40px; border-radius: 50%; margin-right: 5px;"></span>
+<b style="color: var(--first-color)">${chatName}</b>: ${message} <br>
+<small style="color: var(--text-color-light); justify-content: flex-end; display: flex; font-family: monospace;">Just now</small><br><br></div>`;
+
+
+            chatInputElement.value = ''
+        }
+
+        function onChatMessage(data) {
+            console.log('onChatMessage', data);
+
+            if (data.type === 'chat_message') {
+                if (data.name !== chatName) {
+                    const defaultImageUrl = "{% static 'img/gptlogo.png' %}";
+
+                    const imageUrl = data.image_url || defaultImageUrl;
+
+                    chatLogElement.innerHTML += `<div>
+<span><img src="${imageUrl}" alt="User Image" style="position: relative; width: 40px; height: 40px; border-radius: 50%; margin-right: 5px;"></span>
+<b style="color: var(--second-color)">${data.name}</b>: ${data.message} <br>
+<small style="color: var(--text-color-light); justify-content: flex-end; display: flex; font-family: monospace;">${data.created_at} ago</small><br><br></div>`;
+
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('sendText').style.display = 'block';
+                document.getElementById('chat_message_submit').disabled = false;
+
+            }
+        }
+        }
+
+        async function joinChatRoom() {
+            chatName = chatNameElement
+            console.log('Joining chat room with name:', chatName)
+            console.log('Room uuid:', chatRoomUuid)
+
+            const data = new FormData()
+            data.append('name', chatName)
+            data.append('url', chatWindowUrl)
+
+            await fetch(`/exercises/api/create-room/${chatRoomUuid}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: data
+            })
+                .then(function (response) {
+                    return response.json()
+                })
+                .then(function (data) {
+                    console.log('data:', data)
+                })
+
+            chatSocket = new WebSocket(`ws://${window.location.host}/ws/${chatRoomUuid}/`)
+
+            chatSocket.onmessage = function (e) {
+                console.log('onMessage')
+
+                onChatMessage(JSON.parse(e.data))
+            }
+
+            chatSocket.onopen = function (e) {
+                console.log('onOpen - chat socket was opened')
+            }
+
+            chatSocket.onclose = function (e) {
+                console.log('onMessage - chat socket was closed')
+            }
+        }
+
+        chatJoinElement.onclick = function (e) {
+            e.preventDefault()
+
+            console.log('chat_join clicked')
+            joinChatRoom()
+
+            return false
+        }
+
+        chatSubmitElement.onclick = function (e) {
+            e.preventDefault()
+
+            sendMessage()
+
+            return false
+        }
+    </script>
 
 {% endblock %}

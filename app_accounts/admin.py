@@ -2,8 +2,11 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
 from django.shortcuts import redirect
-from app_accounts.models import CustomUser
+from app_accounts.models import CustomUser, Room, UserExerciseConversation
 from app_exercises.models import Exercise
+
+admin.site.register(Room)
+admin.site.register(UserExerciseConversation)
 
 
 @admin.register(CustomUser)

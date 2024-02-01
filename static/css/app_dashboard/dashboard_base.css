@@ -2,7 +2,7 @@
     left: 50%;
     transform: translateX(-50%);
     position: relative;
-    top: calc(var(--header-height) + 6rem);
+    top: calc(var(--header-height) + 8rem);
     display: flex;
 }
 
@@ -57,3 +57,4 @@ canvas {
 #canvas3d-dashboard.loaded {
   opacity: 1;
 }
+

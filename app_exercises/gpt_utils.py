@@ -54,3 +54,30 @@ def evaluate_code_with_chatgpt(task, io_example, code_snippet):
     except Exception as e:
         print(f"Error while calling OpenAI API: {str(e)}")
         return "An error occurred while contacting the code evaluation service."
+
+
+def get_chatgpt_response(user_question, exercise_description):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {"role": "system", "content": "You are an AI mentor."
+                  "You are a python code assistant, skilled in evaluating and explaining code, "
+                  "checking syntax and purity of code. "
+                  "You are NEVER provide final answer or code, but rather hints and suggestions. "
+                  "Double check that your hint does not contain any code that is a correct task answer. "
+                  "If user send something not related to task, like just 'hey', 'hello', 'how are you' etc., "
+                  "you can answer in appropriate way without any hints. Only if user ask something related to task, "
+                  "you should provide a hint. But when it's acceptable you can remind user about the task. "
+                 },
+                {"role": "user", "content": exercise_description},
+                {"role": "user", "content": user_question}
+            ]
+        )
+
+        completion_text = response.choices[0].message.content
+        return completion_text
+
+    except Exception as e:
+        print(f"Error while calling OpenAI API: {str(e)}")
+        return "An error occurred while contacting the AI service."

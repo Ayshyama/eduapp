@@ -107,7 +107,7 @@
     display: flex;
     height: auto;
     resize: horizontal;
-    overflow: auto;
+
     flex-basis: auto;
     flex-grow: initial;
     width: 25.25%;
@@ -115,6 +115,7 @@
     max-width: 85%;
     position: relative;
     border-right: 1px solid var(--text-color-light);
+    overflow: hidden;
 }
 
 .resize-hande-horizontal {
@@ -163,11 +164,16 @@
     height: 46px;
     width: 80px;
     border-radius: 50px;
+    background-color: #000103;
+    color: var(--text-color);
+    border: 1px solid var(--text-color-light);
+    transition: background-color 0.4s ease;
 }
 
 .exc__button:hover {
     cursor: pointer;
-    background: rgba(17, 85, 236, 0.74);
+    background-color: #0D40B1;
+    transition: background-color 0.4s ease;
 }
 
 .CodeMirror {
@@ -224,7 +230,9 @@ form {
     padding: 20px;
     color: var(--text-color);
     font-size: var(--normal-font-size);
+    border: 0;
 }
+
 
 .exercise__question p {
     padding: 20px;
@@ -309,11 +317,16 @@ code {
 /* Triangle icon */
 .header-flex-column-3 span {
     content: '';
-    position: absolute;
-    right: 8.5%;
-    top: 50%;
+    position: relative;
+    margin-left: 2%;
+    top: 14%;
     transform: translateY(-50%);
     border: 6px solid transparent;
+    border-left-color: #FFF;
+}
+
+.header-flex-column-3 span.active {
+    border-left-color: transparent;
     border-top-color: #FFF;
 }
 
@@ -341,4 +354,74 @@ code {
 #theme-selector:focus + .custom-select-display {
     background: #555;
     color: #FFF;
+}
+
+
+.gpt__container {
+    position: relative;
+    padding: 20px;
+    height: 100%;
+}
+
+.gpt__header {
+    font-weight: 1000;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.gpt__container form {
+    height: 15%;
+}
+
+.gpt__form input {
+    resize: none;
+    width: 100%;
+    height: 100px;
+    padding: 20px;
+    background-color: transparent;
+    font-size: var(--normal-font-size);
+    color: var(--text-color);
+    border: 1px solid var(--text-color-light);
+}
+
+.gpt__form button {
+    margin-top: 76px;
+    left: 75%;
+    transform: translateX(-50%);
+    position: absolute;
+    background-color: #02081C;
+    color: var(--text-color);
+    border: 1px solid var(--text-color-light);
+    transition: background-color 0.3s ease;
+}
+
+.gpt__form button:hover {
+    background-color: #0D40B1;
+    transition: background-color 0.4s ease;
+}
+
+.gpt__dialog {
+    border: 1px solid var(--text-color-light);
+    margin-top: 40px;
+    height: 74%;
+    max-height: 38dvh;
+    padding: 20px;
+    overflow: auto;
+}
+
+.loader {
+    border: 3px solid #f3f3f3; /* Light grey */
+    border-top: 3px solid var(--first-color); /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1.5s linear infinite;
+    margin-left: 37%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

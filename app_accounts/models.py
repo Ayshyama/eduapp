@@ -23,10 +23,43 @@ class CustomUser(AbstractUser):
 
 
 class UserExerciseConversation(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
-    message = models.TextField()
-    is_human = models.BooleanField(default=False)
+    body = models.TextField()
+    sent_by = models.CharField(max_length=255, default='client')
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(CustomUser, blank=True, null=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        ordering = ('created_at',)
+
+    def __str__(self):
+        return f'{self.created_by} | {self.exercise} | {self.body[:20]}'
+
+
+class Room(models.Model):
+    WAITING = 'waiting'
+    ACTIVE = 'active'
+    CLOSED = 'closed'
+
+    CHOISES_STATUS = (
+        (WAITING, 'Waiting'),
+        (ACTIVE, 'Active'),
+        (CLOSED, 'Closed'),
+    )
+
+    uuid = models.CharField(max_length=255)
+    client = models.CharField(max_length=255)
+    agent = models.ForeignKey(CustomUser, related_name='rooms', blank=True, null=True, on_delete=models.CASCADE)
+    messages = models.ManyToManyField(UserExerciseConversation, blank=True)
+    url = models.CharField(max_length=255, blank=True, null=True)
+    status = models.CharField(max_length=255, choices=CHOISES_STATUS, default=WAITING)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return f'{self.client} | {self.uuid} | {self.status}'
 
 
 class UserProgress(models.Model):

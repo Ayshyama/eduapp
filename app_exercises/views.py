@@ -11,6 +11,11 @@ from app_exercises.gpt_utils import evaluate_code_with_chatgpt
 from app_exercises.models import Exercise, Subject
 from app_exercises.serializers import TestAnswerSerializer, CodeAnswerSerializer
 
+import json
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from app_accounts.models import Room
+
 
 class FinishExerciseView(LoginRequiredMixin, DetailView):
     model = Subject
@@ -120,3 +125,15 @@ class SubmitCodeAPIView(SubmitBaseAPIView):
         is_correct, message = evaluate_code_with_chatgpt(exercise.description, exercise.code, answer).split('\n', 1)
         is_correct = is_correct == '46546554'
         return {'is_correct': is_correct, 'message': message}
+
+
+@require_POST
+def create_room(request, uuid):
+    name = request.POST.get('name', '')
+    url = request.POST.get('url', '')
+
+    print(f"Creating room: UUID={uuid}, Name={name}, URL={url}")
+
+    Room.objects.create(uuid=uuid, client=name, url=url)
+
+    return JsonResponse({'message': 'Room created successfully'})
