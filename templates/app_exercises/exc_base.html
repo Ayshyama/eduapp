@@ -211,7 +211,6 @@
         let chatWindowUrl = window.location.href
         let chatRoomUuid = Math.random().toString(36).slice(2, 12)
 
-        {# I want to make JS variable to store username here #}
         const chatJoinElement = document.getElementById('chat_join')
         const chatNameElement = '{{ request.user.username }}'
         const chatRoomElement = document.getElementById('chat_room')
@@ -242,13 +241,18 @@
                 'name': chatName,
             }));
 
+
+             const imageUrl = "{% static 'img/userlogo.png' %}";
+
             document.getElementById('sendText').style.display = 'none';
             document.getElementById('loading').style.display = 'block';
             document.getElementById('chat_message_submit').disabled = true;
 
 
-            chatLogElement.innerHTML += `<div><b style="color: var(--first-color)">${chatName}</b>: ${message} <br>
-<small style="color: var(--text-color-light); justify-content: flex-end; display: flex; font-family: "Times New Roman", Times, serif;>Just now</small><br><br></div>`;
+            chatLogElement.innerHTML += `<div>
+<span><img src="${imageUrl}" alt="User Image" style="position: relative; width: 40px; height: 40px; border-radius: 50%; margin-right: 5px;"></span>
+<b style="color: var(--first-color)">${chatName}</b>: ${message} <br>
+<small style="color: var(--text-color-light); justify-content: flex-end; display: flex; font-family: monospace;">Just now</small><br><br></div>`;
 
 
             chatInputElement.value = ''
@@ -258,18 +262,23 @@
             console.log('onChatMessage', data);
 
             if (data.type === 'chat_message') {
-                // Check if the message is from the current user
                 if (data.name !== chatName) {
-                    // Append messages from ChatGPT or other users
-                    chatLogElement.innerHTML += `<div><b style="color: var(--second-color)">${data.name}</b>: ${data.message} <br>
-<small style="color: var(--text-color-light); justify-content: flex-end; display: flex; font-family: "Times New Roman", Times, serif;">${data.created_at} ago</small><br><br></div>`;
+                    const defaultImageUrl = "{% static 'img/gptlogo.png' %}";
 
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('sendText').style.display = 'block';
-                    document.getElementById('chat_message_submit').disabled = false;
+                    const imageUrl = data.image_url || defaultImageUrl;
 
-                }
+                    chatLogElement.innerHTML += `<div>
+<span><img src="${imageUrl}" alt="User Image" style="position: relative; width: 40px; height: 40px; border-radius: 50%; margin-right: 5px;"></span>
+<b style="color: var(--second-color)">${data.name}</b>: ${data.message} <br>
+<small style="color: var(--text-color-light); justify-content: flex-end; display: flex; font-family: monospace;">${data.created_at} ago</small><br><br></div>`;
+
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('sendText').style.display = 'block';
+                document.getElementById('chat_message_submit').disabled = false;
+
             }
+        }
         }
 
         async function joinChatRoom() {
