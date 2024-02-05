@@ -242,7 +242,7 @@
             }));
 
 
-             const imageUrl = "{% static 'img/userlogo.png' %}";
+            const imageUrl = "{% static 'img/userlogo.png' %}";
 
             document.getElementById('sendText').style.display = 'none';
             document.getElementById('loading').style.display = 'block';
@@ -254,32 +254,42 @@
 <b style="color: var(--first-color)">${chatName}</b>: ${message} <br>
 <small style="color: var(--text-color-light); justify-content: flex-end; display: flex; font-family: monospace;">Just now</small><br><br></div>`;
 
+            scrollToBottom(chatLogElement);
 
             chatInputElement.value = ''
         }
 
-        function onChatMessage(data) {
-            console.log('onChatMessage', data);
+function onChatMessage(data) {
+    console.log('onChatMessage', data);
 
-            if (data.type === 'chat_message') {
-                if (data.name !== chatName) {
-                    const defaultImageUrl = "{% static 'img/gptlogo.png' %}";
+    if (data.type === 'chat_message') {
+        if (data.name !== chatName) {
+            const defaultImageUrl = "{% static 'img/gptlogo.png' %}";
+            const imageUrl = data.image_url || defaultImageUrl;
 
-                    const imageUrl = data.image_url || defaultImageUrl;
+            // Replace triple backticks with <pre><code> tags for code snippet formatting
+            let formattedMessage = data.message.replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
 
-                    chatLogElement.innerHTML += `<div>
+            chatLogElement.innerHTML += `<div>
 <span><img src="${imageUrl}" alt="User Image" style="position: relative; width: 40px; height: 40px; border-radius: 50%; margin-right: 5px;"></span>
-<b style="color: var(--second-color)">${data.name}</b>: ${data.message} <br>
+<b style="color: var(--second-color)">${data.name}</b>: ${formattedMessage} <br>
 <small style="color: var(--text-color-light); justify-content: flex-end; display: flex; font-family: monospace;">${data.created_at} ago</small><br><br></div>`;
 
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('sendText').style.display = 'block';
+            document.getElementById('chat_message_submit').disabled = false;
 
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('sendText').style.display = 'block';
-                document.getElementById('chat_message_submit').disabled = false;
+            // Scroll to the bottom of the chat log element
+            scrollToBottom(chatLogElement);
+        }
+    }
+}
 
-            }
-        }
-        }
+function scrollToBottom(element) {
+    element.scrollTop = element.scrollHeight;
+}
+
+
 
         async function joinChatRoom() {
             chatName = chatNameElement
